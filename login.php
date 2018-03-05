@@ -29,7 +29,7 @@ if (!empty($_POST))
     $row = $stmt->fetch();
     if ($row)
     {
-        if ($_POST['password'] === $row['contrase'])
+        if ($_POST['password'] === $row['password'])
         {
             $login_ok = true;
         }
