@@ -212,7 +212,7 @@
 
     <!-- Portfolio Modals -->
 
-    <!-- Portfolio Modal 1 -->
+    <!-- Portfolio CALLES -->
     <div class="portfolio-modal mfp-hide" id="portfolio-modal-1">
       <div class="portfolio-modal-dialog bg-white">
         <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
@@ -224,31 +224,31 @@
               <h2 class="text-secondary text-uppercase mb-0">Calles</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="img/portfolio/calles.png" alt="">
-              <form action="calles.php" method="POST">
+              <form action="acciones.php" method="POST">
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Nombre de la calle</label>
-                    <input class="form-control" id="calle" type="text" placeholder="Nombre de la calle" required="required" data-validation-required-message="Ingrese un nombre para la calle.">
+                    <input class="form-control" id="calle" name="calle" type="text" placeholder="Nombre de la calle" required="required" data-validation-required-message="Ingrese un nombre para la calle.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Colonia</label>
-                    <input class="form-control" id="colonia" type="text" placeholder="Nombre de la colonia" required="required" data-validation-required-message="Ingrese una colonia.">
+                    <input class="form-control" id="colonia" name="colonia" type="text" placeholder="Nombre de la colonia" required="required" data-validation-required-message="Ingrese una colonia.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Código postal</label>
-                    <input class="form-control" id="cp" type="text" placeholder="Código postal" required="required" data-validation-required-message="Ingrese un código postal.">
+                    <input class="form-control" id="cp" name="cp" type="text" placeholder="Código postal" required="required" data-validation-required-message="Ingrese un código postal.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <p class="mb-5"></p>
-                <div class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss">
-                  <button type="submit" name="botonCalles">Guardar</button>
+                <div>
+                  <button type="submit" name="botonCalles" value="botonCalles">Guardar</button>
                 </div>
               </form>
               <p class="mb-5"></p>
@@ -261,7 +261,7 @@
       </div>
     </div>
 
-    <!-- Portfolio Modal 2 -->
+    <!-- Portfolio CUENTAS -->
     <div class="portfolio-modal mfp-hide" id="portfolio-modal-2">
       <div class="portfolio-modal-dialog bg-white">
         <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
@@ -273,58 +273,65 @@
               <h2 class="text-secondary text-uppercase mb-0">Cuentas</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="img/portfolio/cuentas.png" alt="">
-              <form action="" method="POST">
+              <form action="acciones.php" method="POST">
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Nombre del cliente</label>
-                    <input class="form-control" id="nombre" type="text" placeholder="Nombre de la persona" required="required" data-validation-required-message="Ingrese un nombre.">
+                    <input class="form-control" id="nombreP" name="nombreP" type="text" placeholder="Nombre de la persona" required="required" data-validation-required-message="Ingrese un nombre.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
+                <div>
+                <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                  <label>Nombre de la Calle</label>
+                  <input class="form-control" id="nombreCalle" name="nombreCalle" type="text" placeholder="Nombre de la persona" required="required" data-validation-required-message="Ingrese un nombre.">
+                  <p class="help-block text-danger"></p>
+                </div>
+              </div>
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Número Exterior</label>
-                    <input class="form-control" id="noExt" type="text" placeholder="Número exterior" required="required" data-validation-required-message="Ingrese un número exterior.">
+                    <input class="form-control" id="noExt" name="noExt" type="text" placeholder="Número exterior" required="required" data-validation-required-message="Ingrese un número exterior.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Número Interior</label>
-                    <input class="form-control" id="noInt" type="text" placeholder="Número interior" required="required" data-validation-required-message="Ingrese un número interior.">
+                    <input class="form-control" id="noInt" name="noInt" type="text" placeholder="Número interior" required="required" data-validation-required-message="Ingrese un número interior.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Teléfono</label>
-                    <input class="form-control" id="telefono" type="text" placeholder="Teléfono" required="required" data-validation-required-message="Ingrese un teléfono.">
+                    <input class="form-control" id="telefono" name="telefono" type="text" placeholder="Teléfono" required="required" data-validation-required-message="Ingrese un teléfono.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Fecha de alta</label>
-                    <input class="form-control" id="fecha" type="date" placeholder="Fecha de alta" required="required" data-validation-required-message="Ingrese una fecha.">
+                    <input class="form-control" id="fecha" name="fecha" type="date" placeholder="Fecha de alta" required="required" data-validation-required-message="Ingrese una fecha.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Año del último pago</label>
-                    <input class="form-control" id="ultimoPagoA" type="text" placeholder="Año del último pago" required="required" data-validation-required-message="Ingrese un año.">
+                    <input class="form-control" id="ultimoPagoA" name="ultimoPagoA" type="text" placeholder="Año del último pago" required="required" data-validation-required-message="Ingrese un año.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Mes del último pago</label>
-                    <input class="form-control" id="ultimoPagoM" type="text" placeholder="Mes del último pago" required="required" data-validation-required-message="Ingrese un mes.">
+                    <input class="form-control" id="ultimoPagoM" name="ultimoPagoM" type="text" placeholder="Mes del último pago" required="required" data-validation-required-message="Ingrese un mes.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <p class="mb-5"></p>
-                <div class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss">
+                <div>
                   <button type="submit" name="botonCuentas">Guardar</button>
                 </div>
               </form>
@@ -338,7 +345,7 @@
       </div>
     </div>
 
-    <!-- Portfolio Modal 3 -->
+    <!-- Portfolio EMPLEADOS -->
     <div class="portfolio-modal mfp-hide" id="portfolio-modal-3">
       <div class="portfolio-modal-dialog bg-white">
         <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
@@ -350,23 +357,23 @@
               <h2 class="text-secondary text-uppercase mb-0">Empleados</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="img/portfolio/trabajadores.png" alt="">
-              <form action="" method="POST">
+              <form action="acciones.php" method="POST">
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Nombre completo</label>
-                    <input class="form-control" id="nombre" type="text" placeholder="Nombre completo" required="required" data-validation-required-message="Ingrese un nombre.">
+                    <input class="form-control" id="nombre" name="nombre" type="text" placeholder="Nombre completo" required="required" data-validation-required-message="Ingrese un nombre.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Rol</label>
-                    <input class="form-control" id="rol" type="text" placeholder="Rol" required="required" data-validation-required-message="Ingrese un rol.">
+                    <input class="form-control" id="rol" name="rol" type="text" placeholder="Rol" required="required" data-validation-required-message="Ingrese un rol.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <p class="mb-5"></p>
-                <div class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss">
+                <div>
                   <button type="submit" name="botonEmpleados">Guardar</button>
                 </div>
               </form>
@@ -380,7 +387,7 @@
       </div>
     </div>
 
-    <!-- Portfolio Modal 4 -->
+    <!-- Portfolio SITUACIONES -->
     <div class="portfolio-modal mfp-hide" id="portfolio-modal-4">
       <div class="portfolio-modal-dialog bg-white">
         <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
@@ -392,87 +399,24 @@
               <h2 class="text-secondary text-uppercase mb-0">Situación</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="img/portfolio/situaciones.png" alt="">
-              <form action="" method="POST">
+              <form name="formSituacion" id="formSituacion" action="acciones.php", method="POST">
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Descripción</label>
-                    <input class="form-control" id="descripcion" type="text" placeholder="Descripción" required="required" data-validation-required-message="Ingrese una descripción.">
+                    <input class="form-control" id="descripcion" name="descripcion" type="text" placeholder="Descripción" required="required" data-validation-required-message="Ingrese una descripción.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Descuento</label>
-                    <input class="form-control" id="rol" type="number" placeholder="Descuento" required="required" data-validation-required-message="Ingrese un descuento.">
+                    <input class="form-control" id="descuento"  name="descuento"  type="number" placeholder="Descuento" required="required" data-validation-required-message="Ingrese un descuento.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <p class="mb-5"></p>
-                <div class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss">
-                  <button type="submit" name="botonSituacion">Guardar</button>
-                </div>
-              </form>
-              <p class="mb-5"></p>
-              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                <i class="fa fa-close"></i>
-                Close Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Portfolio Modal 5 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-5">
-      <div class="portfolio-modal-dialog bg-white">
-        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-          <i class="fa fa-3x fa-times"></i>
-        </a>
-        <div class="container text-center">
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0">Tarifas</h2>
-              <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="img/portfolio/tarifa.png" alt="">
-              <form action="" method="POST">
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Año</label>
-                    <input class="form-control" id="año" type="number" placeholder="Año" required="required" data-validation-required-message="Ingrese el año de la tarifa">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Cuota Fija</label>
-                    <input class="form-control" id="cuotaFija" type="number" placeholder="Cuota Fija" required="required" data-validation-required-message="Ingrese la cuota fija">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Infraestructura</label>
-                    <input class="form-control" id="infra" type="number" placeholder="Infraestructura" required="required" data-validation-required-message="Ingrese la infraestructura">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Recargo</label>
-                    <input class="form-control" id="recargo" type="number" placeholder="Recargo" required="required" data-validation-required-message="Ingrese el recargo">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>T.A.R</label>
-                    <input class="form-control" id="tar" type="number" placeholder="TAR" required="required" data-validation-required-message="Ingrese el T.A.R">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>
-                <p class="mb-5"></p>
-                <div class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss">
-                  <button type="submit" name="botonTarifas">Guardar</button>
+                <div>
+                  <button type="submit" name="botonSituacion" value="botonSituacion">Guardar</button>
                 </div>
               </form>
               <p class="mb-5"></p>
@@ -485,7 +429,70 @@
       </div>
     </div>
 
-    <!-- Portfolio Modal 6 -->
+    <!-- Portfolio TARIFAS -->
+    <div class="portfolio-modal mfp-hide" id="portfolio-modal-5">
+      <div class="portfolio-modal-dialog bg-white">
+        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+          <i class="fa fa-3x fa-times"></i>
+        </a>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h2 class="text-secondary text-uppercase mb-0">Tarifas</h2>
+              <hr class="star-dark mb-5">
+              <img class="img-fluid mb-5" src="img/portfolio/tarifa.png" alt="">
+              <form action="acciones.php" method="POST">
+                <div class="control-group">
+                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                    <label>Año</label>
+                    <input class="form-control" id="año" name="año" type="number" placeholder="Año" required="required" data-validation-required-message="Ingrese el año de la tarifa">
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                    <label>Cuota Fija</label>
+                    <input class="form-control" id="cuotaFija" name="cuotaFija" type="number" placeholder="Cuota Fija" required="required" data-validation-required-message="Ingrese la cuota fija">
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                    <label>Infraestructura</label>
+                    <input class="form-control" id="infra" name="infra" type="number" placeholder="Infraestructura" required="required" data-validation-required-message="Ingrese la infraestructura">
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                    <label>Recargo</label>
+                    <input class="form-control" id="recargo" name="recargo" type="number" placeholder="Recargo" required="required" data-validation-required-message="Ingrese el recargo">
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                    <label>T.A.R</label>
+                    <input class="form-control" id="tar" name="tar" type="number" placeholder="TAR" required="required" data-validation-required-message="Ingrese el T.A.R">
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+                <p class="mb-5"></p>
+                <div >
+                  <button type="submit" name="botonTarifas" value="botonTarifas">Guardar</button>
+                </div>
+              </form>
+              <p class="mb-5"></p>
+              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                <i class="fa fa-close"></i>
+                Cerrar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Portfolio USUARIOS -->
     <div class="portfolio-modal mfp-hide" id="portfolio-modal-6">
       <div class="portfolio-modal-dialog bg-white">
         <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
@@ -494,27 +501,27 @@
         <div class="container text-center">
           <div class="row">
             <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0">USUARIOS</h2>
+              <h2 class="text-secondary text-uppercase mb-0">Registro de Usuarios</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="img/portfolio/user.png" alt="">
-              <form action="" method="POST">
+              <form action="acciones.php" method="POST">
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Correo electrónico</label>
-                    <input class="form-control" id="email" type="email" placeholder="correo electrónico" required="required" data-validation-required-message="Ingrese su correo electrónico.">
+                    <input class="form-control" id="email" name="email" type="email" placeholder="correo electrónico" required="required" data-validation-required-message="Ingrese su correo electrónico.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
                     <label>Contraseña</label>
-                    <input class="form-control" id="pass" type="password" placeholder="Contraseña" required="required" data-validation-required-message="Ingrese su contraseña.">
+                    <input class="form-control" id="pass" name="pass" type="password" placeholder="Contraseña" required="required" data-validation-required-message="Ingrese su contraseña.">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <p class="mb-5"></p>
-                <div class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss">
-                  <button type="submit" name="botonTarifas">Guardar</button>
+                <div>
+                  <button type="submit" name="botonUsuarios">Guardar</button>
                 </div>
               </form>
               <p class="mb-5"></p>
@@ -541,7 +548,7 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/freelancer.min.js"></script>
-
+    <script src="web.js"></script>
   </body>
 
 </html>
