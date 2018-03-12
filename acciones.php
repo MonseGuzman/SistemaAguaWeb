@@ -159,6 +159,7 @@ if(isset($_POST['botonCuentas']))
       ?>
       <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
+      header("Location:".$_SERVER['HTTP_REFERER']);
     }
     else
     {
