@@ -171,4 +171,29 @@ if(isset($_POST['botonCuentas']))
   }
   mysqli_close($conexion);
 }
+
+//LOGIN
+if(isset($_POST['botonLogin']))
+{
+  if($conexion)
+  {
+    $usuario = $_POST['user'];
+    $password = $_POST['pass'];
+
+    $respuesta = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email = '$usuario' AND password = '$password'");
+
+    if(mysqli_num_rows($respuesta) > 0)
+    {
+      header('Location: index.php');
+    }
+    else
+    {
+      ?>
+      <script language="javascript"> alert("Error al accesar"); </script>
+      <?php
+      header('Location: inicia.php');
+    }
+  }
+  mysqli_close($conexion);
+}
 ?>

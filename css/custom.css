@@ -1,0 +1,53 @@
+.main-section{
+    background-color: #18BC9C;
+    background-size:100% 100%;
+    margin: 0px;
+    width: 100%;
+}
+.user-login-header,.login-image-main{
+    margin-top: 15px;
+}
+.user-login-header h1{
+    font-size: 45px;
+    color:#fff;
+}
+.user-login-header p,.last-part p{
+    color:#c9c5c7;
+}
+.user-login-header span{
+    color:#fff;
+    font-weight: 600;
+}
+.login-image-main{
+    padding: 30px;
+    background-color:#fff;
+    border-radius:5px;
+    box-shadow: 0 0 5px 0 #fff;
+}
+.user-image-section img{
+    background-color: #2C3E50;
+    padding:30px;
+    height:150px;
+    width:150px;
+    border-radius: 50%;
+}
+.user-login-box,.last-part{
+    padding:20px;
+}
+.user-login-box a,.user-login-box a:hover{
+    background-color: #2C3E50;
+    border:1px solid #B56162;
+    width: 100%;
+    color:#fff;
+    font-weight:600;
+}
+.last-part a{
+    text-decoration: none;
+    color:#B56162;
+}
+.navbar {
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 0px;
+  border: 1px solid transparent;
+}
