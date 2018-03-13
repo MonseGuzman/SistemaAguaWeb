@@ -136,7 +136,7 @@ if(isset($_POST['botonCuentas']))
 {
   if($conexion)
   {
-    $resultado = mysqli_query($conexion, "​SELECT * FROM usuarios"); //resolver esta cosa
+    $resultado = mysqli_query($conexion, "​SELECT idUsuario FROM usuarios"); //resolver esta cosa
     $numUsuario = mysqli_num_rows($resultado);
 
     $calle = $_POST['calle'];
@@ -150,6 +150,10 @@ if(isset($_POST['botonCuentas']))
 
     $respuesta = mysqli_query($conexion, "INSERT INTO cuentas (idCalle, idUsuario, nombreCliente, noExterior, noInterior, telefono, fechaAlta, ultimoPagoM, ultimoPagoA)
     VALUES ('$calle', '$numUsuario', '$nombre', '$Exterior', '$Interior', '$telefono', '$fechaAlta', '$ultimoM', '$ultimoA')");
+
+    $usuario = $_POST['email'];
+    $ah = mysqli_query($conexion, "INSERT INTO usuarios (email, password) VALUES ('$usuario', '123')");
+
     if($respuesta)
     {
       include('index.html');

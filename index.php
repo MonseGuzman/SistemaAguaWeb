@@ -290,7 +290,7 @@
                     <input class="form-control" id="nombreCalle" name="nombreCalle" type="text" placeholder="Ingrese solo letras" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>-->
                     <select name="calle">
-                      <option value="Ninguno">Seleccione una calle</option>
+                      <option value="0">Seleccione una calle</option>
                       <?php
                       include('conexion.php');
 
