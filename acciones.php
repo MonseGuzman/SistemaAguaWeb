@@ -139,10 +139,7 @@ if(isset($_POST['botonCuentas']))
     $resultado = mysqli_query($conexion, "​SELECT * FROM usuarios"); //resolver esta cosa
     $numUsuario = mysqli_num_rows($resultado);
 
-    $calle = $_POST['nombreCalle'];
-    $resultados = mysqli_query($conexion, "SELECT idCalle FROM calles WHERE nombre LIKE '$calle' ");
-    $row=mysqli_fetch_array($resultados);
-
+    $calle = $_POST['calle'];
     $nombre = $_POST['nombreP'];
     $telefono = $_POST['telefono'];
     $ultimoA = $_POST['ultimoPagoA'];
@@ -152,7 +149,7 @@ if(isset($_POST['botonCuentas']))
     $fechaAlta = $_POST['fecha'];
 
     $respuesta = mysqli_query($conexion, "INSERT INTO cuentas (idCalle, idUsuario, nombreCliente, noExterior, noInterior, telefono, fechaAlta, ultimoPagoM, ultimoPagoA)
-    VALUES ('$row[0]', '$numUsuario', '$nombre', '$Exterior', '$Interior', '$telefono', '$fechaAlta', '$ultimoM', '$ultimoA')");
+    VALUES ('$calle', '$numUsuario', '$nombre', '$Exterior', '$Interior', '$telefono', '$fechaAlta', '$ultimoM', '$ultimoA')");
     if($respuesta)
     {
       include('index.html');
