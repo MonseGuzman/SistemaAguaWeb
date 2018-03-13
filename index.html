@@ -1,3 +1,6 @@
+<?php
+include('conexion.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -225,36 +228,35 @@
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="img/portfolio/calls.png" alt="">
               <form action="acciones.php" method="POST">
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+
+                <div class="form-group">
+                  <div style="width:50%;float:left;">
                     <label>Nombre de la calle</label>
-                    <input class="form-control" id="calle" name="calle" type="text" placeholder="Nombre de la calle" required="required" data-validation-required-message="Ingrese un nombre para la calle." style="width:300px;height:25px">
+                    <input class="form-control" id="calle" name="calle" type="text" placeholder="Ingrese solo letras" required="required" data-validation-required-message="Ingrese un nombre para la calle." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
-                </div>
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+
+                  <div style="width:50%;float:left;">
                     <label>Colonia</label>
-                    <input class="form-control" id="colonia" name="colonia" type="text" placeholder="Nombre de la colonia" required="required" data-validation-required-message="Ingrese una colonia." style="width:300px;height:25px">
+                    <input class="form-control" id="colonia" name="colonia" type="text" placeholder="Ingrese solo letras" required="required" data-validation-required-message="Ingrese una colonia." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
-                </div>
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+
+                  <div style="width:50%;float:left;">
                     <label>Código postal</label>
-                    <input class="form-control" id="cp" name="cp" type="text" placeholder="Código postal" required="required" data-validation-required-message="Ingrese un código postal." style="width:300px;height:25px">
+                    <input class="form-control" id="cp" name="cp" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un código postal." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
+                <br/><br/><br/><br/><br/><br/>
                 <p class="mb-5"></p>
                 <div>
-                  <button type="submit" name="botonCalles" value="botonCalles">Guardar</button>
+                  <button class="btn btn-primary btn-lg" type="submit" name="botonCalles" value="botonCalles">Guardar</button>
+                  <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                    <i class="fa fa-close"></i>
+                    Cerrar</a>
                 </div>
               </form>
-              <p class="mb-5"></p>
-              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                <i class="fa fa-close"></i>
-                Cerrar</a>
             </div>
           </div>
         </div>
@@ -284,6 +286,18 @@
                     <input class="form-control" id="nombreP" name="nombreP" type="text" placeholder="Nombre completo" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
+
+                  <select name="prueba">
+                    <?php
+                    $query = $mysqli -> query ("SELECT * FROM calles");
+                    while ($valores = mysqli_fetch_array($query))
+                    {
+                      echo '<option value="'.$valores['idCalle'].'">'.$valores['nombre'].'</option>';
+                    }
+                    ?>
+                </select>
+
+
                   <div style="width:50%;float:left;">
                     <label class="labels">Nombre de la Calle</label>
                     <input class="form-control" id="nombreCalle" name="nombreCalle" type="text" placeholder="Ingrese solo letras" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
@@ -291,7 +305,7 @@
                   </div>
                   <div style="width:50%;float:left;">
                     <label>Teléfono</label>
-                    <input class="form-control" id="telefono" name="telefono"  maxlength="10" type="text" placeholder= "Ingresa solo número" required="required" data-validation-required-message="Ingrese un teléfono." style="width:300px;height:25px">
+                    <input class="form-control" id="telefono" name="telefono"  maxlength="10" type="tel" placeholder= "Ingresa solo número" required="required" data-validation-required-message="Ingrese un teléfono." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
@@ -306,6 +320,11 @@
                     <label>Número Interior</label>
                     <input class="form-control" id="noInt" name="noInt" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un número interior." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
+                  </div>
+                  <div style="width:50%;float:left;">
+                      <label>Email</label>
+                      <input class="form-control" id="email" name="email" type="text" placeholder="Ingresa un correo valido" required="required" data-validation-required-message="Ingrese un email." style="width:300px;height:25px">
+                      <p class="help-block text-danger"></p>
                   </div>
                 </div>
 
@@ -352,30 +371,30 @@
               <h2 class="text-secondary text-uppercase mb-0">Empleados</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="img/portfolio/trabajadors.png" alt="">
+
               <form action="acciones.php" method="POST">
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+
+                <div class="form-group">
+                  <div style="width:50%;float:left;">
                     <label>Nombre completo</label>
                     <input class="form-control" id="nombre" name="nombre" type="text" placeholder="Nombre completo" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
-                </div>
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                  <div>
                     <label>Rol</label>
                     <input class="form-control" id="rol" name="rol" type="text" placeholder="Rol" required="required" data-validation-required-message="Ingrese un rol." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
+
                 <p class="mb-5"></p>
                 <div>
-                  <button type="submit" name="botonEmpleados">Guardar</button>
+                  <button class="btn btn-primary btn-lg" type="submit" name="botonEmpleados">Guardar</button>
+                  <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                    <i class="fa fa-close"></i>
+                    Cerrar</a>
                 </div>
               </form>
-              <p class="mb-5"></p>
-              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                <i class="fa fa-close"></i>
-                Cerrar</a>
             </div>
           </div>
         </div>
@@ -394,30 +413,29 @@
               <h2 class="text-secondary text-uppercase mb-0">Situación</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="img/portfolio/situacions.png" alt="">
+
               <form name="formSituacion" id="formSituacion" action="acciones.php", method="POST">
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <div class="form-group">
+                  <div style="width:50%;float:left;">
                     <label>Descripción</label>
                     <input class="form-control" id="descripcion" name="descripcion" type="text" placeholder="Descripción" required="required" data-validation-required-message="Ingrese una descripción." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
-                </div>
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+
+                  <div style="width:50%;float:left;">
                     <label>Descuento</label>
-                    <input class="form-control" id="descuento"  name="descuento"  type="number" placeholder="Descuento" required="required" data-validation-required-message="Ingrese un descuento." style="width:300px;height:25px">
+                    <input class="form-control" id="descuento"  name="descuento"  type="number" placeholder="Solo números" required="required" data-validation-required-message="Ingrese un descuento." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <p class="mb-5"></p>
                 <div>
-                  <button type="submit" name="botonSituacion" value="botonSituacion">Guardar</button>
+                  <button class="btn btn-primary btn-lg" type="submit" name="botonSituacion" value="botonSituacion">Guardar</button>
+                  <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                    <i class="fa fa-close"></i>
+                    Cerrar</a>
                 </div>
               </form>
-              <p class="mb-5"></p>
-              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                <i class="fa fa-close"></i>
-                Cerrar</a>
             </div>
           </div>
         </div>
@@ -436,51 +454,48 @@
               <h2 class="text-secondary text-uppercase mb-0">Tarifas</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="img/portfolio/tar.png" alt="">
+
               <form action="acciones.php" method="POST">
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <div class="form-group">
+                  <div style="width:50%;float:left;">
                     <label>Año</label>
-                    <input class="form-control" id="año" name="año" type="number" placeholder="Año" required="required" data-validation-required-message="Ingrese el año de la tarifa" style="width:300px;height:25px">
+                    <input class="form-control" id="año" name="año" type="number" placeholder="Solo números" required="required" data-validation-required-message="Ingrese el año de la tarifa" style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
-                </div>
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+
+                  <div style="width:50%;float:left;">
                     <label>Cuota Fija</label>
-                    <input class="form-control" id="cuotaFija" name="cuotaFija" type="number" placeholder="Cuota Fija" required="required" data-validation-required-message="Ingrese la cuota fija" style="width:300px;height:25px">
+                    <input class="form-control" id="cuotaFija" name="cuotaFija" type="number" placeholder="Solo números" required="required" data-validation-required-message="Ingrese la cuota fija" style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
-                </div>
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+
+                  <div style="width:50%;float:left;">
                     <label>Infraestructura</label>
-                    <input class="form-control" id="infra" name="infra" type="number" placeholder="Infraestructura" required="required" data-validation-required-message="Ingrese la infraestructura" style="width:300px;height:25px">
+                    <input class="form-control" id="infra" name="infra" type="number" placeholder="Solo números" required="required" data-validation-required-message="Ingrese la infraestructura" style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
-                </div>
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+
+                  <div style="width:50%;float:left;">
                     <label>Recargo</label>
-                    <input class="form-control" id="recargo" name="recargo" type="number" placeholder="Recargo" required="required" data-validation-required-message="Ingrese el recargo"style="width:300px;height:25px">
+                    <input class="form-control" id="recargo" name="recargo" type="number" placeholder="Solo números" required="required" data-validation-required-message="Ingrese el recargo"style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
-                </div>
-                <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+
+                  <div style="width:50%;float:left;">
                     <label>T.A.R</label>
-                    <input class="form-control" id="tar" name="tar" type="number" placeholder="TAR" required="required" data-validation-required-message="Ingrese el T.A.R" style="width:300px;height:25px"
+                    <input class="form-control" id="tar" name="tar" type="number" placeholder="Solo números" required="required" data-validation-required-message="Ingrese el T.A.R" style="width:300px;height:25px"
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <p class="mb-5"></p>
                 <div >
-                  <button type="submit" name="botonTarifas" value="botonTarifas">Guardar</button>
+                  <button class="btn btn-primary btn-lg" type="submit" name="botonTarifas" value="botonTarifas">Guardar</button>
+                  <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                    <i class="fa fa-close"></i>
+                    Cerrar</a>
                 </div>
               </form>
-              <p class="mb-5"></p>
-              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                <i class="fa fa-close"></i>
-                Cerrar</a>
             </div>
           </div>
         </div>
@@ -501,14 +516,14 @@
               <img class="img-fluid mb-5" src="img/portfolio/users.png" alt="">
               <form action="acciones.php" method="POST">
                 <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                  <div >
                     <label>Correo electrónico</label>
                     <input class="form-control" id="email" name="email" type="email" placeholder="correo electrónico" required="required" data-validation-required-message="Ingrese su correo electrónico." >
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="control-group">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                  <div>
                     <label>Contraseña</label>
                     <input class="form-control" id="pass" name="pass" type="password" placeholder="Contraseña" required="required" data-validation-required-message="Ingrese su contraseña." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
@@ -516,13 +531,14 @@
                 </div>
                 <p class="mb-5"></p>
                 <div>
-                  <button type="submit" name="botonUsuarios">Guardar</button>
+                  <button class="btn btn-primary btn-lg" type="submit" name="botonUsuarios">Guardar</button>
+                  <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                    <i class="fa fa-close"></i>
+                    Cerrar</a>
                 </div>
               </form>
               <p class="mb-5"></p>
-              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                <i class="fa fa-close"></i>
-                Cerrar</a>
+
             </div>
           </div>
         </div>
