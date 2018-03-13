@@ -136,7 +136,7 @@ if(isset($_POST['botonCuentas']))
 {
   if($conexion)
   {
-    $resultado = mysqli_query($conexion, "​SELECT idUsuario FROM usuarios"); //resolver esta cosa
+    $resultado = mysqli_query($conexion, "SELECT * FROM usuarios"); //resolver esta cosa
     $numUsuario = mysqli_num_rows($resultado);
 
     $calle = $_POST['calle'];
