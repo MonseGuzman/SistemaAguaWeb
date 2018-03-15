@@ -45,7 +45,10 @@
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Acerca de...</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Inicio de sesión</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#consultas">Consultas</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#sesion">Cerrar sesión</a>
             </li>
           </ul>
         </div>
@@ -131,7 +134,48 @@
         </div>
       </div>
     </section>
+    <!--Consultas Section -->
+    <section class="portfolio" id="consultas">
+      <div class="container">
+        <h2 class="text-center text-uppercase text-secondary mb-0">Consultas</h2>
+        <hr class="star-light mb-5">
 
+          <p class="mb-5"></p>
+          <center>
+          <div>
+          <form action="calles.php" method="POST">
+            <button class="btn btn-primary btn-lg" type="submit" name="consultaCalles" value="consultaCalles">Consulta Calles</button>
+            <p class="mb-2"></p>
+          </form>
+          <form action="cuentas.php" method="POST">
+            <button class="btn btn-primary btn-lg" type="submit" name="consultaCuentas" value="consultaCuentas">Consulta Cuentas</button>
+            <p class="mb-2"></p>
+          </form>
+          <form action = "empleados.php" method = "POST">
+            <button class="btn btn-primary btn-lg" type="submit" name="consultaEmpleados" value="consultaEmpleados">Consulta Empleados</button>
+            <p class="mb-2"></p>
+          </form>
+          </div>
+          </center>
+          <center>
+          <div>
+          <form action="situacion.php" method="POST">
+            <button class="btn btn-primary btn-lg" type="submit" name="consultaSituacion" value="consultaSituacion">Consulta Situación</button>
+            <p class="mb-2"></p>
+          </form>
+          <form action="tarifas.php" method="POST">
+            <button class="btn btn-primary btn-lg" type="submit" name="consultaTarifas" value="consultaTarifas">Consulta Tarifas</button>
+            <p class="mb-2"></p>
+          </form>
+          <form action="usuarios.php" method="POST">
+            <button class="btn btn-primary btn-lg" type="submit" name="consultaUsuarios" value="consultaUsuarios">Consulta Usuarios</button>
+            <p class="mb-2"></p>
+          </form>
+          </div>
+          </center>
+
+      </div>
+    </section>
     <!-- About Section -->
     <section class="bg-primary text-white mb-0" id="about">
       <div class="container">
@@ -163,27 +207,27 @@
             <h4 class="text-uppercase mb-4">Búscanos en</h4>
             <ul class="list-inline mb-0">
               <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="http://www.facebook.com">
                   <i class="fa fa-fw fa-facebook"></i>
                 </a>
               </li>
               <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="https://plus.google.com">
                   <i class="fa fa-fw fa-google-plus"></i>
                 </a>
               </li>
               <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="https://twitter.com/">
                   <i class="fa fa-fw fa-twitter"></i>
                 </a>
               </li>
               <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="https://mx.linkedin.com/">
                   <i class="fa fa-fw fa-linkedin"></i>
                 </a>
               </li>
               <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="https://dribbble.com/">
                   <i class="fa fa-fw fa-dribbble"></i>
                 </a>
               </li>
@@ -385,8 +429,25 @@
                     <input class="form-control" id="rol" name="rol" type="text" placeholder="Rol" required="required" data-validation-required-message="Ingrese un rol." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
+                  <div style="width:50%;float:left;">
+                    <label class="labels">Email perteneciente</label>
+                    <select name="empleado">
+                      <option value="0">Seleccione un email</option>
+                      <?php
+                      include('conexion.php');
+
+                      $query = "SELECT * FROM usuarios WHERE rol = 'Administrador'";
+                      $result = mysqli_query($conexion, $query);
+                      while ($row = $result->fetch_assoc())
+                      {
+                        echo "<option value='".$row['idUsuario']."'>".$row['email']."</option>";
+                      }
+                      ?>
+                    </select>
+                  </div>
                 </div>
 
+                <br/><br/><br/>
                 <p class="mb-5"></p>
                 <div>
                   <button class="btn btn-primary btn-lg" type="submit" name="botonEmpleados">Guardar</button>

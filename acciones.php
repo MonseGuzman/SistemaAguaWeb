@@ -1,7 +1,6 @@
 
 <?php
 include('conexion.php');
-
 //SITUACIONES
 if(isset($_POST['botonSituacion']))
 {
@@ -12,7 +11,7 @@ if(isset($_POST['botonSituacion']))
     $respuesta  = mysqli_query($conexion, "INSERT INTO situaciones(descripcion,descuento) VALUES ('$desc','$descu')");
     if($respuesta)
     {
-      Include 'index.html';
+      Include 'index.php';
       ?>
       <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
@@ -37,7 +36,7 @@ if(isset($_POST['botonCalles']))
     $respuesta  = mysqli_query($conexion, "INSERT INTO calles(nombre,colonia,cp) VALUES ('$nomb','$col','$cod')");
     if($respuesta)
     {
-      Include 'index.html';
+      Include 'index.php';
       ?>
       <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
@@ -64,7 +63,7 @@ if(isset($_POST['botonTarifas']))
     $respuesta  = mysqli_query($conexion, "INSERT INTO tarifas(fecha,coutaFija,recargo,tarifa,infraestructura) VALUES ('$fec','$cuo','$rec','$ta','$infr')");
     if($respuesta)
     {
-      Include 'index.html';
+      Include 'index.php';
       ?>
       <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
@@ -83,16 +82,15 @@ if(isset($_POST['botonEmpleados']))
 {
   if($conexion)
   {
-    $ejecuta = mysqli_query($conexion, "​SELECT TotalUsuarios() AS TotalUsuarios");
-    $usuario = mysqli_fetch_array($ejecuta);
-
+    //$ejecuta = mysqli_query($conexion, "SELECT TotalUsuarios() AS TotalUsuarios"); PUEDE SERVIR DESPUÉS
     $nombre = $_POST['nombre'];
     $rol = $_POST['rol'];
+    $empleado = $_POST['empleado'];
 
-    $respuesta = mysqli_query($conexion, "INSERT INTO empleados (idUsuario, nombre, rol) VALUES ('$usuario', '$nombre', '$rol')");
+    $respuesta = mysqli_query($conexion, "INSERT INTO empleados (idUsuario, nombre, rol) VALUES ('$empleado', '$nombre', '$rol')");
     if($respuesta)
     {
-      Include 'index.html';
+      Include 'index.php';
       ?>
       <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
@@ -114,10 +112,10 @@ if(isset($_POST['botonUsuarios']))
     $usuario = $_POST['email'];
     $cont = $_POST['pass'];
 
-    $respuesta = mysqli_query($conexion, "INSERT INTO usuarios (email, password) VALUES ('$usuario', '$cont')");
+    $respuesta = mysqli_query($conexion, "INSERT INTO usuarios (email, password, rol) VALUES ('$usuario', '$cont', 'Administrador')");
     if($respuesta)
     {
-      Include 'index.html';
+      Include 'index.php';
       ?>
       <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
@@ -152,11 +150,11 @@ if(isset($_POST['botonCuentas']))
     VALUES ('$calle', '$numUsuario', '$nombre', '$Exterior', '$Interior', '$telefono', '$fechaAlta', '$ultimoM', '$ultimoA')");
 
     $usuario = $_POST['email'];
-    $ah = mysqli_query($conexion, "INSERT INTO usuarios (email, password) VALUES ('$usuario', '123')");
+    $ah = mysqli_query($conexion, "INSERT INTO usuarios (email, password, rol) VALUES ('$usuario', '123', 'Cliente')");
 
     if($respuesta)
     {
-      include('index.html');
+      include('index.php');
       ?>
       <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
@@ -171,7 +169,6 @@ if(isset($_POST['botonCuentas']))
   }
   mysqli_close($conexion);
 }
-
 //LOGIN
 if(isset($_POST['botonLogin']))
 {
@@ -179,9 +176,7 @@ if(isset($_POST['botonLogin']))
   {
     $usuario = $_POST['user'];
     $password = $_POST['pass'];
-
     $respuesta = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email = '$usuario' AND password = '$password'");
-
     if(mysqli_num_rows($respuesta) > 0)
     {
       header('Location: index.php');
