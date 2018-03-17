@@ -330,13 +330,10 @@
 
                   <div style="width:50%;float:left;">
                     <label class="labels">Nombre de la Calle</label>
-                    <!--<br/>
-                    <input class="form-control" id="nombreCalle" name="nombreCalle" type="text" placeholder="Ingrese solo letras" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
-                    <p class="help-block text-danger"></p>-->
                     <select name="calle">
-                      <option value="0">Seleccione una calle</option>
-                      <?php
-                      include('conexion.php');
+                    <option value="0">Seleccione una calle</option>
+                    <?php
+                    include('conexion.php');
 
                       $query = "SELECT * FROM calles";
                       $result = mysqli_query($conexion, $query);

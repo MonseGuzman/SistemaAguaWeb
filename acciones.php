@@ -11,7 +11,7 @@ if(isset($_POST['botonSituacion']))
     $respuesta  = mysqli_query($conexion, "INSERT INTO situaciones(descripcion,descuento) VALUES ('$desc','$descu')");
     if($respuesta)
     {
-      Include 'index.php';
+      header("Location: index.php");
       ?>
       <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
@@ -36,7 +36,8 @@ if(isset($_POST['botonCalles']))
     $respuesta  = mysqli_query($conexion, "INSERT INTO calles(nombre,colonia,cp) VALUES ('$nomb','$col','$cod')");
     if($respuesta)
     {
-      Include 'index.php';
+      header("Location: index.php");
+      //include 'index.php';
       ?>
       <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
@@ -63,7 +64,7 @@ if(isset($_POST['botonTarifas']))
     $respuesta  = mysqli_query($conexion, "INSERT INTO tarifas(fecha,coutaFija,recargo,tarifa,infraestructura) VALUES ('$fec','$cuo','$rec','$ta','$infr')");
     if($respuesta)
     {
-      Include 'index.php';
+      header("Location: index.php");
       ?>
       <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
@@ -90,7 +91,7 @@ if(isset($_POST['botonEmpleados']))
     $respuesta = mysqli_query($conexion, "INSERT INTO empleados (idUsuario, nombre, rol) VALUES ('$empleado', '$nombre', '$rol')");
     if($respuesta)
     {
-      Include 'index.php';
+      header("Location: index.php");
       ?>
       <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
@@ -115,7 +116,7 @@ if(isset($_POST['botonUsuarios']))
     $respuesta = mysqli_query($conexion, "INSERT INTO usuarios (email, password, rol) VALUES ('$usuario', '$cont', 'Administrador')");
     if($respuesta)
     {
-      Include 'index.php';
+      header("Location: index.php");
       ?>
       <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
@@ -154,11 +155,10 @@ if(isset($_POST['botonCuentas']))
 
     if($respuesta)
     {
-      include('index.php');
+      header("Location: index.php");
       ?>
       <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
-      header("Location:".$_SERVER['HTTP_REFERER']);
     }
     else
     {
