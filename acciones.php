@@ -191,4 +191,30 @@ if(isset($_POST['botonLogin']))
   }
   mysqli_close($conexion);
 }
+//MOVIMIENTO PAGO
+if(isset($_POST['botonPagar']))
+{
+  if($conexion)
+  {
+    $usuario = $_POST['idCuenta'];
+    $fecha = $_POST['fechaP'];
+    $pago = $_POST['pago'];
+
+    $respuesta = mysqli_query($conexion, "INSERT INTO pagos (idCuenta, fecha, total) VALUES ('$usuario', '$fecha','$pago')");
+    if($respuesta)
+    {
+      Include 'indexCliente.php';
+      ?>
+      <script language="javascript"> alert("¡Pago Realizado!"); </script>
+      <?php
+    }
+    else
+    {
+      ?>
+      <script language="javascript"> alert("Error al almacenar"); </script>
+      <?php
+    }
+  }
+  mysqli_close($conexion);
+}
 ?>
