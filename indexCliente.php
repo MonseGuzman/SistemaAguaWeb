@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,7 +54,9 @@
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#pagos">Pagos</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#sesion">Cerrar sesión</a>
+              <form action="acciones.php" method="POST">
+                <button class="btn btn-primary btn-lg" type="submit" name="cerrar">Cerrar sesión</button>
+              </form> 
             </li>
           </ul>
         </div>
@@ -214,34 +219,116 @@
               <form action="acciones.php" method="POST">
 
                 <div class="form-group">
-                <div style="width:50%;float:left;">
+                  <div style="width:50%;float:left;">
                     <label class="labels">Nombre del cliente</label>
-                    <select name="idCuenta">
-                      <option value="0">Seleccione el nombre</option>
+    
                       <?php
                       include('conexion.php');
-
-                      $query = "SELECT * FROM cuentas";
-                      $result = mysqli_query($conexion, $query);
-                      while ($row = $result->fetch_assoc())
+                      
+                      if(isset($_SESSION['id']))
                       {
-                        echo "<option value='".$row['idCuenta']."'>".$row['nombreCliente']."</option>";
+                        $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
+                        $result = mysqli_query($conexion, $query);
+                        if ($result)
+                        {
+                          $row = mysqli_fetch_assoc($result);
+                          echo '<input class="form-control" disabled="disabled" value= "'.$row['nombreCliente'].'" id="pago" name="pago" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                        }
                       }
                       ?>
-                    </select>
                   </div>
                   <div class="col-xs-6" style="width:50%;float:left;">
                     <label>Fecha de pago</label>
-                    <input class="form-control" id="fechaP" name="fechaP" type="date" placeholder="Fecha de pago" required="required" data-validation-required-message="Ingrese una fecha." style="width:300px;height:25px">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                  <div style="width:50%;float:left;">
-                    <label>Total a pagar</label>
-                    <input class="form-control" id="pago" name="pago" type="number" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">
+                    <input class="form-control" id="fechaP" name="fechaP" type="date" disabled="disabled" value"<?php echo date("d,f,o");?>" placeholder="Fecha de pago" required="required" data-validation-required-message="Ingrese una fecha." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
-                <br/><br/><br/><br/><br/><br/>
+
+                <div class="form-group">
+                  <div style="width:50%;float:left;">
+                    <label>Tarifa: </label>
+                    <select name="tarifas">
+                        <option value="0">Seleccione una Tarifa</option>
+                        <?php
+                          include('conexion.php');
+
+                          $query = "SELECT * FROM tarifas";
+                          $result = mysqli_query($conexion, $query);
+                          while ($row = $result->fetch_assoc())
+                          {
+                            echo "<option value='".$row['idTarifa']."'>".$row['fecha']."</option>";
+                          }
+                        ?>
+                    </select>
+                    <p class="help-block text-danger"></p>
+                  </div>
+                  <div style="width:50%;float:left;"> 
+                    <label>Situación: </label>  
+                    <select name="situaciones">
+                      <option value="0">Seleccione una situacion</option>
+                      <?php
+                        include('conexion.php');
+
+                        $query = "SELECT * FROM situaciones";
+                        $result = mysqli_query($conexion, $query);
+                        while ($row = $result->fetch_assoc())
+                        {
+                          echo "<option value='".$row['idSituacion']."'>".$row['descripcion']."</option>";
+                        }
+                      ?>
+                    </select>
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>  
+
+                <div class="form-group">
+                  <div style="width:50%;float:left;">
+                  <label>Mes Inicial: </label>
+                  <select name="mesInicial">
+                    <option value="0">Seleccione un mes</option>
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                    <option value="7">Julio</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                  </select>
+                  <p class="help-block text-danger"></p>
+                  </div>
+                  <div style="width:50%;float:left;">
+                    <label>Mes Inicial: </label>
+                    <select name="mesFinal">
+                      <option value="0">Seleccione un mes</option>
+                      <option value="1">Enero</option>
+                      <option value="2">Febrero</option>
+                      <option value="3">Marzo</option>
+                      <option value="4">Abril</option>
+                      <option value="5">Mayo</option>
+                      <option value="6">Junio</option>
+                      <option value="7">Julio</option>
+                      <option value="8">Agosto</option>
+                      <option value="9">Septiembre</option>
+                      <option value="10">Octubre</option>
+                      <option value="11">Noviembre</option>
+                      <option value="12">Diciembre</option>
+                    </select>
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+
+                <div style="width:50%;float:left;">
+                  <label>Total a pagar</label>
+                  <input class="form-control" id="pago" value = "2" name="pago" type="number" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">
+                  <p class="help-block text-danger"></p>
+                </div>
+
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <p class="mb-5"></p>
                 <div>
                   <button class="btn btn-primary btn-lg" type="submit" name="botonPagar" value="botonPagar">Registrar Pago</button>
@@ -255,8 +342,7 @@
         </div>
       </div>
     </div>
-
-    
+  
     <!-- Portfolio CUENTAS -->
     <div class="portfolio-modal mfp-hide" id="portfolio-modal-2">
       <div class="portfolio-modal-dialog bg-white">
@@ -277,7 +363,20 @@
                 <div class="form-group">
                   <div class="" style="width:50%;float:left;">
                     <label>Nombre del cliente</label>
-                    <input class="form-control" id="nombreP" name="nombreP" type="text" placeholder="Nombre completo" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
+                    <?php
+                      include('conexion.php');
+                      
+                      if(isset($_SESSION['id']))
+                      {
+                        $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
+                        $result = mysqli_query($conexion, $query);
+                        if ($result)
+                        {
+                          $row = mysqli_fetch_assoc($result);
+                          echo '<input class="form-control" value= "'.$row['nombreCliente'].'" id="nombreP" name="nombreP" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                        }
+                      }
+                    ?>
                     <p class="help-block text-danger"></p>
                   </div>
 
@@ -293,7 +392,20 @@
                   </div>
                   <div style="width:50%;float:left;">
                     <label>Teléfono</label>
-                    <input class="form-control" id="telefono" name="telefono"  maxlength="10" type="tel" placeholder= "Ingresa solo número" required="required" data-validation-required-message="Ingrese un teléfono." style="width:300px;height:25px">
+                    <?php
+                      include('conexion.php');
+                      
+                      if(isset($_SESSION['id']))
+                      {
+                        $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
+                        $result = mysqli_query($conexion, $query);
+                        if ($result)
+                        {
+                          $row = mysqli_fetch_assoc($result);
+                          echo '<input class="form-control" value= "'.$row['telefono'].'" id="pago" name="telefono" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                        }
+                      }
+                      ?>
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
@@ -301,17 +413,56 @@
                 <div class="form-group">
                   <div style="width:50%;float:left;">
                     <label>Número Exterior</label>
-                    <input class="form-control" id="noExt" name="noExt" type="number" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un número exterior."style="width:300px;height:25px">
+                    <?php
+                      include('conexion.php');
+                      
+                      if(isset($_SESSION['id']))
+                      {
+                        $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
+                        $result = mysqli_query($conexion, $query);
+                        if ($result)
+                        {
+                          $row = mysqli_fetch_assoc($result);
+                          echo '<input class="form-control" value= "'.$row['noExterior'].'" id="pago" name="noExt" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                        }
+                      }
+                      ?>
                     <p class="help-block text-danger"></p>
                   </div>
                   <div style="width:50%;float:left;">
                     <label>Número Interior</label>
-                    <input class="form-control" id="noInt" name="noInt" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un número interior." style="width:300px;height:25px">
+                    <?php
+                      include('conexion.php');
+                      
+                      if(isset($_SESSION['id']))
+                      {
+                        $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
+                        $result = mysqli_query($conexion, $query);
+                        if ($result)
+                        {
+                          $row = mysqli_fetch_assoc($result);
+                          echo '<input class="form-control"  value= "'.$row['noInterior'].'" id="pago" name="noInt" type="text" placeholder="Ingrese solo números" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                        }
+                      }
+                      ?>
                     <p class="help-block text-danger"></p>
                   </div>
                   <div style="width:50%;float:left;">
-                      <label>Email</label>
-                      <input class="form-control" id="email" name="email" type="text" placeholder="Ingresa un correo valido" required="required" data-validation-required-message="Ingrese un email." style="width:300px;height:25px">
+                    <label>Email</label>
+                      <?php
+                      include('conexion.php');
+                      
+                      if(isset($_SESSION['id']))
+                      {
+                        $query = "SELECT * FROM usuarios WHERE idUsuario = ".$_SESSION['id'];
+                        $result = mysqli_query($conexion, $query);
+                        if ($result)
+                        {
+                          $row = mysqli_fetch_assoc($result);
+                          echo '<input class="form-control" value= "'.$row['email'].'" id="email" name="email" type="text" placeholder="Ingrese un email válido" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                        }
+                      }
+                    ?>
                       <p class="help-block text-danger"></p>
                   </div>
                 </div>
@@ -319,17 +470,56 @@
                 <div class="form-group">
                   <div class="col-xs-6" style="width:50%;float:left;">
                     <label>Fecha de alta</label>
-                    <input class="form-control" id="fecha" name="fecha" type="date" placeholder="Fecha de alta" required="required" data-validation-required-message="Ingrese una fecha." style="width:300px;height:25px">
+                    <?php
+                      include('conexion.php');
+                      
+                      if(isset($_SESSION['id']))
+                      {
+                        $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
+                        $result = mysqli_query($conexion, $query);
+                        if ($result)
+                        {
+                          $row = mysqli_fetch_assoc($result);
+                          echo '<input class="form-control" disabled="disabled" value= "'.$row['fechaAlta'].'" name="fechaAlta" type="date" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                        }
+                      }
+                      ?>
                     <p class="help-block text-danger"></p>
                   </div>
                   <div style="width:50%;float:left;">
                       <label>Año del último pago</label>
-                      <input class="form-control" id="ultimoPagoA" name="ultimoPagoA" maxlength="4" type="text" placeholder="Ingresa un año valido" required="required" data-validation-required-message="Ingrese un año." style="width:300px;height:25px">
+                      <?php
+                      include('conexion.php');
+                      
+                      if(isset($_SESSION['id']))
+                      {
+                        $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
+                        $result = mysqli_query($conexion, $query);
+                        if ($result)
+                        {
+                          $row = mysqli_fetch_assoc($result);
+                          echo '<input class="form-control" value= "'.$row['ultimoPagoM'].'" id="ultimoPagoM" name="ultimoPagoM" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                        }
+                      }
+                    ?>
                       <p class="help-block text-danger"></p>
                   </div>
                   <div style="width:50%;float:left;">
                       <label>Mes del último pago</label>
-                      <input class="form-control" id="ultimoPagoM" name="ultimoPagoM" maxlength="2" type="number" placeholder="Ingresa solo número" required="required" data-validation-required-message="Ingrese un mes." style="width:300px;height:25px">
+                      <?php
+                      include('conexion.php');
+                      
+                      if(isset($_SESSION['id']))
+                      {
+                        $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
+                        $result = mysqli_query($conexion, $query);
+                        if ($result)
+                        {
+                          $row = mysqli_fetch_assoc($result);
+                          echo '<input class="form-control" value= "'.$row['ultimoPagoA'].'" name="ultimoPagoA" type="number" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                        }
+                      }
+                    ?>
                       <p class="help-block text-danger"></p>
                       <br>
                   </div>

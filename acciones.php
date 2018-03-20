@@ -1,6 +1,7 @@
 
 <?php
 include('conexion.php');
+session_start();
 //SITUACIONES
 if(isset($_POST['botonSituacion']))
 {
@@ -181,7 +182,22 @@ if(isset($_POST['botonLogin']))
     $respuesta = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email = '$usuario' AND password = '$password'");
     if(mysqli_num_rows($respuesta) > 0)
     {
-      header('Location: index.php');
+      
+      $row = mysqli_fetch_assoc($respuesta);
+      if($row['rol'] == "Administrador" or $row['rol'] == "Empleado")
+      {
+        $_SESSION['usuario'] = $usuario;
+        $_SESSION['rol'] = $row['rol'];
+        $_SESSION['id'] = $row['idUsuario'];
+        header('Location: index.php');
+      }
+      else
+      {
+        $_SESSION['usuario'] = $usuario;
+        $_SESSION['rol'] = $row['rol'];
+        $_SESSION['id'] = $row['idUsuario'];
+        header('Location: indexCliente.php');
+      }
     }
     else
     {
@@ -218,5 +234,53 @@ if(isset($_POST['botonPagar']))
     }
   }
   mysqli_close($conexion);
+}
+//ACTUALIZA CUENTAS
+if(isset($_POST['botonCuentas']))
+{
+  if($conexion)
+  {
+    //aun no sirve
+    $calle = $_POST['calle'];
+    $nombre = $_POST['nombreP'];
+    $telefono = $_POST['telefono'];
+    $ultimoA = $_POST['ultimoPagoA'];
+    $ultimoM = $_POST['ultimoPagoM'];
+    $Exterior = $_POST['noExt'];
+    $Interior = $_POST['noInt'];
+    $fechaAlta = $_POST['fecha'];
+    $pass = $_POS['contra']; //agregar al diseño
+
+    $usuario = $_POST['email'];
+    mysqli_query($conexion, "UPDATE usuarios SET email = '$usuario', password = '$pass' WHERE idCuenta = ".$_SESSION['id']);
+
+    $respuesta = mysqli_query($conexion, "UPDATE cuentas idCalle = '$calle', nombreCliente = '$nombre', noExterior = '$Exterior', noInterior = '$Interior', 
+    telefono = '$telefono', ultimoPagoM = '$ultimoM', ultimoPagoA = '$ultimoA'");
+
+    if($respuesta)
+    {
+      header("Location: index.php");
+      ?>
+      <script language="javascript"> alert("¡Guardado!"); </script>
+      <?php
+    }
+    else
+    {
+      ?>
+      <script language="javascript"> alert("Error al almacenar"); </script>
+      <?php
+    }
+  }
+  mysqli_close($conexion);
+}
+//CERRAR SESION
+if(isset($_POST['cerrar']))
+{
+  if(isset($_SESSION['usuario']))
+  {
+    echo "Cierro sesion";
+    session_destroy();
+    header('Location: inicia.php');
+  }
 }
 ?>
