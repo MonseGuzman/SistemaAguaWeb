@@ -216,12 +216,11 @@ session_start();
               <h2 class="text-secondary text-uppercase mb-0">Pagos</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="img/portfolio/pagos.png" alt="">
-              <form action="acciones.php" method="POST">
+              <form name = "datosPagos" action="acciones.php" method="POST">
 
                 <div class="form-group">
                   <div style="width:50%;float:left;">
                     <label class="labels">Nombre del cliente</label>
-    
                       <?php
                       include('conexion.php');
                       
@@ -232,7 +231,7 @@ session_start();
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" disabled="disabled" value= "'.$row['nombreCliente'].'" id="pago" name="pago" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" disabled="disabled" value= "'.$row['nombreCliente'].'" id="nombreP" name="nombreP" type="text" style="width:300px;height:25px">';
                         }
                       }
                       ?>
@@ -246,64 +245,27 @@ session_start();
 
                 <div class="form-group">
                   <div style="width:50%;float:left;">
-                    <label>Tarifa: </label>
-                    <select name="tarifas">
-                        <option value="0">Seleccione una Tarifa</option>
-                        <?php
-                          include('conexion.php');
-
-                          $query = "SELECT * FROM tarifas";
-                          $result = mysqli_query($conexion, $query);
-                          while ($row = $result->fetch_assoc())
-                          {
-                            echo "<option value='".$row['idTarifa']."'>".$row['fecha']."</option>";
-                          }
-                        ?>
+                    <label>Mes Inicial: </label>
+                    <select name="mesInicial" id="mesInicial">
+                      <option value="0">Seleccione un mes</option>
+                      <option value="1">Enero</option>
+                      <option value="2">Febrero</option>
+                      <option value="3">Marzo</option>
+                      <option value="4">Abril</option>
+                      <option value="5">Mayo</option>
+                      <option value="6">Junio</option>
+                      <option value="7">Julio</option>
+                      <option value="8">Agosto</option>
+                      <option value="9">Septiembre</option>
+                      <option value="10">Octubre</option>
+                      <option value="11">Noviembre</option>
+                      <option value="12">Diciembre</option>
                     </select>
                     <p class="help-block text-danger"></p>
-                  </div>
-                  <div style="width:50%;float:left;"> 
-                    <label>Situación: </label>  
-                    <select name="situaciones">
-                      <option value="0">Seleccione una situacion</option>
-                      <?php
-                        include('conexion.php');
-
-                        $query = "SELECT * FROM situaciones";
-                        $result = mysqli_query($conexion, $query);
-                        while ($row = $result->fetch_assoc())
-                        {
-                          echo "<option value='".$row['idSituacion']."'>".$row['descripcion']."</option>";
-                        }
-                      ?>
-                    </select>
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>  
-
-                <div class="form-group">
-                  <div style="width:50%;float:left;">
-                  <label>Mes Inicial: </label>
-                  <select name="mesInicial">
-                    <option value="0">Seleccione un mes</option>
-                    <option value="1">Enero</option>
-                    <option value="2">Febrero</option>
-                    <option value="3">Marzo</option>
-                    <option value="4">Abril</option>
-                    <option value="5">Mayo</option>
-                    <option value="6">Junio</option>
-                    <option value="7">Julio</option>
-                    <option value="8">Agosto</option>
-                    <option value="9">Septiembre</option>
-                    <option value="10">Octubre</option>
-                    <option value="11">Noviembre</option>
-                    <option value="12">Diciembre</option>
-                  </select>
-                  <p class="help-block text-danger"></p>
                   </div>
                   <div style="width:50%;float:left;">
                     <label>Mes Inicial: </label>
-                    <select name="mesFinal">
+                    <select name="mesFinal" id="mesFinal" onchange="mesInicial();">
                       <option value="0">Seleccione un mes</option>
                       <option value="1">Enero</option>
                       <option value="2">Febrero</option>
@@ -322,9 +284,151 @@ session_start();
                   </div>
                 </div>
 
+                <div class="form-group">
+                  <div style="width:50%;float:left;">
+                    <label>Tarifa: </label>
+                    <select id="tarifas" name="tarifas" onchange="mostrar();">
+                        <option value="0">Seleccione una Tarifa</option>
+                          <?php
+                            include('conexion.php');
+
+                            $query = "SELECT * FROM tarifas";
+                            $result = mysqli_query($conexion, $query);
+                            while ($row = $result->fetch_assoc())
+                            {
+                              echo "<option value='".$row['idTarifa']."'>".$row['fecha']."</option>";
+                            }
+                          ?>
+                      </select>
+                    <p class="help-block text-danger"></p>
+                  </div>
+                  <div style="width:50%;float:left;">
+                      <label>Couta Fija: </label>
+                      <input class="form-control" id="coutaFija" name="coutaFija" type="number" disabled="disabled" value="0" style="width:300px;height:25px">
+                      <p class="help-block text-danger"></p>
+                  </div>
+                  <div style="width:50%;float:left;">
+                      <label>Recargo: </label>
+                      <input class="form-control" id="recargo" name="recargo" type="number" disabled="disabled" value="0" style="width:300px;height:25px">
+                      <p class="help-block text-danger"></p>
+                  </div>
+                  <div style="width:50%;float:left;">
+                      <label>Tarifa: </label>
+                      <input class="form-control" id="tarifa" name="tarifa" type="number" disabled="disabled" value="0" style="width:300px;height:25px">
+                      <p class="help-block text-danger"></p>
+                  </div>
+                  <div style="width:50%;float:left;">
+                      <label>Infraestructura: </label>
+                      <input class="form-control" id="infraestructura" name="infraestructura" type="number" disabled="disabled" value="0" style="width:300px;height:25px">
+                      <p class="help-block text-danger"></p>
+                  </div>
+                </div>  
+
+                <div class="form-group">
+                  <div style="width:50%;float:left;"> 
+                      <label>Situación: </label>  
+                      <select name="situaciones" id="situaciones" onchange="mostrarSituaciones();">
+                        <option value="0">Seleccione una situacion</option>
+                        <?php
+                          include('conexion.php');
+
+                          $query = "SELECT * FROM situaciones";
+                          $result = mysqli_query($conexion, $query);
+                          while ($row = $result->fetch_assoc())
+                          {
+                            echo "<option value='".$row['idSituacion']."'>".$row['descripcion']."</option>";
+                          }
+                        ?>
+                      </select>
+                      <input class="form-control" id="descuento" name="descuento" type="number" disabled="disabled" value="0" style="width:300px;height:25px">
+                      <p class="help-block text-danger"></p>
+                  </div>
+                </div>  
+
+<!--borrar después -->
+<script language="JavaScript" type="text/JavaScript">
+
+var tarifa = {
+  <?php
+  include('conexion.php');
+
+  $query = "SELECT * FROM tarifas";
+  $result = mysqli_query($conexion, $query);
+  while ($row = $result->fetch_assoc())
+  {
+    echo "'".$row['idTarifa']."':['".$row['coutaFija']."', '".$row['recargo']."', '".$row['tarifa']."', '".$row['infraestructura']."' ],";
+  }
+  ?> 
+}
+
+var situacion = {
+  <?php
+  include('conexion.php');
+
+  $query = "SELECT * FROM situaciones";
+  $result = mysqli_query($conexion, $query);
+  while ($row = $result->fetch_assoc())
+  {
+    echo "'".$row['idSituacion']."':['".$row['descuento']."'],";
+  }
+  ?> 
+}
+
+var meses;
+
+function mostrar()
+{
+    var comboTarifa = document.getElementById('tarifas');
+    var opcion = comboTarifa.value;
+  
+    document.getElementById('coutaFija').value = tarifa[opcion][0];
+    document.getElementById('recargo').value = tarifa[opcion][1];
+    document.getElementById('tarifa').value = tarifa[opcion][2];
+    document.getElementById('infraestructura').value = tarifa[opcion][3];
+}
+
+function mostrarSituaciones()
+{
+    var comboSituacion = document.getElementById('situaciones');
+    var opcion = comboSituacion.value;
+    
+    document.getElementById('descuento').value = situacion[opcion][0];
+}
+
+function mesInicial()
+{
+    var combo = document.getElementById('mesInicial');
+    var mes1 = document.getElementById('mesFinal');
+
+    meses = mes1.value - combo.value;
+
+    document.getElementById('TotalMeses').value = meses;
+}
+
+function Total()
+{
+  var cf = (document.getElementById('coutaFija') / 12) * document.getElementById('TotalMeses');
+  var rec = (document.getElementById('recargo') / 12);
+  var tar = (document.getElementById('tarifa') / 12);
+  var inf = (document.getElementById('infraestructura') / 12);
+
+  var des = (combo2 * combo)/100;
+
+  document.getElementById('total').value = des;
+}
+
+</script> 
+
+              <div class="form-group">   
+                <div style="width:50%;float:left;">
+                  <label>Total de meses: </label>
+                  <input class="form-control" onchange="Total();" id="TotalMeses" name="TotalMeses" type="text" placeholder="Ingrese solo números" disabled="disabled" value="0" style="width:300px;height:25px">
+                  <p class="help-block text-danger"></p>
+                </div>
+
                 <div style="width:50%;float:left;">
                   <label>Total a pagar</label>
-                  <input class="form-control" id="pago" value = "2" name="pago" type="number" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">
+                  <input class="form-control" id="total" name="total" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">
                   <p class="help-block text-danger"></p>
                 </div>
 
