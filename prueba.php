@@ -24,4 +24,10 @@ if(isset($_SESSION['usuario']))
 }
 else
     echo "no";
+
+    $num = 1;
+    $num2 = 2;
+
+    $suma = $num + $num2;
+    echo $suma;
 ?>

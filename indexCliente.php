@@ -5,25 +5,21 @@ session_start();
 <html lang="en">
 
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>System-app</title>
+    <title>SYSTEM-APP</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom fonts for this template -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
     <!-- Plugin CSS -->
     <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
-
     <!-- Custom styles for this template -->
     <link href="css/freelancer.min.css" rel="stylesheet">
 
@@ -103,6 +99,7 @@ session_start();
               <img class="img-fluid" src="img/portfolio/pago.png" alt="">
             </a>
           </div>
+        </div>  
     </section>
     <!--Consultas Section -->
     <section class="portfolio" id="consultas">
@@ -245,47 +242,6 @@ session_start();
 
                 <div class="form-group">
                   <div style="width:50%;float:left;">
-                    <label>Mes Inicial: </label>
-                    <select name="mesInicial" id="mesInicial">
-                      <option value="0">Seleccione un mes</option>
-                      <option value="1">Enero</option>
-                      <option value="2">Febrero</option>
-                      <option value="3">Marzo</option>
-                      <option value="4">Abril</option>
-                      <option value="5">Mayo</option>
-                      <option value="6">Junio</option>
-                      <option value="7">Julio</option>
-                      <option value="8">Agosto</option>
-                      <option value="9">Septiembre</option>
-                      <option value="10">Octubre</option>
-                      <option value="11">Noviembre</option>
-                      <option value="12">Diciembre</option>
-                    </select>
-                    <p class="help-block text-danger"></p>
-                  </div>
-                  <div style="width:50%;float:left;">
-                    <label>Mes Inicial: </label>
-                    <select name="mesFinal" id="mesFinal" onchange="mesInicial();">
-                      <option value="0">Seleccione un mes</option>
-                      <option value="1">Enero</option>
-                      <option value="2">Febrero</option>
-                      <option value="3">Marzo</option>
-                      <option value="4">Abril</option>
-                      <option value="5">Mayo</option>
-                      <option value="6">Junio</option>
-                      <option value="7">Julio</option>
-                      <option value="8">Agosto</option>
-                      <option value="9">Septiembre</option>
-                      <option value="10">Octubre</option>
-                      <option value="11">Noviembre</option>
-                      <option value="12">Diciembre</option>
-                    </select>
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div style="width:50%;float:left;">
                     <label>Tarifa: </label>
                     <select id="tarifas" name="tarifas" onchange="mostrar();">
                         <option value="0">Seleccione una Tarifa</option>
@@ -304,22 +260,22 @@ session_start();
                   </div>
                   <div style="width:50%;float:left;">
                       <label>Couta Fija: </label>
-                      <input class="form-control" id="coutaFija" name="coutaFija" type="number" disabled="disabled" value="0" style="width:300px;height:25px">
+                      <input class="form-control" id="coutaFija" name="coutaFija" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
                       <p class="help-block text-danger"></p>
                   </div>
                   <div style="width:50%;float:left;">
                       <label>Recargo: </label>
-                      <input class="form-control" id="recargo" name="recargo" type="number" disabled="disabled" value="0" style="width:300px;height:25px">
+                      <input class="form-control" id="recargo" name="recargo" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
                       <p class="help-block text-danger"></p>
                   </div>
                   <div style="width:50%;float:left;">
                       <label>Tarifa: </label>
-                      <input class="form-control" id="tarifa" name="tarifa" type="number" disabled="disabled" value="0" style="width:300px;height:25px">
+                      <input class="form-control" id="tarifa" name="tarifa" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
                       <p class="help-block text-danger"></p>
                   </div>
                   <div style="width:50%;float:left;">
                       <label>Infraestructura: </label>
-                      <input class="form-control" id="infraestructura" name="infraestructura" type="number" disabled="disabled" value="0" style="width:300px;height:25px">
+                      <input class="form-control" id="infraestructura" name="infraestructura" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
                       <p class="help-block text-danger"></p>
                   </div>
                 </div>  
@@ -340,12 +296,12 @@ session_start();
                           }
                         ?>
                       </select>
-                      <input class="form-control" id="descuento" name="descuento" type="number" disabled="disabled" value="0" style="width:300px;height:25px">
+                      <input class="form-control" id="descuento" name="descuento" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
                       <p class="help-block text-danger"></p>
                   </div>
                 </div>  
 
-<!--borrar después -->
+<!--NO MOVER APARENTEMENTE SIRVE -->
 <script language="JavaScript" type="text/JavaScript">
 
 var tarifa = {
@@ -374,63 +330,144 @@ var situacion = {
   ?> 
 }
 
-var meses;
-
 function mostrar()
 {
-    var comboTarifa = document.getElementById('tarifas');
-    var opcion = comboTarifa.value;
+  var comboTarifa = document.getElementById('tarifas');
+  var opcion = comboTarifa.value;
   
-    document.getElementById('coutaFija').value = tarifa[opcion][0];
-    document.getElementById('recargo').value = tarifa[opcion][1];
-    document.getElementById('tarifa').value = tarifa[opcion][2];
-    document.getElementById('infraestructura').value = tarifa[opcion][3];
+  document.getElementById('coutaFija').value = tarifa[opcion][0];
+  document.getElementById('recargo').value = tarifa[opcion][1];
+  document.getElementById('tarifa').value = tarifa[opcion][2];
+  document.getElementById('infraestructura').value = tarifa[opcion][3];
 }
 
 function mostrarSituaciones()
 {
-    var comboSituacion = document.getElementById('situaciones');
-    var opcion = comboSituacion.value;
+    var comboSituacion = document.getElementById('situaciones').value;
     
-    document.getElementById('descuento').value = situacion[opcion][0];
+    document.getElementById('descuento').value = situacion[comboSituacion][0];
 }
 
-function mesInicial()
+function calcularMeses()
 {
-    var combo = document.getElementById('mesInicial');
-    var mes1 = document.getElementById('mesFinal');
+  var mes1 = document.getElementById('mesInicial').value;
+  var mes2 = document.getElementById('mesFinal').value;
 
-    meses = mes1.value - combo.value;
+  var cf = document.getElementById('coutaFija').value;
+  var rec = document.getElementById('recargo').value;
+  var tar = document.getElementById('tarifa').value;
+  var inf = document.getElementById('infraestructura').value;
+  var des = document.getElementById('descuento').value;
+  var meses = document.getElementById('TotalMeses').value;
+  
+  var x;
+  var cont = 0;
+  for(x = mes1; x< mes2; x++)
+  {
+    cont = cont + 1;
+  }
 
-    document.getElementById('TotalMeses').value = meses;
-}
+  var cfTotal = (cf/12) * meses;
+  var recTotal = (rec/12) * meses;
+  var tarTotal = (tar/12) * meses;
+  var infTotal = (inf/12) * meses;
 
-function Total()
-{
-  var cf = (document.getElementById('coutaFija') / 12) * document.getElementById('TotalMeses');
-  var rec = (document.getElementById('recargo') / 12);
-  var tar = (document.getElementById('tarifa') / 12);
-  var inf = (document.getElementById('infraestructura') / 12);
+  var sinDescuento = cfTotal + recTotal + tarTotal + infTotal;
+  var descuento = (des * sinDescuento)/100;
+  var conDescuento = sinDescuento - descuento;
 
-  var des = (combo2 * combo)/100;
-
-  document.getElementById('total').value = des;
+  document.getElementById('TotalMeses').value = cont;  
+  document.getElementById('coutaFijaFinal').value = cfTotal;
+  document.getElementById('recargoFinal').value = recTotal;
+  document.getElementById('tarifaFinal').value = tarTotal;
+  document.getElementById('infraestructuraFinal').value = infTotal;
+  document.getElementById('total').value = conDescuento;
+  document.getElementById('des').value = descuento;
 }
 
 </script> 
 
+                <div class="form-group">
+                  <div style="width:50%;float:left;">
+                    <label>Mes Inicial: </label>
+                    <select name="mesInicial" id="mesInicial" >
+                      <option value="0">Seleccione un mes</option>
+                      <option value="1">Enero</option>
+                      <option value="2">Febrero</option>
+                      <option value="3">Marzo</option>
+                      <option value="4">Abril</option>
+                      <option value="5">Mayo</option>
+                      <option value="6">Junio</option>
+                      <option value="7">Julio</option>
+                      <option value="8">Agosto</option>
+                      <option value="9">Septiembre</option>
+                      <option value="10">Octubre</option>
+                      <option value="11">Noviembre</option>
+                      <option value="12">Diciembre</option>
+                    </select>
+                    <p class="help-block text-danger"></p>
+                  </div>
+                  <div style="width:50%;float:left;">
+                    <label>Mes Final: </label>
+                    <select name="mesFinal" id="mesFinal" onchange="calcularMeses();">
+                      <option value="0">Seleccione un mes</option>
+                      <option value="1">Enero</option>
+                      <option value="2">Febrero</option>
+                      <option value="3">Marzo</option>
+                      <option value="4">Abril</option>
+                      <option value="5">Mayo</option>
+                      <option value="6">Junio</option>
+                      <option value="7">Julio</option>
+                      <option value="8">Agosto</option>
+                      <option value="9">Septiembre</option>
+                      <option value="10">Octubre</option>
+                      <option value="11">Noviembre</option>
+                      <option value="12">Diciembre</option>
+                    </select>
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
               <div class="form-group">   
                 <div style="width:50%;float:left;">
-                  <label>Total de meses: </label>
-                  <input class="form-control" onchange="Total();" id="TotalMeses" name="TotalMeses" type="text" placeholder="Ingrese solo números" disabled="disabled" value="0" style="width:300px;height:25px">
+                  <label>Meses a pagar: </label>
+                  <input class="form-control"  id="TotalMeses" name="TotalMeses" type="text" value="0" disabled="disabled" style="width:200px;height:25px">
                   <p class="help-block text-danger"></p>
                 </div>
-
+              </div>  
+              <div class="form-group">
+                <div style="width:40%;float:left;">
+                    <label>Final Couta Fija: </label>
+                    <input class="form-control" id="coutaFijaFinal" name="coutaFijaFinal" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
+                    <p class="help-block text-danger"></p>
+                </div>
+                <div style="width:40%;float:left;">
+                    <label>Final Recargo: </label>
+                    <input class="form-control" id="recargoFinal" name="recargoFinal" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
+                    <p class="help-block text-danger"></p>
+                </div>
+                <div style="width:40%;float:left;">
+                    <label>Final Tarifa: </label>
+                    <input class="form-control" id="tarifaFinal" name="tarifaFinal" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
+                    <p class="help-block text-danger"></p>
+                </div>
+                <div style="width:40%;float:left;">
+                    <label>Final Infraestructura: </label>
+                    <input class="form-control" id="infraestructuraFinal" name="infraestructuraFinal" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
+                    <p class="help-block text-danger"></p>
+                </div>
+              </div>
+              <div class="form-group"> 
+                <div style="width:50%;float:left;">
+                  <label>Descuento</label>
+                  <input class="form-control" id="des" name="des" type="number" disabled="disabled" value="0" style="width:300px;height:25px">
+                  <p class="help-block text-danger"></p>
+                </div>
                 <div style="width:50%;float:left;">
                   <label>Total a pagar</label>
-                  <input class="form-control" id="total" name="total" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">
+                  <input class="form-control" id="total" name="total" type="text" disabled="disabled" value="0" style="width:300px;height:25px">
                   <p class="help-block text-danger"></p>
-                </div>
+                </div> 
+              </div> 
 
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <p class="mb-5"></p>

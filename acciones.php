@@ -62,7 +62,8 @@ if(isset($_POST['botonTarifas']))
     $rec = $_POST['recargo'];
     $ta = $_POST['tar'];
     $infr = $_POST['infra'];
-    $respuesta  = mysqli_query($conexion, "INSERT INTO tarifas(fecha,coutaFija,recargo,tarifa,infraestructura) VALUES ('$fec','$cuo','$rec','$ta','$infr')");
+    $suma = $cuo + $rec + $ta + $infr;
+    $respuesta  = mysqli_query($conexion, "INSERT INTO tarifas(fecha,coutaFija,recargo,tarifa,infraestructura, total) VALUES ('$fec','$cuo','$rec','$ta','$infr', '$suma')");
     if($respuesta)
     {
       header("Location: index.php");
@@ -217,6 +218,12 @@ if(isset($_POST['botonPagar']))
     $usuario = $_POST['idCuenta'];
     $fecha = $_POST['fechaP'];
     $pago = $_POST['pago'];
+
+    //almacena detalles
+    $CF = $_POST['coutaFija'];
+    $recargo = $_POST['recargo'];
+    $tar = $_POST['tarifa'];
+    $inf = $_POST['infraestructura'];
 
     $respuesta = mysqli_query($conexion, "INSERT INTO pagos (idCuenta, fecha, total) VALUES ('$usuario', '$fecha','$pago')");
     if($respuesta)
