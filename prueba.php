@@ -1,5 +1,5 @@
 <?php
-session_start();
+/*session_start();
 if(isset($_SESSION['usuario']))
 {
   echo "inicio sesion " .$_SESSION['id']."<br>";
@@ -28,6 +28,6 @@ else
     $num = 1;
     $num2 = 2;
 
-    $suma = $num + $num2;
-    echo $suma;
+    $suma = $num + $num2;*/
+    echo date('d-m-Y');
 ?>

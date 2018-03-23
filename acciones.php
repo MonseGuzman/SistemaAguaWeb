@@ -62,8 +62,8 @@ if(isset($_POST['botonTarifas']))
     $rec = $_POST['recargo'];
     $ta = $_POST['tar'];
     $infr = $_POST['infra'];
-    $suma = $cuo + $rec + $ta + $infr;
-    $respuesta  = mysqli_query($conexion, "INSERT INTO tarifas(fecha,coutaFija,recargo,tarifa,infraestructura, total) VALUES ('$fec','$cuo','$rec','$ta','$infr', '$suma')");
+
+    $respuesta  = mysqli_query($conexion, "INSERT INTO tarifas(fecha,coutaFija,recargo,tarifa,infraestructura) VALUES ('$fec','$cuo','$rec','$ta','$infr')");
     if($respuesta)
     {
       header("Location: index.php");
@@ -149,7 +149,7 @@ if(isset($_POST['botonCuentas']))
     $usuario = $_POST['email'];
     $ah = mysqli_query($conexion, "INSERT INTO usuarios (email, password, rol) VALUES ('$usuario', '123', 'Cliente')");
 
-    $resultado = mysqli_query($conexion, "SELECT * FROM usuarios"); //resolver esta cosa
+    $resultado = mysqli_query($conexion, "SELECT * FROM usuarios");
     $numUsuario = mysqli_num_rows($resultado);
 
     $respuesta = mysqli_query($conexion, "INSERT INTO cuentas (idCalle, idUsuario, nombreCliente, noExterior, noInterior, telefono, fechaAlta, ultimoPagoM, ultimoPagoA)
@@ -215,26 +215,53 @@ if(isset($_POST['botonPagar']))
 {
   if($conexion)
   {
-    $usuario = $_POST['idCuenta'];
-    $fecha = $_POST['fechaP'];
-    $pago = $_POST['pago'];
 
-    //almacena detalles
-    $CF = $_POST['coutaFija'];
-    $recargo = $_POST['recargo'];
-    $tar = $_POST['tarifa'];
-    $inf = $_POST['infraestructura'];
+    if(isset($_SESSION['id']))
+    {
+      $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
+      $result = mysqli_query($conexion, $query);
+      if ($result)
+      {
+        $row = mysqli_fetch_assoc($result);
+        $usuario = $row['idCuenta'];
+      }
+    }
+
+    $fecha = date('d-m-Y');
+    $pago = isset($_POST['total']) ? $_POST['total'] : 0;
 
     $respuesta = mysqli_query($conexion, "INSERT INTO pagos (idCuenta, fecha, total) VALUES ('$usuario', '$fecha','$pago')");
+    
     if($respuesta)
     {
-      Include 'indexCliente.php';
-      ?>
-      <script language="javascript"> alert("¡Pago Realizado!"); </script>
-      <?php
+      //almacena detalles
+      $CF = isset($_POST['coutaFijaFinal']) ? $_POST['coutaFijaFinal'] : 0;
+      $recargo = isset($_POST['recargoFinal']) ? $_POST['recargoFinal'] : 0;
+      $tar = isset($_POST['tarifaFinal']) ? $_POST['tarifaFinal'] : 0;
+      $inf = isset($_POST['infraestructuraFinal']) ? $_POST['infraestructuraFinal'] : 0;
+      $des = isset($_POST['des']) ? $_POST['des'] : 0;
+      $idTarifa = $_POST['tarifas'];
+      $idSituacion = $_POST['situaciones'];
+      $mesInicial = $_POST['mesInicial'];
+      $mesFinal = $_POST['mesFinal'];
+
+      $idPago = mysqli_query($conexion, "SELECT * FROM pagos");
+      $numPagos = mysqli_num_rows($idPago);
+
+      $resultado = mysqli_query($conexion, "INSERT INTO detallepago (idPago, idSituacion, idTarifa, MesInicial, MesFinal, coutaFija, recargo, tarifa, infraestructura, descuento, total) 
+      VALUES ('$numPagos', '$idSituacion','$idTarifa', '$mesInicial', '$mesFinal', '$CF', '$recargo', '$tar', '$inf', '$des', '$pago' )");
+      
+      if($resultado)
+      {
+        header('Location: indexCliente.php');
+        ?>
+        <script language="javascript"> alert("¡Pago Realizado!"); </script>
+        <?php
+      } 
     }
     else
     {
+      header('Location: indexCliente.php');
       ?>
       <script language="javascript"> alert("Error al almacenar"); </script>
       <?php
@@ -256,7 +283,7 @@ if(isset($_POST['botonCuentas']))
     $Exterior = $_POST['noExt'];
     $Interior = $_POST['noInt'];
     $fechaAlta = $_POST['fecha'];
-    $pass = $_POS['contra']; //agregar al diseño
+    $pass = $_POST['contra']; //agregar al diseño
 
     $usuario = $_POST['email'];
     mysqli_query($conexion, "UPDATE usuarios SET email = '$usuario', password = '$pass' WHERE idCuenta = ".$_SESSION['id']);

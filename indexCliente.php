@@ -74,31 +74,34 @@ session_start();
       <div class="container">
         <h2 class="text-center text-uppercase text-secondary mb-0">Perfil del cliente</h2>
         <hr class="star-dark mb-5">
-         <div class="col-md-6 col-lg-4">
             <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-2" title="Perfil" >
               <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
                 <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
                   <i class="fa fa-search-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/portfolio/cuentas2.png" alt="">
+              <center>
+                <img class="img-fluid" src="img/portfolio/cuentas2.png" alt="">
+              </center>
             </a>
+            <div class="col-md-6 col-lg-4">
           </div>
     </section>
     <section class="portfolio" id="pagos">
-      <div class="container">
+      <div class="container" >
         <h2 class="text-center text-uppercase text-secondary mb-0">Realizar pagos de agua</h2>
         <hr class="star-dark mb-5">
-         <div class="col-md-6 col-lg-4">
+         
             <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1" title="Pagos" >
               <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
                 <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
                   <i class="fa fa-search-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/portfolio/pago.png" alt="">
+              <center>
+                <img class="img-fluid" src="img/portfolio/pago.png" alt="" >
+              </center>
             </a>
-          </div>
         </div>  
     </section>
     <!--Consultas Section -->
@@ -213,7 +216,7 @@ session_start();
               <h2 class="text-secondary text-uppercase mb-0">Pagos</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="img/portfolio/pagos.png" alt="">
-              <form name = "datosPagos" action="acciones.php" method="POST">
+              <form action="acciones.php" method="POST">
 
                 <div class="form-group">
                   <div style="width:50%;float:left;">
@@ -235,15 +238,14 @@ session_start();
                   </div>
                   <div class="col-xs-6" style="width:50%;float:left;">
                     <label>Fecha de pago</label>
-                    <input class="form-control" id="fechaP" name="fechaP" type="date" disabled="disabled" value"<?php echo date("d,f,o");?>" placeholder="Fecha de pago" required="required" data-validation-required-message="Ingrese una fecha." style="width:300px;height:25px">
+                    <input class="form-control" id="fechaP" name="fechaP" type="text" readonly = "true" value="<?php echo date('d-m-Y');?>" placeholder="Fecha de pago" required="required" data-validation-required-message="Ingrese una fecha." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
-
                 <div class="form-group">
-                  <div style="width:50%;float:left;">
-                    <label>Tarifa: </label>
-                    <select id="tarifas" name="tarifas" onchange="mostrar();">
+                  <div class="col-xs-6" style="width:100%;float:left;">
+                    <label>Tarifa:</label>
+                    <select id="tarifas"  name="tarifas" onchange="mostrar();">
                         <option value="0">Seleccione una Tarifa</option>
                           <?php
                             include('conexion.php');
@@ -257,32 +259,39 @@ session_start();
                           ?>
                       </select>
                     <p class="help-block text-danger"></p>
-                  </div>
-                  <div style="width:50%;float:left;">
-                      <label>Couta Fija: </label>
-                      <input class="form-control" id="coutaFija" name="coutaFija" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
+                  
+                  <div class="col-xs-6" style="width:25%;float:left;">
+                      <label>Cuota Fija </label>
+                      <center>
+                      <input class="form-control" id="coutaFija" name="coutaFija" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
+                          </center>
                       <p class="help-block text-danger"></p>
                   </div>
-                  <div style="width:50%;float:left;">
-                      <label>Recargo: </label>
-                      <input class="form-control" id="recargo" name="recargo" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
+                  <div class="col-xs-6"style="width:25%;float:left;">
+                      <label>Recargo </label>
+                      <center>
+                      <input class="form-control" id="recargo" name="recargo" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
+                          </center>
                       <p class="help-block text-danger"></p>
                   </div>
-                  <div style="width:50%;float:left;">
-                      <label>Tarifa: </label>
-                      <input class="form-control" id="tarifa" name="tarifa" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
+                  <div class="col-xs-6" style="width:25%;float:left;">
+                      <label>T.A.R </label>
+                      <CENTER>
+                      <input class="form-control" id="tarifa" name="tarifa" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
+                          </CENTER>
                       <p class="help-block text-danger"></p>
                   </div>
-                  <div style="width:50%;float:left;">
-                      <label>Infraestructura: </label>
-                      <input class="form-control" id="infraestructura" name="infraestructura" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
+                  <div class="col-xs-6" style="width:25%;float:left;">
+                      <label>Infraestructura</label>
+                      <CENTER>
+                      <input class="form-control" id="infraestructura" name="infraestructura" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
                       <p class="help-block text-danger"></p>
+                          </CENTER>
                   </div>
-                </div>  
-
+                </div> 
                 <div class="form-group">
-                  <div style="width:50%;float:left;"> 
-                      <label>Situación: </label>  
+                  <div class="col-xs-6" style="width:100%;float:left;"> 
+                      <label>Situación:</label> 
                       <select name="situaciones" id="situaciones" onchange="mostrarSituaciones();">
                         <option value="0">Seleccione una situacion</option>
                         <?php
@@ -296,100 +305,16 @@ session_start();
                           }
                         ?>
                       </select>
-                      <input class="form-control" id="descuento" name="descuento" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
+                          <center>  
+                           <label>porcentaje</label>
+                           <input class="form-control" id="descuento" name="descuento" type="number" disabled="disabled" value="0" style="width:100px;height:25px">
+                        </center>
                       <p class="help-block text-danger"></p>
                   </div>
                 </div>  
-
-<!--NO MOVER APARENTEMENTE SIRVE -->
-<script language="JavaScript" type="text/JavaScript">
-
-var tarifa = {
-  <?php
-  include('conexion.php');
-
-  $query = "SELECT * FROM tarifas";
-  $result = mysqli_query($conexion, $query);
-  while ($row = $result->fetch_assoc())
-  {
-    echo "'".$row['idTarifa']."':['".$row['coutaFija']."', '".$row['recargo']."', '".$row['tarifa']."', '".$row['infraestructura']."' ],";
-  }
-  ?> 
-}
-
-var situacion = {
-  <?php
-  include('conexion.php');
-
-  $query = "SELECT * FROM situaciones";
-  $result = mysqli_query($conexion, $query);
-  while ($row = $result->fetch_assoc())
-  {
-    echo "'".$row['idSituacion']."':['".$row['descuento']."'],";
-  }
-  ?> 
-}
-
-function mostrar()
-{
-  var comboTarifa = document.getElementById('tarifas');
-  var opcion = comboTarifa.value;
-  
-  document.getElementById('coutaFija').value = tarifa[opcion][0];
-  document.getElementById('recargo').value = tarifa[opcion][1];
-  document.getElementById('tarifa').value = tarifa[opcion][2];
-  document.getElementById('infraestructura').value = tarifa[opcion][3];
-}
-
-function mostrarSituaciones()
-{
-    var comboSituacion = document.getElementById('situaciones').value;
-    
-    document.getElementById('descuento').value = situacion[comboSituacion][0];
-}
-
-function calcularMeses()
-{
-  var mes1 = document.getElementById('mesInicial').value;
-  var mes2 = document.getElementById('mesFinal').value;
-
-  var cf = document.getElementById('coutaFija').value;
-  var rec = document.getElementById('recargo').value;
-  var tar = document.getElementById('tarifa').value;
-  var inf = document.getElementById('infraestructura').value;
-  var des = document.getElementById('descuento').value;
-  var meses = document.getElementById('TotalMeses').value;
-  
-  var x;
-  var cont = 0;
-  for(x = mes1; x< mes2; x++)
-  {
-    cont = cont + 1;
-  }
-
-  var cfTotal = (cf/12) * meses;
-  var recTotal = (rec/12) * meses;
-  var tarTotal = (tar/12) * meses;
-  var infTotal = (inf/12) * meses;
-
-  var sinDescuento = cfTotal + recTotal + tarTotal + infTotal;
-  var descuento = (des * sinDescuento)/100;
-  var conDescuento = sinDescuento - descuento;
-
-  document.getElementById('TotalMeses').value = cont;  
-  document.getElementById('coutaFijaFinal').value = cfTotal;
-  document.getElementById('recargoFinal').value = recTotal;
-  document.getElementById('tarifaFinal').value = tarTotal;
-  document.getElementById('infraestructuraFinal').value = infTotal;
-  document.getElementById('total').value = conDescuento;
-  document.getElementById('des').value = descuento;
-}
-
-</script> 
-
                 <div class="form-group">
-                  <div style="width:50%;float:left;">
-                    <label>Mes Inicial: </label>
+                  <div class="col-xs-6" style="width:33%;float:left;">
+                    <label>Mes Inicial:</label><br/>
                     <select name="mesInicial" id="mesInicial" >
                       <option value="0">Seleccione un mes</option>
                       <option value="1">Enero</option>
@@ -407,8 +332,8 @@ function calcularMeses()
                     </select>
                     <p class="help-block text-danger"></p>
                   </div>
-                  <div style="width:50%;float:left;">
-                    <label>Mes Final: </label>
+                  <div class="col-xs-6" style="width:33%;float:left;">
+                    <label>Mes Final:</label><br/>
                     <select name="mesFinal" id="mesFinal" onchange="calcularMeses();">
                       <option value="0">Seleccione un mes</option>
                       <option value="1">Enero</option>
@@ -427,55 +352,69 @@ function calcularMeses()
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
-              <div class="form-group">   
-                <div style="width:50%;float:left;">
-                  <label>Meses a pagar: </label>
-                  <input class="form-control"  id="TotalMeses" name="TotalMeses" type="text" value="0" disabled="disabled" style="width:200px;height:25px">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>  
-              <div class="form-group">
-                <div style="width:40%;float:left;">
-                    <label>Final Couta Fija: </label>
-                    <input class="form-control" id="coutaFijaFinal" name="coutaFijaFinal" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
+                <div class="form-group">   
+                  <div  class="col-xs-6" style="width:33%;float:left;">
+                    <label>Meses a pagar</label>
+                    <input  class="form-control"  id="TotalMeses" name="TotalMeses" type="text" value="0" readonly = "true" style="width:200px;height:25px">
                     <p class="help-block text-danger"></p>
+                  </div>
+                </div>  
+                <div class="form-group">
+                  <div class="col-xs-6"style="width:25%;float:left;">
+                      <label>Su pago Cuota Fija</label>
+                      <center>
+                      <input class="form-control" id="coutaFijaFinal" name="coutaFijaFinal" type="number" readonly = "true" value="0" style="width:150px;height:25px">
+                      </center>
+                      <p class="help-block text-danger"></p>
+                  </div>
+                  <div class="col-xs-6" style="width:25%;float:left;">
+                      <label>Su pago Recargo</label>
+                      <center>
+                      <input class="form-control" id="recargoFinal" name="recargoFinal" type="number" readonly = "true" value="0" style="width:150px;height:25px">
+                      </center>
+                      <p class="help-block text-danger"></p>
+                  </div>
+                  <div class="col-xs-6" style="width:25%;float:left;">
+                      <label>Su pago T.A.R.</label><br/>
+                      <center>
+                      <input class="form-control" id="tarifaFinal" name="tarifaFinal" type="number" readonly = "true" value="0" style="width:150px;height:25px">
+                      </center>
+                      <p class="help-block text-danger"></p>
+                  </div>
+                  <div class="col-xs-6" style="width:25%;float:left;">
+                      <label>Su pago Infraestructura</label>
+                      <center>
+                      <input class="form-control" id="infraestructuraFinal" name="infraestructuraFinal" type="number" readonly = "true" value="0" style="width:150px;height:25px">
+                      </center>
+                      <p class="help-block text-danger"></p>
+                  </div>
                 </div>
-                <div style="width:40%;float:left;">
-                    <label>Final Recargo: </label>
-                    <input class="form-control" id="recargoFinal" name="recargoFinal" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
+                <div class="form-group"> 
+                  <div class="col-xs-6" style="width:50%;float:left;">
+                    <label>Descuento</label>
+                    <center>
+                    <input class="form-control" id="des" name="des" type="number" readonly = "true" value="0" style="width:300px;height:25px">
+                    </center>
                     <p class="help-block text-danger"></p>
-                </div>
-                <div style="width:40%;float:left;">
-                    <label>Final Tarifa: </label>
-                    <input class="form-control" id="tarifaFinal" name="tarifaFinal" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
+                  </div>
+                  <div class="col-xs-6" style="width:50%;float:left;">
+                    <label>Total a pagar</label>
+                    <center>
+                    <input class="form-control" id="total" name="total" type="number" readonly = "true" value="0" style="width:300px;height:25px">
+                    </center>
                     <p class="help-block text-danger"></p>
-                </div>
-                <div style="width:40%;float:left;">
-                    <label>Final Infraestructura: </label>
-                    <input class="form-control" id="infraestructuraFinal" name="infraestructuraFinal" type="number" disabled="disabled" value="0" style="width:200px;height:25px">
-                    <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="form-group"> 
-                <div style="width:50%;float:left;">
-                  <label>Descuento</label>
-                  <input class="form-control" id="des" name="des" type="number" disabled="disabled" value="0" style="width:300px;height:25px">
-                  <p class="help-block text-danger"></p>
-                </div>
-                <div style="width:50%;float:left;">
-                  <label>Total a pagar</label>
-                  <input class="form-control" id="total" name="total" type="text" disabled="disabled" value="0" style="width:300px;height:25px">
-                  <p class="help-block text-danger"></p>
+                  </div>    
                 </div> 
-              </div> 
-
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <p class="mb-5"></p>
+                
                 <div>
-                  <button class="btn btn-primary btn-lg" type="submit" name="botonPagar" value="botonPagar">Registrar Pago</button>
-                  <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                    <i class="fa fa-close"></i>
-                    Cerrar</a>
+                  <p class="mb-1">.</p><br/>
+                </div>
+                  <p class="mb-5"></p>
+                <div>
+                <button class="btn btn-primary btn-lg" type="submit" name="botonPagar" value="botonPagar">Registrar Pago</button>
+                <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                  <i class="fa fa-close"></i>
+                  Cerrar</a>
                 </div>
               </form>
             </div>
@@ -621,7 +560,7 @@ function calcularMeses()
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" disabled="disabled" value= "'.$row['fechaAlta'].'" name="fechaAlta" type="date" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" readonly = "true" value= "'.$row['fechaAlta'].'" name="fechaAlta" type="date" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
                       ?>
@@ -662,13 +601,14 @@ function calcularMeses()
                       }
                     ?>
                       <p class="help-block text-danger"></p>
-                      <br>
                   </div>
                 </div>
-                <br/><br/><br/><br/><br/><br/>
-                <p class="mb-5"></p>
                 <div>
-                  <button class="btn btn-primary btn-lg" type="submit" name="botonCuentas">Modificar</button>
+                  <p class="mb-1">.</p><br/>
+                </div>
+                <div>
+                  <br/>
+                  
                   <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                     <i class="fa fa-close"></i> Cerrar</a>
                 </div>
@@ -695,6 +635,92 @@ function calcularMeses()
     <!-- Custom scripts for this template -->
     <script src="js/freelancer.min.js"></script>
     <script src="web.js"></script>
+
+    <!--NO MOVER APARENTEMENTE SIRVE -->
+    <script language="JavaScript" type="text/JavaScript">
+
+    var tarifa = {
+      <?php
+      include('conexion.php');
+
+      $query = "SELECT * FROM tarifas";
+      $result = mysqli_query($conexion, $query);
+      while ($row = $result->fetch_assoc())
+      {
+        echo "'".$row['idTarifa']."':['".$row['coutaFija']."', '".$row['recargo']."', '".$row['tarifa']."', '".$row['infraestructura']."' ],";
+      }
+      ?> 
+    }
+
+    var situacion = {
+      <?php
+      include('conexion.php');
+
+      $query = "SELECT * FROM situaciones";
+      $result = mysqli_query($conexion, $query);
+      while ($row = $result->fetch_assoc())
+      {
+        echo "'".$row['idSituacion']."':['".$row['descuento']."'],";
+      }
+      ?> 
+    }
+
+    function mostrar()
+    {
+      var comboTarifa = document.getElementById('tarifas');
+      var opcion = comboTarifa.value;
+      
+      document.getElementById('coutaFija').value = tarifa[opcion][0];
+      document.getElementById('recargo').value = tarifa[opcion][1];
+      document.getElementById('tarifa').value = tarifa[opcion][2];
+      document.getElementById('infraestructura').value = tarifa[opcion][3];
+    }
+
+    function mostrarSituaciones()
+    {
+        var comboSituacion = document.getElementById('situaciones').value;
+        
+        document.getElementById('descuento').value = situacion[comboSituacion][0];
+    }
+
+    function calcularMeses()
+    {
+      var mes1 = document.getElementById('mesInicial').value;
+      var mes2 = document.getElementById('mesFinal').value;
+
+      var cf = document.getElementById('coutaFija').value;
+      var rec = document.getElementById('recargo').value;
+      var tar = document.getElementById('tarifa').value;
+      var inf = document.getElementById('infraestructura').value;
+      var des = document.getElementById('descuento').value;
+      
+      var x;
+      var cont = 0;
+      for(x = mes1; x< mes2; x++)
+      {
+        cont = cont + 1;
+      }
+
+      var cfTotal = (cf/12) * cont;
+      var recTotal = (rec/12) * cont;
+      var tarTotal = (tar/12) * cont;
+      var infTotal = (inf/12) * cont;
+
+      var sinDescuento = cfTotal + recTotal + tarTotal + infTotal;
+      var descuento = (des * sinDescuento)/100;
+      var conDescuento = sinDescuento - descuento;
+
+      document.getElementById('TotalMeses').value = cont;  
+      document.getElementById('coutaFijaFinal').value = cfTotal;
+      document.getElementById('recargoFinal').value = recTotal;
+      document.getElementById('tarifaFinal').value = tarTotal;
+      document.getElementById('infraestructuraFinal').value = infTotal;
+      document.getElementById('total').value = conDescuento;
+      document.getElementById('des').value = descuento;
+    }
+
+    </script> 
+
   </body>
 
 </html>
