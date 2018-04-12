@@ -441,7 +441,7 @@ session_start();
               <form class="form" action="acciones.php" method="POST">
 
                 <div class="form-group">
-                  <div class="" style="width:50%;float:left;">
+                  <div style="width:50%;float:left;">
                     <label>Nombre del cliente</label>
                     <?php
                       include('conexion.php');
@@ -460,32 +460,39 @@ session_start();
                     <p class="help-block text-danger"></p>
                   </div>
 
-                  <!--<div style="width:50%;float:left;">
-                    <label class="labels">Nombre de la Calle</label>
-                    <!<br/>
-                    <input class="form-control" id="nombreCalle" name="nombreCalle" type="text" placeholder="Ingrese solo letras" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
-                    <p class="help-block text-danger"></p>-->
-                  <div class="" style="width:50%;float:left;">
-                    <label>Nombre del cliente</label>
-                    <input class="form-control" id="nombreP" name="nombreP" type="text" placeholder="Nombre completo" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
-                    <p class="help-block text-danger"></p>
-                  </div>
                   <div style="width:50%;float:left;">
-                    <label>Teléfono</label>
+                    <label class="labels">Nombre de la Calle</label>
+                    <select name="calle">
+                    <option value="0">Seleccione una calle</option>
+                    <?php
+                    include('conexion.php');
+                    
+                    $query = "SELECT * FROM calles";
+                    $result = mysqli_query($conexion, $query);
+                    while ($row = $result->fetch_assoc())
+                    {
+                      echo "<option value='".$row['idCalle']."'>".$row['nombre']."</option>";
+                    }
+                    ?>
+                    </select>
+                  </div>
+                    
+                  <div style="width:50%;float:left;">
+                    <label>Contraseña</label>
                     <?php
                       include('conexion.php');
                       
                       if(isset($_SESSION['id']))
                       {
-                        $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
+                        $query = "SELECT * FROM usuarios WHERE idUsuario = ".$_SESSION['id'];
                         $result = mysqli_query($conexion, $query);
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" value= "'.$row['telefono'].'" id="pago" name="telefono" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" value= "'.$row['password'].'" id="contra" name="contra" type="password" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
-                      ?>
+                    ?>
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
@@ -503,12 +510,13 @@ session_start();
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" value= "'.$row['noExterior'].'" id="pago" name="noExt" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" value= "'.$row['noExterior'].'" id="noExt" name="noExt" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un número exterior."style="width:300px;height:25px">';
                         }
                       }
                       ?>
                     <p class="help-block text-danger"></p>
                   </div>
+
                   <div style="width:50%;float:left;">
                     <label>Número Interior</label>
                     <?php
@@ -521,12 +529,13 @@ session_start();
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control"  value= "'.$row['noInterior'].'" id="pago" name="noInt" type="text" placeholder="Ingrese solo números" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control"  value= "'.$row['noInterior'].'" id="noInt" name="noInt" type="text" placeholder="Ingrese solo números" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
                       ?>
                     <p class="help-block text-danger"></p>
                   </div>
+
                   <div style="width:50%;float:left;">
                     <label>Email</label>
                       <?php
@@ -539,7 +548,7 @@ session_start();
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" value= "'.$row['email'].'" id="email" name="email" type="text" placeholder="Ingrese un email válido" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" value= "'.$row['email'].'" id="email" name="email" type="text" placeholder="Ingrese un email válido" required="required" data-validation-required-message="Ingrese un email válido."style="width:300px;height:25px">';
                         }
                       }
                     ?>
@@ -548,7 +557,7 @@ session_start();
                 </div>
 
                 <div class="form-group">
-                  <div class="col-xs-6" style="width:50%;float:left;">
+                  <div style="width:50%;float:left;">
                     <label>Fecha de alta</label>
                     <?php
                       include('conexion.php');
@@ -566,6 +575,26 @@ session_start();
                       ?>
                     <p class="help-block text-danger"></p>
                   </div>
+
+                  <div style="width:50%;float:left;">
+                      <label>Teléfono</label>
+                      <?php
+                      include('conexion.php');
+                      
+                      if(isset($_SESSION['id']))
+                      {
+                        $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
+                        $result = mysqli_query($conexion, $query);
+                        if ($result)
+                        {
+                          $row = mysqli_fetch_assoc($result);
+                          echo '<input class="form-control"  value= "'.$row['telefono'].'" id="telefono" name="telefono" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                        }
+                      }
+                    ?>
+                      <p class="help-block text-danger"></p>
+                  </div>
+
                   <div style="width:50%;float:left;">
                       <label>Año del último pago</label>
                       <?php
@@ -578,12 +607,13 @@ session_start();
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" value= "'.$row['ultimoPagoM'].'" id="ultimoPagoM" name="ultimoPagoM" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" readonly = "true" value= "'.$row['ultimoPagoM'].'" id="ultimoPagoM" name="ultimoPagoM" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
                     ?>
                       <p class="help-block text-danger"></p>
                   </div>
+
                   <div style="width:50%;float:left;">
                       <label>Mes del último pago</label>
                       <?php
@@ -596,28 +626,26 @@ session_start();
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" value= "'.$row['ultimoPagoA'].'" name="ultimoPagoA" type="number" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" readonly = "true" value= "'.$row['ultimoPagoA'].'" name="ultimoPagoA" type="number" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
-                    ?>
+                      ?>
                       <p class="help-block text-danger"></p>
                   </div>
                 </div>
+                
+                <p class="mb-5"></p>
                 <div>
-                  <p class="mb-1">.</p><br/>
-                </div>
-                <div>
-                  <br/>
-                  
+                  <button class="btn btn-primary btn-lg" type="submit" name="botonActualizar">Guardar</button>
                   <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                     <i class="fa fa-close"></i> Cerrar</a>
                 </div>
               </form>
-          </div> <!-- segundo col -->
-        </div> <!-- row -->
-      </div> <!-- primer div-->
+            </div> <!-- segundo col -->
+          </div> <!-- row -->
+        </div> <!-- primer div-->
+      </div>
     </div>
-  </div>
 
     
     <!-- Bootstrap core JavaScript -->

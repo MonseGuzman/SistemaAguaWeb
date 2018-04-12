@@ -270,30 +270,28 @@ if(isset($_POST['botonPagar']))
   mysqli_close($conexion);
 }
 //ACTUALIZA CUENTAS
-if(isset($_POST['botonCuentas']))
+if(isset($_POST['botonActualizar']))
 {
   if($conexion)
   {
-    //aun no sirve
     $calle = $_POST['calle'];
     $nombre = $_POST['nombreP'];
-    $telefono = $_POST['telefono'];
-    $ultimoA = $_POST['ultimoPagoA'];
-    $ultimoM = $_POST['ultimoPagoM'];
+    $email = $_POST['email'];
     $Exterior = $_POST['noExt'];
     $Interior = $_POST['noInt'];
-    $fechaAlta = $_POST['fecha'];
-    $pass = $_POST['contra']; //agregar al diseño
-
+    $telefono = $_POST['telefono'];
+    
+    $pass = $_POST['contra']; 
     $usuario = $_POST['email'];
+
     mysqli_query($conexion, "UPDATE usuarios SET email = '$usuario', password = '$pass' WHERE idCuenta = ".$_SESSION['id']);
 
-    $respuesta = mysqli_query($conexion, "UPDATE cuentas idCalle = '$calle', nombreCliente = '$nombre', noExterior = '$Exterior', noInterior = '$Interior', 
-    telefono = '$telefono', ultimoPagoM = '$ultimoM', ultimoPagoA = '$ultimoA'");
+    $respuesta = mysqli_query($conexion, "UPDATE cuentas SET idCalle = '$calle', nombreCliente = '$nombre', noExterior = '$Exterior', 
+    noInterior = '$Interior', telefono = '$telefono' WHERE idCuenta = ".$_SESSION['id']);
 
     if($respuesta)
     {
-      header("Location: index.php");
+      header("Location: indexCliente.php");
       ?>
       <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
