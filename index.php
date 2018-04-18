@@ -141,19 +141,22 @@
     <section class="portfolio" id="consultas">
       <div class="container">
         <h2 class="text-center text-uppercase text-secondary mb-0">Consultas</h2>
-        <hr class="star-light mb-5">
-
+        <hr class="star-dark mb-5">
           <p class="mb-5"></p>
           <center>
-          <div>
+          <div style="width:33%;float:left;">
           <form action="calles.php" method="POST">
             <button class="btn btn-primary btn-lg" type="submit" name="consultaCalles" value="consultaCalles">Consulta Calles</button>
             <p class="mb-2"></p>
           </form>
+          </div>
+          <div style="width:33%;float:left;">
           <form action="cuentas.php" method="POST">
             <button class="btn btn-primary btn-lg" type="submit" name="consultaCuentas" value="consultaCuentas">Consulta Cuentas</button>
             <p class="mb-2"></p>
           </form>
+          </div>
+          <div style="width:33%;float:left;">
           <form action = "empleados.php" method = "POST">
             <button class="btn btn-primary btn-lg" type="submit" name="consultaEmpleados" value="consultaEmpleados">Consulta Empleados</button>
             <p class="mb-2"></p>
@@ -161,20 +164,31 @@
           </div>
           </center>
           <center>
-          <div>
+          <div style="width:25%;float:left;">
           <form action="situacion.php" method="POST">
             <button class="btn btn-primary btn-lg" type="submit" name="consultaSituacion" value="consultaSituacion">Consulta Situación</button>
             <p class="mb-2"></p>
           </form>
+          </div>
+          <div style="width:25%;float:left;">
           <form action="tarifas.php" method="POST">
             <button class="btn btn-primary btn-lg" type="submit" name="consultaTarifas" value="consultaTarifas">Consulta Tarifas</button>
             <p class="mb-2"></p>
           </form>
+          </div>
+          <div style="width:25%;float:left;">
           <form action="usuarios.php" method="POST">
             <button class="btn btn-primary btn-lg" type="submit" name="consultaUsuarios" value="consultaUsuarios">Consulta Usuarios</button>
             <p class="mb-2"></p>
           </form>
           </div>
+          <div style="width:25%;float:left;">
+          <form action="pagos.php" method="POST">
+            <button class="btn btn-primary btn-lg" type="submit" name="consultaPagos" value="consultaPagos">Consulta de Pagos</button>
+            <p class="mb-2"></p>
+          </form>
+          </div>
+          <br/><br/><br/>
           </center>
 
       </div>
@@ -246,7 +260,7 @@
 
     <div class="copyright py-4 text-center text-white">
       <div class="container">
-        <small>Copyright &copy; System-app 2018</small>
+        <small>Copyright &copy; SYSTEM-APP 2018</small>
       </div>
     </div>
 
@@ -258,7 +272,6 @@
     </div>
 
     <!-- Portfolio Modals -->
-
     <!-- Portfolio CALLES -->
     <div class="portfolio-modal mfp-hide" id="portfolio-modal-1">
       <div class="portfolio-modal-dialog bg-white">

@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +18,7 @@ session_start();
     <!-- Plugin CSS -->
     <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template -->
-    <link href="css/freelancer.min.css" rel="stylesheet">    
+    <link href="css/freelancer.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="img/logo.png" />
   </head>
 
@@ -111,12 +108,21 @@ session_start();
         <hr class="star-dark mb-5">
           <p class="mb-5"></p>
           <center>
+          <div style="width:33%;float:left;">
           <form action="situacion.php" method="POST">
             <button class="btn btn-primary btn-lg" type="submit" name="consultaSituacion" value="consultaSituacion">Consulta Situación</button>
             <p class="mb-2"></p>
-          </form>  
+          </form>
+          </div>
+          <div style="width:33%;float:left;">  
           <form action="tarifas.php" method="POST">
             <button class="btn btn-primary btn-lg" type="submit" name="consultaTarifas" value="consultaTarifas">Consulta Tarifas</button>
+            <p class="mb-2"></p>
+          </form>
+          </div>
+          <div style="width:33%;float:left;">  
+          <form action="pagosCliente.php" method="POST">
+            <button class="btn btn-primary btn-lg" type="submit" name="consultaPagosC" value="consultaPagosC">Consulta de Pagos</button>
             <p class="mb-2"></p>
           </form>
           </div>
@@ -182,8 +188,8 @@ session_start();
             </ul>
           </div>
           <div class="col-md-4">
-            <h4 class="text-uppercase mb-4">Acerca de System-app</h4>
-            <p class="lead mb-0">¡¡System-app es tu mejor opción!!</p>
+            <h4 class="text-uppercase mb-4">Acerca de SYSTEM-APP</h4>
+            <p class="lead mb-0">¡¡SYSTEM-APP es tu mejor opción!!</p>
           </div>
         </div>
       </div>
@@ -191,7 +197,7 @@ session_start();
 
     <div class="copyright py-4 text-center text-white">
       <div class="container">
-        <small>Copyright &copy; System-app 2018</small>
+        <small>Copyright &copy; SYSTEM-APP 2018</small>
       </div>
     </div>
 
@@ -216,14 +222,15 @@ session_start();
               <h2 class="text-secondary text-uppercase mb-0">Pagos</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="img/portfolio/pagos.png" alt="">
-              <form action="acciones.php" method="POST">
+              <form name = "datosPagos" action="acciones.php" method="POST">
 
                 <div class="form-group">
                   <div style="width:50%;float:left;">
                     <label class="labels">Nombre del cliente</label>
                       <?php
                       include('conexion.php');
-                      
+                      session_start();
+
                       if(isset($_SESSION['id']))
                       {
                         $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
@@ -238,10 +245,11 @@ session_start();
                   </div>
                   <div class="col-xs-6" style="width:50%;float:left;">
                     <label>Fecha de pago</label>
-                    <input class="form-control" id="fechaP" name="fechaP" type="text" readonly = "true" value="<?php echo date('d-m-Y');?>" placeholder="Fecha de pago" required="required" data-validation-required-message="Ingrese una fecha." style="width:300px;height:25px">
+                    <input class="form-control" id="fechaP" name="fechaP" type="date" disabled="disabled" value"<?php echo date("d,f,o");?>" placeholder="Fecha de pago" required="required" data-validation-required-message="Ingrese una fecha." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
+
                 <div class="form-group">
                   <div class="col-xs-6" style="width:100%;float:left;">
                     <label>Tarifa:</label>
@@ -259,7 +267,7 @@ session_start();
                           ?>
                       </select>
                     <p class="help-block text-danger"></p>
-                  
+                  </div>
                   <div class="col-xs-6" style="width:25%;float:left;">
                       <label>Cuota Fija </label>
                       <center>
@@ -288,7 +296,8 @@ session_start();
                       <p class="help-block text-danger"></p>
                           </CENTER>
                   </div>
-                </div> 
+                </div>  
+
                 <div class="form-group">
                   <div class="col-xs-6" style="width:100%;float:left;"> 
                       <label>Situación:</label> 
@@ -296,7 +305,7 @@ session_start();
                         <option value="0">Seleccione una situacion</option>
                         <?php
                           include('conexion.php');
-
+                          
                           $query = "SELECT * FROM situaciones";
                           $result = mysqli_query($conexion, $query);
                           while ($row = $result->fetch_assoc())
@@ -312,6 +321,93 @@ session_start();
                       <p class="help-block text-danger"></p>
                   </div>
                 </div>  
+
+<!--NO MOVER APARENTEMENTE SIRVE -->
+<script language="JavaScript" type="text/JavaScript">
+
+var tarifa = {
+  <?php
+  include('conexion.php');
+
+  $query = "SELECT * FROM tarifas";
+  $result = mysqli_query($conexion, $query);
+  while ($row = $result->fetch_assoc())
+  {
+    echo "'".$row['idTarifa']."':['".$row['coutaFija']."', '".$row['recargo']."', '".$row['tarifa']."', '".$row['infraestructura']."' ],";
+  }
+  ?> 
+}
+
+var situacion = {
+  <?php
+  include('conexion.php');
+
+  $query = "SELECT * FROM situaciones";
+  $result = mysqli_query($conexion, $query);
+  while ($row = $result->fetch_assoc())
+  {
+    echo "'".$row['idSituacion']."':['".$row['descuento']."'],";
+  }
+  ?> 
+}
+
+function mostrar()
+{
+  var comboTarifa = document.getElementById('tarifas');
+  var opcion = comboTarifa.value;
+  
+  document.getElementById('coutaFija').value = tarifa[opcion][0];
+  document.getElementById('recargo').value = tarifa[opcion][1];
+  document.getElementById('tarifa').value = tarifa[opcion][2];
+  document.getElementById('infraestructura').value = tarifa[opcion][3];
+}
+
+function mostrarSituaciones()
+{
+    var comboSituacion = document.getElementById('situaciones').value;
+    
+    document.getElementById('descuento').value = situacion[comboSituacion][0];
+}
+
+function calcularMeses()
+{
+  var mes1 = document.getElementById('mesInicial').value;
+  var mes2 = document.getElementById('mesFinal').value;
+
+  var cf = document.getElementById('coutaFija').value;
+  var rec = document.getElementById('recargo').value;
+  var tar = document.getElementById('tarifa').value;
+  var inf = document.getElementById('infraestructura').value;
+  var des = document.getElementById('descuento').value;
+  var meses = document.getElementById('TotalMeses').value;
+  
+  var x;
+  var cont = 0;
+  for(x = mes1; x< mes2; x++)
+  {
+    cont = cont + 1;
+  }
+
+  var cfTotal = (cf/12) * meses;
+  var recTotal = (rec/12) * meses;
+  var tarTotal = (tar/12) * meses;
+  var infTotal = (inf/12) * meses;
+
+  var sinDescuento = cfTotal + recTotal + tarTotal + infTotal;
+  var descuento = (des * sinDescuento)/100;
+  var conDescuento = sinDescuento - descuento;
+
+  document.getElementById('TotalMeses').value = cont;  
+  document.getElementById('coutaFijaFinal').value = cfTotal;
+  document.getElementById('recargoFinal').value = recTotal;
+  document.getElementById('tarifaFinal').value = tarTotal;
+  document.getElementById('infraestructuraFinal').value = infTotal;
+  document.getElementById('total').value = conDescuento;
+  document.getElementById('des').value = descuento;
+}
+
+</script> 
+
                 <div class="form-group">
                   <div class="col-xs-6" style="width:33%;float:left;">
                     <label>Mes Inicial:</label><br/>
@@ -352,69 +448,71 @@ session_start();
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
-                <div class="form-group">   
-                  <div  class="col-xs-6" style="width:33%;float:left;">
-                    <label>Meses a pagar</label>
-                    <input  class="form-control"  id="TotalMeses" name="TotalMeses" type="text" value="0" readonly = "true" style="width:200px;height:25px">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>  
-                <div class="form-group">
-                  <div class="col-xs-6"style="width:25%;float:left;">
-                      <label>Su pago Cuota Fija</label>
-                      <center>
-                      <input class="form-control" id="coutaFijaFinal" name="coutaFijaFinal" type="number" readonly = "true" value="0" style="width:150px;height:25px">
-                      </center>
-                      <p class="help-block text-danger"></p>
-                  </div>
-                  <div class="col-xs-6" style="width:25%;float:left;">
-                      <label>Su pago Recargo</label>
-                      <center>
-                      <input class="form-control" id="recargoFinal" name="recargoFinal" type="number" readonly = "true" value="0" style="width:150px;height:25px">
-                      </center>
-                      <p class="help-block text-danger"></p>
-                  </div>
-                  <div class="col-xs-6" style="width:25%;float:left;">
-                      <label>Su pago T.A.R.</label><br/>
-                      <center>
-                      <input class="form-control" id="tarifaFinal" name="tarifaFinal" type="number" readonly = "true" value="0" style="width:150px;height:25px">
-                      </center>
-                      <p class="help-block text-danger"></p>
-                  </div>
-                  <div class="col-xs-6" style="width:25%;float:left;">
-                      <label>Su pago Infraestructura</label>
-                      <center>
-                      <input class="form-control" id="infraestructuraFinal" name="infraestructuraFinal" type="number" readonly = "true" value="0" style="width:150px;height:25px">
-                      </center>
-                      <p class="help-block text-danger"></p>
-                  </div>
+              <div class="form-group">   
+                <div  class="col-xs-6" style="width:33%;float:left;">
+                  <label>Meses a pagar</label>
+       
+                  <input  class="form-control"  id="TotalMeses" name="TotalMeses" type="text" value="0" disabled="disabled" style="width:200px;height:25px">
+                
+                  <p class="help-block text-danger"></p>
                 </div>
-                <div class="form-group"> 
-                  <div class="col-xs-6" style="width:50%;float:left;">
-                    <label>Descuento</label>
+              </div>  
+              <div class="form-group">
+                <div class="col-xs-6"style="width:25%;float:left;">
+                    <label>Final Cuota Fija</label>
                     <center>
-                    <input class="form-control" id="des" name="des" type="number" readonly = "true" value="0" style="width:300px;height:25px">
+                    <input class="form-control" id="coutaFijaFinal" name="coutaFijaFinal" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
                     </center>
                     <p class="help-block text-danger"></p>
-                  </div>
-                  <div class="col-xs-6" style="width:50%;float:left;">
-                    <label>Total a pagar</label>
+                </div>
+                <div class="col-xs-6" style="width:25%;float:left;">
+                    <label>Final Recargo</label>
                     <center>
-                    <input class="form-control" id="total" name="total" type="number" readonly = "true" value="0" style="width:300px;height:25px">
+                    <input class="form-control" id="recargoFinal" name="recargoFinal" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
                     </center>
                     <p class="help-block text-danger"></p>
-                  </div>    
+                </div>
+                <div class="col-xs-6" style="width:25%;float:left;">
+                    <label>Final Tarifa</label><br/>
+                    <center>
+                    <input class="form-control" id="tarifaFinal" name="tarifaFinal" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
+                    </center>
+                    <p class="help-block text-danger"></p>
+                </div>
+                <div class="col-xs-6" style="width:25%;float:left;">
+                    <label>Final Infraestructura</label>
+                    <center>
+                    <input class="form-control" id="infraestructuraFinal" name="infraestructuraFinal" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
+                    </center>
+                    <p class="help-block text-danger"></p>
+                </div>
+              </div>
+              <div class="form-group"> 
+                <div class="col-xs-6" style="width:50%;float:left;">
+                  <label>Descuento</label>
+                  <center>
+                  <input class="form-control" id="des" name="des" type="number" disabled="disabled" value="0" style="width:300px;height:25px">
+                  </center>
+                  <p class="help-block text-danger"></p>
+                </div>
+                <div class="col-xs-6" style="width:50%;float:left;">
+                  <label>Total a pagar</label>
+                  <center>
+                  <input class="form-control" id="total" name="total" type="text" disabled="disabled" value="0" style="width:300px;height:25px">
+                  </center>
+                  <p class="help-block text-danger"></p>
                 </div> 
                 
-                <div>
-                  <p class="mb-1">.</p><br/>
+              </div> 
+              <div>
+                <p class="mb-1">.</p><br/>
                 </div>
-                  <p class="mb-5"></p>
+                <p class="mb-5"></p>
                 <div>
-                <button class="btn btn-primary btn-lg" type="submit" name="botonPagar" value="botonPagar">Registrar Pago</button>
-                <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                  <i class="fa fa-close"></i>
-                  Cerrar</a>
+                  <button class="btn btn-primary btn-lg" type="submit" name="botonPagar" value="botonPagar">Registrar Pago</button>
+                  <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                    <i class="fa fa-close"></i>
+                    Cerrar</a>
                 </div>
               </form>
             </div>
@@ -441,7 +539,7 @@ session_start();
               <form class="form" action="acciones.php" method="POST">
 
                 <div class="form-group">
-                  <div style="width:50%;float:left;">
+                  <div class="" style="width:50%;float:left;">
                     <label>Nombre del cliente</label>
                     <?php
                       include('conexion.php');
@@ -460,39 +558,32 @@ session_start();
                     <p class="help-block text-danger"></p>
                   </div>
 
-                  <div style="width:50%;float:left;">
+                  <!--<div style="width:50%;float:left;">
                     <label class="labels">Nombre de la Calle</label>
-                    <select name="calle">
-                    <option value="0">Seleccione una calle</option>
-                    <?php
-                    include('conexion.php');
-                    
-                    $query = "SELECT * FROM calles";
-                    $result = mysqli_query($conexion, $query);
-                    while ($row = $result->fetch_assoc())
-                    {
-                      echo "<option value='".$row['idCalle']."'>".$row['nombre']."</option>";
-                    }
-                    ?>
-                    </select>
+                    <!<br/>
+                    <input class="form-control" id="nombreCalle" name="nombreCalle" type="text" placeholder="Ingrese solo letras" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
+                    <p class="help-block text-danger"></p>-->
+                  <div class="" style="width:50%;float:left;">
+                    <label>Nombre del cliente</label>
+                    <input class="form-control" id="nombreP" name="nombreP" type="text" placeholder="Nombre completo" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
+                    <p class="help-block text-danger"></p>
                   </div>
-                    
                   <div style="width:50%;float:left;">
-                    <label>Contraseña</label>
+                    <label>Teléfono</label>
                     <?php
                       include('conexion.php');
                       
                       if(isset($_SESSION['id']))
                       {
-                        $query = "SELECT * FROM usuarios WHERE idUsuario = ".$_SESSION['id'];
+                        $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
                         $result = mysqli_query($conexion, $query);
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" value= "'.$row['password'].'" id="contra" name="contra" type="password" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" value= "'.$row['telefono'].'" id="pago" name="telefono" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
-                    ?>
+                      ?>
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
@@ -510,13 +601,12 @@ session_start();
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" value= "'.$row['noExterior'].'" id="noExt" name="noExt" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un número exterior."style="width:300px;height:25px">';
+                          echo '<input class="form-control" value= "'.$row['noExterior'].'" id="pago" name="noExt" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
                       ?>
                     <p class="help-block text-danger"></p>
                   </div>
-
                   <div style="width:50%;float:left;">
                     <label>Número Interior</label>
                     <?php
@@ -529,13 +619,12 @@ session_start();
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control"  value= "'.$row['noInterior'].'" id="noInt" name="noInt" type="text" placeholder="Ingrese solo números" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control"  value= "'.$row['noInterior'].'" id="pago" name="noInt" type="text" placeholder="Ingrese solo números" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
                       ?>
                     <p class="help-block text-danger"></p>
                   </div>
-
                   <div style="width:50%;float:left;">
                     <label>Email</label>
                       <?php
@@ -548,7 +637,7 @@ session_start();
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" value= "'.$row['email'].'" id="email" name="email" type="text" placeholder="Ingrese un email válido" required="required" data-validation-required-message="Ingrese un email válido."style="width:300px;height:25px">';
+                          echo '<input class="form-control" value= "'.$row['email'].'" id="email" name="email" type="text" placeholder="Ingrese un email válido" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
                     ?>
@@ -557,7 +646,7 @@ session_start();
                 </div>
 
                 <div class="form-group">
-                  <div style="width:50%;float:left;">
+                  <div class="col-xs-6" style="width:50%;float:left;">
                     <label>Fecha de alta</label>
                     <?php
                       include('conexion.php');
@@ -569,32 +658,12 @@ session_start();
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" readonly = "true" value= "'.$row['fechaAlta'].'" name="fechaAlta" type="date" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" disabled="disabled" value= "'.$row['fechaAlta'].'" name="fechaAlta" type="date" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
                       ?>
                     <p class="help-block text-danger"></p>
                   </div>
-
-                  <div style="width:50%;float:left;">
-                      <label>Teléfono</label>
-                      <?php
-                      include('conexion.php');
-                      
-                      if(isset($_SESSION['id']))
-                      {
-                        $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
-                        $result = mysqli_query($conexion, $query);
-                        if ($result)
-                        {
-                          $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control"  value= "'.$row['telefono'].'" id="telefono" name="telefono" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
-                        }
-                      }
-                    ?>
-                      <p class="help-block text-danger"></p>
-                  </div>
-
                   <div style="width:50%;float:left;">
                       <label>Año del último pago</label>
                       <?php
@@ -607,13 +676,12 @@ session_start();
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" readonly = "true" value= "'.$row['ultimoPagoM'].'" id="ultimoPagoM" name="ultimoPagoM" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" value= "'.$row['ultimoPagoM'].'" id="ultimoPagoM" name="ultimoPagoM" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
                     ?>
                       <p class="help-block text-danger"></p>
                   </div>
-
                   <div style="width:50%;float:left;">
                       <label>Mes del último pago</label>
                       <?php
@@ -626,26 +694,28 @@ session_start();
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" readonly = "true" value= "'.$row['ultimoPagoA'].'" name="ultimoPagoA" type="number" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" value= "'.$row['ultimoPagoA'].'" name="ultimoPagoA" type="number" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
-                      ?>
+                    ?>
                       <p class="help-block text-danger"></p>
                   </div>
                 </div>
-                
-                <p class="mb-5"></p>
                 <div>
-                  <button class="btn btn-primary btn-lg" type="submit" name="botonActualizar">Guardar</button>
+                  <p class="mb-1">.</p><br/>
+                </div>
+                <div>
+                  <br/>
+                  
                   <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                     <i class="fa fa-close"></i> Cerrar</a>
                 </div>
               </form>
-            </div> <!-- segundo col -->
-          </div> <!-- row -->
-        </div> <!-- primer div-->
-      </div>
+          </div> <!-- segundo col -->
+        </div> <!-- row -->
+      </div> <!-- primer div-->
     </div>
+  </div>
 
     
     <!-- Bootstrap core JavaScript -->
@@ -663,92 +733,6 @@ session_start();
     <!-- Custom scripts for this template -->
     <script src="js/freelancer.min.js"></script>
     <script src="web.js"></script>
-
-    <!--NO MOVER APARENTEMENTE SIRVE -->
-    <script language="JavaScript" type="text/JavaScript">
-
-    var tarifa = {
-      <?php
-      include('conexion.php');
-
-      $query = "SELECT * FROM tarifas";
-      $result = mysqli_query($conexion, $query);
-      while ($row = $result->fetch_assoc())
-      {
-        echo "'".$row['idTarifa']."':['".$row['coutaFija']."', '".$row['recargo']."', '".$row['tarifa']."', '".$row['infraestructura']."' ],";
-      }
-      ?> 
-    }
-
-    var situacion = {
-      <?php
-      include('conexion.php');
-
-      $query = "SELECT * FROM situaciones";
-      $result = mysqli_query($conexion, $query);
-      while ($row = $result->fetch_assoc())
-      {
-        echo "'".$row['idSituacion']."':['".$row['descuento']."'],";
-      }
-      ?> 
-    }
-
-    function mostrar()
-    {
-      var comboTarifa = document.getElementById('tarifas');
-      var opcion = comboTarifa.value;
-      
-      document.getElementById('coutaFija').value = tarifa[opcion][0];
-      document.getElementById('recargo').value = tarifa[opcion][1];
-      document.getElementById('tarifa').value = tarifa[opcion][2];
-      document.getElementById('infraestructura').value = tarifa[opcion][3];
-    }
-
-    function mostrarSituaciones()
-    {
-        var comboSituacion = document.getElementById('situaciones').value;
-        
-        document.getElementById('descuento').value = situacion[comboSituacion][0];
-    }
-
-    function calcularMeses()
-    {
-      var mes1 = document.getElementById('mesInicial').value;
-      var mes2 = document.getElementById('mesFinal').value;
-
-      var cf = document.getElementById('coutaFija').value;
-      var rec = document.getElementById('recargo').value;
-      var tar = document.getElementById('tarifa').value;
-      var inf = document.getElementById('infraestructura').value;
-      var des = document.getElementById('descuento').value;
-      
-      var x;
-      var cont = 0;
-      for(x = mes1; x< mes2; x++)
-      {
-        cont = cont + 1;
-      }
-
-      var cfTotal = (cf/12) * cont;
-      var recTotal = (rec/12) * cont;
-      var tarTotal = (tar/12) * cont;
-      var infTotal = (inf/12) * cont;
-
-      var sinDescuento = cfTotal + recTotal + tarTotal + infTotal;
-      var descuento = (des * sinDescuento)/100;
-      var conDescuento = sinDescuento - descuento;
-
-      document.getElementById('TotalMeses').value = cont;  
-      document.getElementById('coutaFijaFinal').value = cfTotal;
-      document.getElementById('recargoFinal').value = recTotal;
-      document.getElementById('tarifaFinal').value = tarTotal;
-      document.getElementById('infraestructuraFinal').value = infTotal;
-      document.getElementById('total').value = conDescuento;
-      document.getElementById('des').value = descuento;
-    }
-
-    </script> 
-
   </body>
 
 </html>

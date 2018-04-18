@@ -155,8 +155,6 @@ if(isset($_POST['botonCuentas']))
     $respuesta = mysqli_query($conexion, "INSERT INTO cuentas (idCalle, idUsuario, nombreCliente, noExterior, noInterior, telefono, fechaAlta, ultimoPagoM, ultimoPagoA)
     VALUES ('$calle', '$numUsuario', '$nombre', '$Exterior', '$Interior', '$telefono', '$fechaAlta', '$ultimoM', '$ultimoA')");
 
-    
-
     if($respuesta)
     {
       header("Location: index.php");
