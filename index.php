@@ -23,7 +23,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/freelancer.min.css" rel="stylesheet">
-
+    <link rel="icon" type="image/png" href="img/logo.png" />
   </head>
 
   <body id="page-top">

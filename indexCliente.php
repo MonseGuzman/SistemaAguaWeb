@@ -21,8 +21,8 @@ session_start();
     <!-- Plugin CSS -->
     <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template -->
-    <link href="css/freelancer.min.css" rel="stylesheet">
-
+    <link href="css/freelancer.min.css" rel="stylesheet">    
+    <link rel="icon" type="image/png" href="img/logo.png" />
   </head>
 
   <body id="page-top">
