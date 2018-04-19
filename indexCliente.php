@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -229,7 +232,6 @@
                     <label class="labels">Nombre del cliente</label>
                       <?php
                       include('conexion.php');
-                      session_start();
 
                       if(isset($_SESSION['id']))
                       {
@@ -238,14 +240,16 @@
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" disabled="disabled" value= "'.$row['nombreCliente'].'" id="nombreP" name="nombreP" type="text" style="width:300px;height:25px">';
+                          echo '<input class="form-control" disabled="disabled" value= "'.utf8_decode($row['nombreCliente']).'" id="nombreP" name="nombreP" type="text" style="width:300px;height:25px">';
                         }
                       }
                       ?>
                   </div>
                   <div class="col-xs-6" style="width:50%;float:left;">
                     <label>Fecha de pago</label>
-                    <input class="form-control" id="fechaP" name="fechaP" type="date" disabled="disabled" value"<?php echo date("d,f,o");?>" placeholder="Fecha de pago" required="required" data-validation-required-message="Ingrese una fecha." style="width:300px;height:25px">
+                    <?php
+                      echo '<input class="form-control" id="fechaP" name="fechaP" type="text" disabled="disabled" value="'.date('d-m-Y').'" placeh<<older="Fecha de pago" required="required" data-validation-required-message="Ingrese una fecha." style="width:300px;height:25px">';
+                    ?>
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
@@ -551,7 +555,7 @@ function calcularMeses()
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" value= "'.$row['nombreCliente'].'" id="nombreP" name="nombreP" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" value= "'.utf8_decode($row['nombreCliente']).'" id="nombreP" name="nombreP" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
                     ?>
