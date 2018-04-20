@@ -176,9 +176,10 @@ if(isset($_POST['botonLogin']))
 {
   if($conexion)
   {
-    $usuario = $_POST['user'];
+    $usuario = $_POST['user']; //correo
     $password = $_POST['pass'];
     $respuesta = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email = '$usuario' AND password = '$password'");
+    
     if(mysqli_num_rows($respuesta) > 0)
     {
       
@@ -188,6 +189,11 @@ if(isset($_POST['botonLogin']))
         $_SESSION['usuario'] = $usuario;
         $_SESSION['rol'] = $row['rol'];
         $_SESSION['id'] = $row['idUsuario'];
+
+        $respuesta = mysqli_query($conexion, "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id']);
+        $row = mysqli_fetch_assoc($respuesta);
+
+        $_SESSION['idCuenta'] = $row['idCuenta']; //cambio
         header('Location: index.php');
       }
       else
