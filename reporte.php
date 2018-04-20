@@ -9,7 +9,7 @@ $pdf->AddPage();
 $pdf->SetFont('Arial','B',16);
 $pdf->SetTextColor(0, 0, 255);
 $pdf->Image('img/logo_reporte.gif', 10, 8, 33);
-$pdf->Cell(40, 30, '', 0);
+$pdf->Cell(40, 30, '', 0, 0);
 $pdf->Cell(90,30,'SYSTEM-APP', 0, 0, 'C');
 $pdf->SetFont('Arial','B',11);
 $pdf->SetTextColor(0, 0, 0);
@@ -135,6 +135,90 @@ if(isset($_POST['btnImprimirCuenta']))
         $ban = !$ban;
         
      }
+}
+
+//                                      DALIA
+//REPORTE CALLES
+if(isset($_POST['btnImprimirCALLES']))
+{
+    //TITULO
+    $pdf->SetFont('Arial', 'B', 14);
+    $pdf->SetTextColor(255, 0, 0);
+    $pdf->Cell(70, 8, '', 0);
+    $pdf->Cell(150,10,'Listado de calles', 0);
+    $pdf->Ln(15); //salto de línea
+
+    //COLUMNAS
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->SetFillColor(0,102,204);
+    $pdf->SetTextColor(255, 255, 255);
+    $pdf->Cell(20, 8, 'ID Calle', 1, 0, 'C', true);
+    $pdf->Cell(100, 8, 'NOMBRE', 1, 0, 'C', true);
+    $pdf->Cell(70, 8, 'COLONIA', 1, 0, 'C', true);
+    $pdf->Ln(8);
+
+    //FILAS
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetFillColor(153,204,255);
+    $pdf->SetTextColor(0, 0, 0);
+    
+    $consulta = mysqli_query($conexion, "SELECT * FROM calles");
+    $ban = false;
+
+    while(($fila = mysqli_fetch_array($consulta))!=NULL)
+    {
+        $pdf->Cell(20, 8, $fila['idCalle'], 0, 0, 'C', $ban);
+        $pdf->Cell(100, 8, $fila['nombre'], 0, 0, 'C', $ban);
+        $pdf->Cell(70, 8, $fila['colonia'], 0, 0, 'C', $ban);
+        $pdf->Ln(8);
+        $ban = !$ban;
+    }
+}
+//REPORTE PAGOS POR PERIODO 
+if(isset($_POST['btnImprimirPAGOSP']))
+{
+    $FI = $_POST['fechI'];
+    $FF = $_POST['fechF'];
+    //TITULO
+    $pdf->SetFont('Arial', 'B', 14);
+    $pdf->SetTextColor(255, 0, 0);
+    $pdf->Cell(70, 8, '', 0);
+    $pdf->Cell(150,10,'Pagos por periodo', 0);
+    $pdf->Ln(15); //salto de línea
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->SetTextColor(0,0, 0);
+    $pdf->Cell(30,10,'Fecha Inicial: ', 0);
+    $pdf->Cell(100,10,$FI, 0);
+    $pdf->Cell(30,10,'Fecha Final: ', 0);
+    $pdf->Cell(30,10,$FF, 0);
+    $pdf->Ln(15); //salto de línea
+    //COLUMNAS
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->SetFillColor(0,102,204);
+    $pdf->SetTextColor(255, 255, 255);
+    $pdf->Cell(20, 8, 'IDPAGO', 1, 0, 'C', true);
+    $pdf->Cell(100, 8,'CUENTA', 1, 0, 'C', true);
+    $pdf->Cell(40, 8, 'FECHA DE PAGO', 1, 0, 'C', true);
+    $pdf->Cell(30, 8, 'TOTAL', 1, 0, 'C', true);
+    $pdf->Ln(8);
+
+    //FILAS
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetFillColor(153,204,255);
+    $pdf->SetTextColor(0, 0, 0);
+    
+    $consulta = mysqli_query($conexion, "SELECT pagos.idPago, cuentas.nombreCliente, pagos.fecha, pagos.total FROM pagos INNER JOIN cuentas ON cuentas.idCuenta = pagos.idCuenta WHERE pagos.fecha BETWEEN '$FI' AND '$FF'");
+    $ban = false;
+
+    while (($fila = mysqli_fetch_array($consulta))!=NULL)
+    {
+        $pdf->Cell(20, 8, $fila['idPago'], 0, 0, 'C', $ban);
+        $pdf->Cell(100, 8, $fila['nombreCliente'], 0, 0, 'C', $ban);
+        $pdf->Cell(40, 8, $fila['fecha'], 0, 0, 'C', $ban);
+        $pdf->Cell(30, 8, $fila['total'], 0, 0, 'C', $ban);
+        $pdf->Ln(8);
+        $ban = !$ban;
+    }
 }
 
 $pdf->Output();

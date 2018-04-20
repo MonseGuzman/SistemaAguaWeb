@@ -9,7 +9,6 @@
     <meta name="author" content="">
 
     <title>System-app</title>
-
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -46,6 +45,27 @@
             </li>
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#consultas">Consultas</a>
+            </li>
+            <li  class="nav-item mx-0 mx-lg-1">
+            <div class="dropdown">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" id="dropdownMenu1" data-toggle="dropdown" >
+                Reportes
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">
+                <li><a href="calles.php">Calles</a></li>
+                <div class="dropdown-divider"></div>
+                <li><a href="cuentas.php">Clientes</a></li>
+                <div class="dropdown-divider"></div>
+                <li><a href="pagos.php">Historial de pagos</a></li>
+                <div class="dropdown-divider"></div>
+                <li><a href="#" data-toggle="modal" data-target="#miModal">Pagos por período</a></li>
+                <div class="dropdown-divider"></div>
+                <li><a href="situacion.php">Situación</a></li>
+                <div class="dropdown-divider"></div>
+                <li><a href="tarifas.php">Tarifas</a></li>
+              </ul>
+            </div>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
             <form action="acciones.php" method ="post">
@@ -190,7 +210,7 @@
           </div>
           <br/><br/><br/>
           </center>
-
+            
       </div>
     </section>
     <!-- About Section -->
@@ -260,7 +280,7 @@
 
     <div class="copyright py-4 text-center text-white">
       <div class="container">
-        <small>Copyright &copy; SYSTEM-APP 2018</small>
+        <small>Copyright &copy; System-app 2018</small>
       </div>
     </div>
 
@@ -474,7 +494,37 @@
         </div>
       </div>
     </div>
-
+        <!-- Portfolio PAGOS INDIVIDUALES -->
+        <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            
+            <h4 class="modal-title" id="myModalLabel">Consulta de pagos por período</h4>
+          </div>
+          <div class="modal-body">
+          <form class="form" action="pagosPeriodo.php" method="POST">
+            <div class="col-xs-6" style="width:50%;float:left;"> 
+            <label>Fecha Inicial:</label>
+            <input class="form-control" id="fechaI" name="fechaI" type="date" placeholder="Fecha de alta" required="required" data-validation-required-message="Ingrese una fecha." style="width:200px;height:25px">
+            <p class="help-block text-danger"></p>
+            </div>
+            <div class="col-xs-6" style="width:50%;float:left;"> 
+           <label>Fecha Final:</label>
+            <input class="form-control" id="fechaF" name="fechaF" type="date" placeholder="Fecha inicial" required="required" data-validation-required-message="Ingrese una fecha." style="width:200px;height:25px">
+            <p class="help-block text-danger"></p>
+            </div>
+            <p class="mb-5"></p>
+            <center>
+              <div>
+              <button class="btn btn-primary btn-lg" type="submit" name="botonPagosP">Consultar</button>
+              </div>
+            </center>
+          </form>
+          </div>
+        </div>
+      </div>     
+    </div>                 
     <!-- Portfolio SITUACIONES -->
     <div class="portfolio-modal mfp-hide" id="portfolio-modal-4">
       <div class="portfolio-modal-dialog bg-white">

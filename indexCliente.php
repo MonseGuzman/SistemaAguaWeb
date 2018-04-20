@@ -1,5 +1,5 @@
 <?php
-  session_start();
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,6 +48,19 @@
             </li>
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#pagos">Pagos</a>
+            </li>
+            <li  class="nav-item mx-0 mx-lg-1">
+            <div class="dropdown">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" id="dropdownMenu1" data-toggle="dropdown" >
+                Reportes
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">
+                <li><a href="#" data-toggle="modal" data-target="#miModal">Pagos Individuales</a></li>
+                <div class="dropdown-divider"></div>
+                <li><a href="pagosCliente.php">Historial de pagos</a></li>
+              </ul>
+            </div>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
               <form action="acciones.php" method="POST">
@@ -191,8 +204,8 @@
             </ul>
           </div>
           <div class="col-md-4">
-            <h4 class="text-uppercase mb-4">Acerca de SYSTEM-APP</h4>
-            <p class="lead mb-0">¡¡SYSTEM-APP es tu mejor opción!!</p>
+            <h4 class="text-uppercase mb-4">Acerca de System-app</h4>
+            <p class="lead mb-0">¡¡System-app es tu mejor opción!!</p>
           </div>
         </div>
       </div>
@@ -200,7 +213,7 @@
 
     <div class="copyright py-4 text-center text-white">
       <div class="container">
-        <small>Copyright &copy; SYSTEM-APP 2018</small>
+        <small>Copyright &copy; System-app 2018</small>
       </div>
     </div>
 
@@ -232,7 +245,7 @@
                     <label class="labels">Nombre del cliente</label>
                       <?php
                       include('conexion.php');
-
+                      
                       if(isset($_SESSION['id']))
                       {
                         $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
@@ -240,16 +253,14 @@
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" disabled="disabled" value= "'.utf8_decode($row['nombreCliente']).'" id="nombreP" name="nombreP" type="text" style="width:300px;height:25px">';
+                          echo '<input class="form-control" disabled="disabled" value= "'.$row['nombreCliente'].'" id="nombreP" name="nombreP" type="text" style="width:300px;height:25px">';
                         }
                       }
                       ?>
                   </div>
                   <div class="col-xs-6" style="width:50%;float:left;">
                     <label>Fecha de pago</label>
-                    <?php
-                      echo '<input class="form-control" id="fechaP" name="fechaP" type="text" disabled="disabled" value="'.date('d-m-Y').'" placeh<<older="Fecha de pago" required="required" data-validation-required-message="Ingrese una fecha." style="width:300px;height:25px">';
-                    ?>
+                    <input class="form-control" id="fechaP" name="fechaP" type="date" disabled="disabled" value"<?php echo date("d,f,o");?>" placeholder="Fecha de pago" required="required" data-validation-required-message="Ingrese una fecha." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
@@ -309,7 +320,7 @@
                         <option value="0">Seleccione una situacion</option>
                         <?php
                           include('conexion.php');
-                          
+
                           $query = "SELECT * FROM situaciones";
                           $result = mysqli_query($conexion, $query);
                           while ($row = $result->fetch_assoc())
@@ -524,7 +535,37 @@ function calcularMeses()
         </div>
       </div>
     </div>
-  
+    <!-- Portfolio PAGOS INDIVIDUALES -->
+    <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            
+            <h4 class="modal-title" id="myModalLabel">Consulta de pagos individuales</h4>
+          </div>
+          <div class="modal-body">
+          <form class="form" action="pagosPeriodo.php" method="POST">
+            <div class="col-xs-6" style="width:50%;float:left;"> 
+            <label>Fecha Inicial:</label>
+            <input class="form-control" id="fechaI" name="fechaI" type="date" placeholder="Fecha de alta" required="required" data-validation-required-message="Ingrese una fecha." style="width:200px;height:25px">
+            <p class="help-block text-danger"></p>
+            </div>
+            <div class="col-xs-6" style="width:50%;float:left;"> 
+           <label>Fecha Final:</label>
+            <input class="form-control" id="fechaF" name="fechaF" type="date" placeholder="Fecha inicial" required="required" data-validation-required-message="Ingrese una fecha." style="width:200px;height:25px">
+            <p class="help-block text-danger"></p>
+            </div>
+            <p class="mb-5"></p>
+            <center>
+              <div>
+              <button class="btn btn-primary btn-lg" type="submit" name="botonPagosP">Guardar</button>
+              </div>
+            </center>
+          </form>
+          </div>
+        </div>
+      </div>     
+    </div>
     <!-- Portfolio CUENTAS -->
     <div class="portfolio-modal mfp-hide" id="portfolio-modal-2">
       <div class="portfolio-modal-dialog bg-white">
@@ -555,7 +596,7 @@ function calcularMeses()
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" value= "'.utf8_decode($row['nombreCliente']).'" id="nombreP" name="nombreP" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" value= "'.$row['nombreCliente'].'" id="nombreP" name="nombreP" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
                     ?>
