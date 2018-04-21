@@ -18,7 +18,7 @@ function portrait ($pdf)
     $pdf->SetFont('Arial','B',11);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->Cell(40,30,'Fecha: '.date('d-m-Y').'', 0, 'L');
-    $pdf->Cell(35, 30, utf8_decode('Página '.$pdf->PageNo()).' a {nb}', 0, 0);
+    $pdf->Cell(35, 30, utf8_decode('Página '.$pdf->PageNo()).' de {nb}', 0, 0);
     $pdf->Ln(35); //salto de línea
 }
 
