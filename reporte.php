@@ -3,21 +3,26 @@ require('modelos/fpdf.php');
 include('conexion.php');
 
 $pdf = new FPDF();
+$cont = 0;
 
-//CABECERA
-$pdf->AddPage();
-$pdf->AliasNbPages();
-$pdf->SetFont('Arial','B',16);
-$pdf->SetTextColor(0, 0, 255);
-$pdf->Image('img/logo_reporte.gif', 10, 8, 33);
-$pdf->Cell(30, 30, '', 0, 0);
-$pdf->Cell(90,30,'SYSTEM-APP', 0, 0, 'C');
-//$pdf->Cell(30, 30,'', 0, 0);
-$pdf->SetFont('Arial','B',11);
-$pdf->SetTextColor(0, 0, 0);
-$pdf->Cell(35, 30, utf8_decode('Página '.$pdf->PageNo()).' a {nb}', 0, 0);
-$pdf->Cell(35,30,'Fecha: '.date('d-m-Y').'', 0);
-$pdf->Ln(35); //salto de línea
+function nombre ($pdf)
+{
+    //CABECERA
+    $pdf->AddPage();
+    $pdf->AliasNbPages();
+    $pdf->SetFont('Arial','B',16);
+    $pdf->SetTextColor(0, 0, 255);
+    $pdf->Image('img/logo_reporte.gif', 10, 8, 33);
+    $pdf->Cell(30, 30, '', 0, 0);
+    $pdf->Cell(90,30,'SYSTEM-APP', 0, 0, 'C');
+    $pdf->SetFont('Arial','B',11);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->Cell(40,30,'Fecha: '.date('d-m-Y').'', 0, 'L');
+    $pdf->Cell(35, 30, utf8_decode('Página '.$pdf->PageNo()).' a {nb}', 0, 0);
+    $pdf->Ln(35); //salto de línea
+}
+
+nombre($pdf);
 
 //REPORTE TARIFAS ADMI
 if(isset($_POST['btnImprimirTAR']))
@@ -50,6 +55,14 @@ if(isset($_POST['btnImprimirTAR']))
 
     while(($fila = mysqli_fetch_array($consulta))!=NULL)
     {
+        $cont++;
+
+        if($cont>=26)
+        {
+            nombre($pdf);
+            $cont=0;
+        }
+
         $pdf->Cell(20, 8, $fila['idTarifa'], 0, 0, 'C', $ban);
         $pdf->Cell(20, 8, $fila['fecha'], 0, 0, 'C', $ban);
         $pdf->Cell(30, 8, $fila['coutaFija'], 0, 0, 'C', $ban);
@@ -89,6 +102,14 @@ if(isset($_POST['btnImprimirPagos']))
 
     while(($fila = mysqli_fetch_array($consulta))!=NULL)
     {
+        $cont++;
+
+        if($cont>=26)
+        {
+            nombre($pdf);
+            $cont=0;
+        }
+
         $pdf->Cell(20, 8, $fila['idPago'], 0, 0, 'C', $ban);
         $pdf->Cell(100, 8, utf8_decode($fila['nombreCliente']), 0, 0, 'L', $ban);
         $pdf->Cell(30, 8, $fila['fecha'], 0, 0, 'C', $ban);
@@ -127,6 +148,14 @@ if(isset($_POST['btnImprimirCuenta']))
 
     while(($fila = mysqli_fetch_array($consulta))!=NULL)
     {
+        $cont++;
+
+        if($cont>=26)
+        {
+            nombre($pdf);
+            $cont=0;
+        }
+
         $domicilio = utf8_decode($fila['nombre'])." #".$fila['noExterior']." Int ".$fila['noInterior'];
         $ultimoPago = $fila['ultimoPagoM']."/".$fila['ultimoPagoA'];
 
@@ -167,9 +196,60 @@ if(isset($_POST['btnImprimirSITUACION']))
 
     while(($fila = mysqli_fetch_array($consulta))!=NULL)
     {
+        $cont++;
+
+        if($cont>=26)
+        {
+            nombre($pdf);
+            $cont=0;
+        }
+
         $pdf->Cell(35, 8, $fila['idSituacion'], 0, 0, 'C', $ban);
         $pdf->Cell(110, 8, utf8_decode($fila['descripcion']), 0, 0, 'L', $ban);
         $pdf->Cell(40, 8, $fila['descuento'], 0, 0, 'C', $ban);
+        $pdf->Ln(8);
+        $ban = !$ban;
+    }   
+}
+if(isset($_POST['btnImprimirPAGOSCLIENTES']))
+{
+    session_start();
+    //TITULO
+    $pdf->SetFont('Arial', 'B', 14);
+    $pdf->SetTextColor(255, 0, 0);
+    $pdf->Cell(70, 8, '', 0);
+    $pdf->Cell(150,10, 'Historial de pagos', 0);
+    $pdf->Ln(15); //salto de línea
+
+    //COLUMNAS
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->SetFillColor(0,102,204);
+    $pdf->SetTextColor(255, 255, 255);
+    $pdf->Cell(35, 8, 'ID PAGO', 1, 0, 'C', true);
+    $pdf->Cell(110, 8, 'FECHA', 1, 0, 'C', true);
+    $pdf->Cell(40, 8, 'TOTAL', 1, 0, 'C', true);
+    $pdf->Ln(8);
+
+    //FILAS
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetFillColor(153,204,255);
+    $pdf->SetTextColor(0, 0, 0);
+    $consulta = mysqli_query($conexion, "SELECT pagos.idPago, pagos.fecha, pagos.total FROM pagos INNER JOIN cuentas ON cuentas.idCuenta = pagos.idCuenta WHERE cuentas.idUsuario = ".$_SESSION['id']);
+    $ban = false;
+
+    while(($fila = mysqli_fetch_array($consulta))!=NULL)
+    {
+        $cont++;
+
+        if($cont>=26)
+        {
+            nombre($pdf);
+            $cont=0;
+        }
+
+        $pdf->Cell(35, 8, $fila['idPago'], 0, 0, 'C', $ban);
+        $pdf->Cell(110, 8, $fila['fecha'], 0, 0, 'C', $ban);
+        $pdf->Cell(40, 8, '$ '.$fila['total'], 0, 0, 'C', $ban);
         $pdf->Ln(8);
         $ban = !$ban;
     }   
@@ -205,9 +285,16 @@ if(isset($_POST['btnImprimirCALLES']))
 
     while(($fila = mysqli_fetch_array($consulta))!=NULL)
     {
+        $cont++;
+
+        if($cont>=26)
+        {
+            nombre($pdf);
+            $cont=0;
+        }
         $pdf->Cell(20, 8, $fila['idCalle'], 0, 0, 'C', $ban);
-        $pdf->Cell(100, 8, $fila['nombre'], 0, 0, 'C', $ban);
-        $pdf->Cell(70, 8, $fila['colonia'], 0, 0, 'C', $ban);
+        $pdf->Cell(100, 8, utf8_decode($fila['nombre']), 0, 0, 'C', $ban);
+        $pdf->Cell(70, 8, utf8_decode($fila['colonia']), 0, 0, 'C', $ban);
         $pdf->Ln(8);
         $ban = !$ban;
     }
@@ -250,8 +337,16 @@ if(isset($_POST['btnImprimirPAGOSP']))
 
     while (($fila = mysqli_fetch_array($consulta))!=NULL)
     {
+        $cont++;
+
+        if($cont>=26)
+        {
+            nombre($pdf);
+            $cont=0;
+        }
+
         $pdf->Cell(20, 8, $fila['idPago'], 0, 0, 'C', $ban);
-        $pdf->Cell(100, 8, $fila['nombreCliente'], 0, 0, 'C', $ban);
+        $pdf->Cell(100, 8, utf8_decode($fila['nombreCliente']), 0, 0, 'C', $ban);
         $pdf->Cell(40, 8, $fila['fecha'], 0, 0, 'C', $ban);
         $pdf->Cell(30, 8, $fila['total'], 0, 0, 'C', $ban);
         $pdf->Ln(8);

@@ -253,14 +253,16 @@ session_start();
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" disabled="disabled" value= "'.$row['nombreCliente'].'" id="nombreP" name="nombreP" type="text" style="width:300px;height:25px">';
+                          echo '<input class="form-control" readonly="true" value= "'.$row['nombreCliente'].'" id="nombreP" name="nombreP" type="text" style="width:300px;height:25px">';
                         }
                       }
                       ?>
                   </div>
                   <div class="col-xs-6" style="width:50%;float:left;">
                     <label>Fecha de pago</label>
-                    <input class="form-control" id="fechaP" name="fechaP" type="date" disabled="disabled" value"<?php echo date("d,f,o");?>" placeholder="Fecha de pago" required="required" data-validation-required-message="Ingrese una fecha." style="width:300px;height:25px">
+                    <?php
+                      echo '<input class="form-control" id="fechaP" name="fechaP" type="text" readonly="true" value="'.date('d-m-Y').'" placeholder="Fecha de pago" required="required" data-validation-required-message="Ingrese una fecha." style="width:300px;height:25px">'
+                    ?>
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
@@ -286,28 +288,28 @@ session_start();
                   <div class="col-xs-6" style="width:25%;float:left;">
                       <label>Cuota Fija </label>
                       <center>
-                      <input class="form-control" id="coutaFija" name="coutaFija" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
+                      <input class="form-control" id="coutaFija" name="coutaFija" type="number" readonly="true" value="0" style="width:150px;height:25px">
                           </center>
                       <p class="help-block text-danger"></p>
                   </div>
                   <div class="col-xs-6"style="width:25%;float:left;">
                       <label>Recargo </label>
                       <center>
-                      <input class="form-control" id="recargo" name="recargo" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
+                      <input class="form-control" id="recargo" name="recargo" type="number" readonly="true" value="0" style="width:150px;height:25px">
                           </center>
                       <p class="help-block text-danger"></p>
                   </div>
                   <div class="col-xs-6" style="width:25%;float:left;">
                       <label>T.A.R </label>
                       <CENTER>
-                      <input class="form-control" id="tarifa" name="tarifa" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
+                      <input class="form-control" id="tarifa" name="tarifa" type="number" readonly="true" value="0" style="width:150px;height:25px">
                           </CENTER>
                       <p class="help-block text-danger"></p>
                   </div>
                   <div class="col-xs-6" style="width:25%;float:left;">
                       <label>Infraestructura</label>
                       <CENTER>
-                      <input class="form-control" id="infraestructura" name="infraestructura" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
+                      <input class="form-control" id="infraestructura" name="infraestructura" type="number" readonly="true" value="0" style="width:150px;height:25px">
                       <p class="help-block text-danger"></p>
                           </CENTER>
                   </div>
@@ -331,7 +333,7 @@ session_start();
                       </select>
                           <center>  
                            <label>porcentaje</label>
-                           <input class="form-control" id="descuento" name="descuento" type="number" disabled="disabled" value="0" style="width:100px;height:25px">
+                           <input class="form-control" id="descuento" name="descuento" type="number" readonly="true" value="0" style="width:100px;height:25px">
                         </center>
                       <p class="help-block text-danger"></p>
                   </div>
@@ -467,7 +469,7 @@ function calcularMeses()
                 <div  class="col-xs-6" style="width:33%;float:left;">
                   <label>Meses a pagar</label>
        
-                  <input  class="form-control"  id="TotalMeses" name="TotalMeses" type="text" value="0" disabled="disabled" style="width:200px;height:25px">
+                  <input  class="form-control"  id="TotalMeses" name="TotalMeses" type="text" value="0" readonly="true" style="width:200px;height:25px">
                 
                   <p class="help-block text-danger"></p>
                 </div>
@@ -476,28 +478,28 @@ function calcularMeses()
                 <div class="col-xs-6"style="width:25%;float:left;">
                     <label>Final Cuota Fija</label>
                     <center>
-                    <input class="form-control" id="coutaFijaFinal" name="coutaFijaFinal" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
+                    <input class="form-control" id="coutaFijaFinal" name="coutaFijaFinal" type="number" readonly="true" value="0" style="width:150px;height:25px">
                     </center>
                     <p class="help-block text-danger"></p>
                 </div>
                 <div class="col-xs-6" style="width:25%;float:left;">
                     <label>Final Recargo</label>
                     <center>
-                    <input class="form-control" id="recargoFinal" name="recargoFinal" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
+                    <input class="form-control" id="recargoFinal" name="recargoFinal" type="number" readonly="true" value="0" style="width:150px;height:25px">
                     </center>
                     <p class="help-block text-danger"></p>
                 </div>
                 <div class="col-xs-6" style="width:25%;float:left;">
                     <label>Final Tarifa</label><br/>
                     <center>
-                    <input class="form-control" id="tarifaFinal" name="tarifaFinal" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
+                    <input class="form-control" id="tarifaFinal" name="tarifaFinal" type="number" readonly="true" value="0" style="width:150px;height:25px">
                     </center>
                     <p class="help-block text-danger"></p>
                 </div>
                 <div class="col-xs-6" style="width:25%;float:left;">
                     <label>Final Infraestructura</label>
                     <center>
-                    <input class="form-control" id="infraestructuraFinal" name="infraestructuraFinal" type="number" disabled="disabled" value="0" style="width:150px;height:25px">
+                    <input class="form-control" id="infraestructuraFinal" name="infraestructuraFinal" type="number" readonly="true" value="0" style="width:150px;height:25px">
                     </center>
                     <p class="help-block text-danger"></p>
                 </div>
@@ -506,14 +508,14 @@ function calcularMeses()
                 <div class="col-xs-6" style="width:50%;float:left;">
                   <label>Descuento</label>
                   <center>
-                  <input class="form-control" id="des" name="des" type="number" disabled="disabled" value="0" style="width:300px;height:25px">
+                  <input class="form-control" id="des" name="des" type="number" readonly="true" value="0" style="width:300px;height:25px">
                   </center>
                   <p class="help-block text-danger"></p>
                 </div>
                 <div class="col-xs-6" style="width:50%;float:left;">
                   <label>Total a pagar</label>
                   <center>
-                  <input class="form-control" id="total" name="total" type="text" disabled="disabled" value="0" style="width:300px;height:25px">
+                  <input class="form-control" id="total" name="total" type="text" readonly="true" value="0" style="width:300px;height:25px">
                   </center>
                   <p class="help-block text-danger"></p>
                 </div> 
@@ -584,7 +586,7 @@ function calcularMeses()
               <form class="form" action="acciones.php" method="POST">
 
                 <div class="form-group">
-                  <div class="" style="width:50%;float:left;">
+                  <div style="width:50%;float:left;">
                     <label>Nombre del cliente</label>
                     <?php
                       include('conexion.php');
@@ -608,7 +610,7 @@ function calcularMeses()
                     <!<br/>
                     <input class="form-control" id="nombreCalle" name="nombreCalle" type="text" placeholder="Ingrese solo letras" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>-->
-                  <div class="" style="width:50%;float:left;">
+                  <div style="width:50%;float:left;">
                     <label>Nombre del cliente</label>
                     <input class="form-control" id="nombreP" name="nombreP" type="text" placeholder="Nombre completo" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
@@ -629,6 +631,22 @@ function calcularMeses()
                         }
                       }
                       ?>
+                      <label>Contraseña</label>
+                      
+                      <?php
+                      include('conexion.php');
+                       
+                      if(isset($_SESSION['id']))
+                      {
+                        $query = "SELECT * FROM usuarios WHERE idUsuario = ".$_SESSION['id'];
+                        $result = mysqli_query($conexion, $query);
+                        if ($result)
+                        {
+                          $row = mysqli_fetch_assoc($result);
+                          echo '<input class="form-control" value= "'.$row['password'].'" id="contra" name="contra" type="password" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                        }
+                      }
+                     ?>
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
@@ -721,7 +739,7 @@ function calcularMeses()
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" value= "'.$row['ultimoPagoM'].'" id="ultimoPagoM" name="ultimoPagoM" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" disabled="disabled" value= "'.$row['ultimoPagoA'].'" id="ultimoPagoM" name="ultimoPagoM" type="text" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
                     ?>
@@ -739,7 +757,7 @@ function calcularMeses()
                         if ($result)
                         {
                           $row = mysqli_fetch_assoc($result);
-                          echo '<input class="form-control" value= "'.$row['ultimoPagoA'].'" name="ultimoPagoA" type="number" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
+                          echo '<input class="form-control" disabled="disabled" value= "'.$row['ultimoPagoM'].'" name="ultimoPagoA" type="number" placeholder="Ingrese solo números" required="required" data-validation-required-message="Ingrese un pago."style="width:300px;height:25px">';
                         }
                       }
                     ?>
@@ -751,7 +769,7 @@ function calcularMeses()
                 </div>
                 <div>
                   <br/>
-                  
+                  <button class="btn btn-primary btn-lg" type="submit" name="botonActualizar">Guardar</button>
                   <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                     <i class="fa fa-close"></i> Cerrar</a>
                 </div>

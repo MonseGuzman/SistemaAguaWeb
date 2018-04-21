@@ -232,7 +232,7 @@ if(isset($_POST['botonPagar']))
     }
 
     $fecha = date('d-m-Y');
-    $pago = isset($_POST['total']) ? $_POST['total'] : 0;
+    $pago =  $_POST['total'];
 
     $respuesta = mysqli_query($conexion, "INSERT INTO pagos (idCuenta, fecha, total) VALUES ('$usuario', '$fecha','$pago')");
     
@@ -288,10 +288,10 @@ if(isset($_POST['botonActualizar']))
     $pass = $_POST['contra']; 
     $usuario = $_POST['email'];
 
-    mysqli_query($conexion, "UPDATE usuarios SET email = '$usuario', password = '$pass' WHERE idCuenta = ".$_SESSION['id']);
+    mysqli_query($conexion, "UPDATE usuarios SET email = '$usuario', password = '$pass' WHERE idUsuario = ".$_SESSION['id']);
 
     $respuesta = mysqli_query($conexion, "UPDATE cuentas SET idCalle = '$calle', nombreCliente = '$nombre', noExterior = '$Exterior', 
-    noInterior = '$Interior', telefono = '$telefono' WHERE idCuenta = ".$_SESSION['id']);
+    noInterior = '$Interior', telefono = '$telefono' WHERE idUsuario = ".$_SESSION['id']);
 
     if($respuesta)
     {

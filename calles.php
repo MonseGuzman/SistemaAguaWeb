@@ -35,8 +35,8 @@
             echo "
             <tr>
             <td>".$fila['idCalle']."</td>
-            <td>".$fila['nombre']."</td>
-            <td>".$fila['colonia']."</td>
+            <td>".utf8_decode($fila['nombre'])."</td>
+            <td>".utf8_decode($fila['colonia'])."</td>
             </tr>";
         }
       ?>
