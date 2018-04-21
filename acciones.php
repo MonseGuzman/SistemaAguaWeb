@@ -187,14 +187,15 @@ if(isset($_POST['botonLogin']))
         $_SESSION['usuario'] = $usuario;
         $_SESSION['rol'] = $row['rol'];
         $_SESSION['id'] = $row['idUsuario'];
-
-        $respuesta = mysqli_query($conexion, "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id']);
-        $row = mysqli_fetch_assoc($respuesta);
+        $_SESSION['idCuenta'] = 0;
 
         header('Location: index.php');
       }
       else //es cliente
       {
+        $respuesta = mysqli_query($conexion, "SELECT * FROM usuarios INNER JOIN cuentas ON cuentas.idUsuario = usuarios.idUsuario WHERE usuarios.email = '$usuario' AND usuarios.password = '$password'");
+        $row = mysqli_fetch_assoc($respuesta);
+
         $_SESSION['usuario'] = $usuario;
         $_SESSION['rol'] = $row['rol'];
         $_SESSION['id'] = $row['idUsuario'];

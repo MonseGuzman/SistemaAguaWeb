@@ -542,21 +542,42 @@ function calcularMeses()
             <h4 class="modal-title" id="myModalLabel">Consulta de pagos individuales</h4>
           </div>
           <div class="modal-body">
-          <form class="form" action="pagosPeriodo.php" method="POST">
-            <div class="col-xs-6" style="width:50%;float:left;"> 
-            <label>Fecha Inicial:</label>
-            <input class="form-control" id="fechaI" name="fechaI" type="date" placeholder="Fecha de alta" required="required" data-validation-required-message="Ingrese una fecha." style="width:200px;height:25px">
-            <p class="help-block text-danger"></p>
+          <form class="form" action="reporte.php" method="POST">
+          <div>
+            <label>Cliente: </label>
+            <?php
+            include('conexion.php');          
+              if(isset($_SESSION['id']))
+              {
+                $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
+                $result = mysqli_query($conexion, $query);
+                  if ($result)
+                  {
+                    $row = mysqli_fetch_assoc($result);
+                    echo '<input class="form-control" disabled="disabled" value= "'.$row['nombreCliente'].'" id="nombreP" name="nombreP" type="text" style="width:300px;height:25px">';
+                  }
+              }
+             ?>
+
             </div>
-            <div class="col-xs-6" style="width:50%;float:left;"> 
-           <label>Fecha Final:</label>
-            <input class="form-control" id="fechaF" name="fechaF" type="date" placeholder="Fecha inicial" required="required" data-validation-required-message="Ingrese una fecha." style="width:200px;height:25px">
-            <p class="help-block text-danger"></p>
-            </div>
+            <p class="mb-5"></p>
+            <label>Seleccione el ID del pago: </label>
+            <select name="idPago" id="idPago">
+              <option value="0">Elegir id</option>
+              <?php
+                include('conexion.php');
+                $query = "SELECT * FROM pagos WHERE idCuenta = ".$_SESSION['idCuenta'];
+                $result = mysqli_query($conexion, $query);
+                while ($row = $result->fetch_assoc())
+                {
+                  echo "<option value='".$row['idPago']."'>".$row['idPago']."</option>";
+                }
+              ?>
+            </select>
             <p class="mb-5"></p>
             <center>
               <div>
-              <button class="btn btn-primary btn-lg" type="submit" name="botonPagosP">Guardar</button>
+              <button class="btn btn-primary btn-lg" type="submit" id="btnImprimirPAGOSI" name="btnImprimirPAGOSI">Consultar</button>
               </div>
             </center>
           </form>
