@@ -47,31 +47,31 @@
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#consultas">Consultas</a>
             </li>
             <li  class="nav-item mx-0 mx-lg-1">
-            <div class="dropdown">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" id="dropdownMenu1" data-toggle="dropdown" >
-                Reportes
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">
-                <li><a href="calles.php">Calles</a></li>
-                <div class="dropdown-divider"></div>
-                <li><a href="cuentas.php">Clientes</a></li>
-                <div class="dropdown-divider"></div>
-                <li><a href="pagos.php">Historial de pagos</a></li>
-                <div class="dropdown-divider"></div>
-                <li><a href="#" data-toggle="modal" data-target="#miModal">Pagos por período</a></li>
-                <div class="dropdown-divider"></div>
-                <li><a href="situacion.php">Situación</a></li>
-                <div class="dropdown-divider"></div>
-                <li><a href="tarifas.php">Tarifas</a></li>
-              </ul>
-            </div>
+              <div class="dropdown">
+                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" id="dropdownMenu1" data-toggle="dropdown" >
+                  Reportes
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">
+                  <li><a href="calles.php">Calles</a></li>
+                  <div class="dropdown-divider"></div>
+                  <li><a href="cuentas.php">Clientes</a></li>
+                  <div class="dropdown-divider"></div>
+                  <li><a href="pagos.php">Historial de pagos</a></li>
+                  <div class="dropdown-divider"></div>
+                  <li><a href="#" data-toggle="modal" data-target="#miModal">Pagos por período</a></li>
+                  <div class="dropdown-divider"></div>
+                  <li><a href="situacion.php">Situación</a></li>
+                  <div class="dropdown-divider"></div>
+                  <li><a href="tarifas.php">Tarifas</a></li>
+                </ul>
+              </div>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-            <form action="acciones.php" method ="post">
-            <button class="btn btn-primary btn-lg" type="submit" name="cerrar">
-                Cerrar sesión</button>
-            </form>  
+              <form action="acciones.php" method ="post">
+                <button class="btn btn-primary btn-lg" type="submit" name="cerrar">
+                  Cerrar sesión</button>
+              </form>  
             </li>
           </ul>
         </div>
@@ -157,6 +157,7 @@
         </div>
       </div>
     </section>
+
     <!--Consultas Section -->
     <section class="portfolio" id="consultas">
       <div class="container">
@@ -164,55 +165,55 @@
         <hr class="star-dark mb-5">
           <p class="mb-5"></p>
           <center>
-          <div style="width:33%;float:left;">
-          <form action="calles.php" method="POST">
-            <button class="btn btn-primary btn-lg" type="submit" name="consultaCalles" value="consultaCalles">Consulta Calles</button>
-            <p class="mb-2"></p>
-          </form>
-          </div>
-          <div style="width:33%;float:left;">
-          <form action="cuentas.php" method="POST">
-            <button class="btn btn-primary btn-lg" type="submit" name="consultaCuentas" value="consultaCuentas">Consulta Cuentas</button>
-            <p class="mb-2"></p>
-          </form>
-          </div>
-          <div style="width:33%;float:left;">
-          <form action = "empleados.php" method = "POST">
-            <button class="btn btn-primary btn-lg" type="submit" name="consultaEmpleados" value="consultaEmpleados">Consulta Empleados</button>
-            <p class="mb-2"></p>
-          </form>
-          </div>
+            <div style="width:33%;float:left;">
+              <form action="calles.php" method="POST">
+                <button class="btn btn-primary btn-lg" type="submit" name="consultaCalles" value="consultaCalles">Consulta Calles</button>
+                <p class="mb-2"></p>
+              </form>
+            </div>
+            <div style="width:33%;float:left;">
+              <form action="cuentas.php" method="POST">
+                <button class="btn btn-primary btn-lg" type="submit" name="consultaCuentas" value="consultaCuentas">Consulta Cuentas</button>
+                <p class="mb-2"></p>
+              </form>
+            </div>
+            <div style="width:33%;float:left;">
+              <form action = "empleados.php" method = "POST">
+                <button class="btn btn-primary btn-lg" type="submit" name="consultaEmpleados" value="consultaEmpleados">Consulta Empleados</button>
+                <p class="mb-2"></p>
+              </form>
+            </div>
           </center>
           <center>
-          <div style="width:25%;float:left;">
-          <form action="situacion.php" method="POST">
-            <button class="btn btn-primary btn-lg" type="submit" name="consultaSituacion" value="consultaSituacion">Consulta Situación</button>
-            <p class="mb-2"></p>
-          </form>
-          </div>
-          <div style="width:25%;float:left;">
-          <form action="tarifas.php" method="POST">
-            <button class="btn btn-primary btn-lg" type="submit" name="consultaTarifas" value="consultaTarifas">Consulta Tarifas</button>
-            <p class="mb-2"></p>
-          </form>
-          </div>
-          <div style="width:25%;float:left;">
-          <form action="usuarios.php" method="POST">
-            <button class="btn btn-primary btn-lg" type="submit" name="consultaUsuarios" value="consultaUsuarios">Consulta Usuarios</button>
-            <p class="mb-2"></p>
-          </form>
-          </div>
-          <div style="width:25%;float:left;">
-          <form action="pagos.php" method="POST">
-            <button class="btn btn-primary btn-lg" type="submit" name="consultaPagos" value="consultaPagos">Consulta de Pagos</button>
-            <p class="mb-2"></p>
-          </form>
-          </div>
-          <br/><br/><br/>
+            <div style="width:25%;float:left;">
+              <form action="situacion.php" method="POST">
+                <button class="btn btn-primary btn-lg" type="submit" name="consultaSituacion" value="consultaSituacion">Consulta Situación</button>
+                <p class="mb-2"></p>
+              </form>
+            </div>
+            <div style="width:25%;float:left;">
+              <form action="tarifas.php" method="POST">
+                <button class="btn btn-primary btn-lg" type="submit" name="consultaTarifas" value="consultaTarifas">Consulta Tarifas</button>
+                <p class="mb-2"></p>
+              </form>
+            </div>
+            <div style="width:25%;float:left;">
+              <form action="usuarios.php" method="POST">
+                <button class="btn btn-primary btn-lg" type="submit" name="consultaUsuarios" value="consultaUsuarios">Consulta Usuarios</button>
+                <p class="mb-2"></p>
+              </form>
+            </div>
+            <div style="width:25%;float:left;">
+              <form action="pagos.php" method="POST">
+                <button class="btn btn-primary btn-lg" type="submit" name="consultaPagos" value="consultaPagos">Consulta de Pagos</button>
+                <p class="mb-2"></p>
+              </form>
+            </div>
+            <br/><br/><br/>
           </center>
-            
       </div>
     </section>
+
     <!-- About Section -->
     <section class="bg-primary text-white mb-0" id="about">
       <div class="container">
@@ -220,7 +221,7 @@
         <hr class="star-light mb-5">
         <div class="row">
           <div class="col-lg-4 ml-auto">
-            <p class="lead">System-app permite a los ayuntamientos a tener un control optimizado de los procesos de pago de agua y otros servicios</p>
+            <p class="lead">SYSTEM-APP permite a los ayuntamientos a tener un control optimizado de los procesos de pago de agua y otros servicios</p>
           </div>
           <div class="col-lg-4 mr-auto">
             <p class="lead">Siendo una herramienta capaz de optimizar procesos y generar un beneficio al cliente y a la dependencia</p>
@@ -230,8 +231,6 @@
     </section>
 
     <!-- Contact Section -->
-
-    <!-- Footer -->
     <footer class="footer text-center">
       <div class="container">
         <div class="row">
@@ -271,8 +270,8 @@
             </ul>
           </div>
           <div class="col-md-4">
-            <h4 class="text-uppercase mb-4">Acerca de System-app</h4>
-            <p class="lead mb-0">¡¡System-app es tu mejor opción!!</p>
+            <h4 class="text-uppercase mb-4">Acerca de SYSTEM-APP</h4>
+            <p class="lead mb-0">¡¡SYSTEM-APP es tu mejor opción!!</p>
           </div>
         </div>
       </div>
@@ -280,7 +279,7 @@
 
     <div class="copyright py-4 text-center text-white">
       <div class="container">
-        <small>Copyright &copy; System-app 2018</small>
+        <small>Copyright &copy; SYSTEM-APP 2018</small>
       </div>
     </div>
 
@@ -291,7 +290,6 @@
       </a>
     </div>
 
-    <!-- Portfolio Modals -->
     <!-- Portfolio CALLES -->
     <div class="portfolio-modal mfp-hide" id="portfolio-modal-1">
       <div class="portfolio-modal-dialog bg-white">
@@ -358,7 +356,7 @@
               <form class="form" action="acciones.php" method="POST">
 
                 <div class="form-group">
-                  <div class="" style="width:50%;float:left;">
+                  <div style="width:50%;float:left;">
                     <label>Nombre del cliente</label>
                     <input class="form-control" id="nombreP" name="nombreP" type="text" placeholder="Nombre completo" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
@@ -380,6 +378,7 @@
                       ?>
                     </select>
                   </div>
+
                   <div style="width:50%;float:left;">
                     <label>Teléfono</label>
                     <input class="form-control" id="telefono" name="telefono"  maxlength="10" type="tel" placeholder= "Ingresa solo número" required="required" data-validation-required-message="Ingrese un teléfono." style="width:300px;height:25px">
@@ -494,43 +493,48 @@
         </div>
       </div>
     </div>
-        <!-- Portfolio PAGOS INDIVIDUALES -->
-        <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <!-- Portfolio PAGOS INDIVIDUALES -->
+    <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
+          
           <div class="modal-header">
-            
             <h4 class="modal-title" id="myModalLabel">Consulta de pagos por período</h4>
           </div>
+
           <div class="modal-body">
-          <form class="form" action="pagosPeriodo.php" method="POST">
-            <div class="col-xs-6" style="width:50%;float:left;"> 
-            <label>Fecha Inicial:</label>
-            <input class="form-control" id="fechaI" name="fechaI" type="date" placeholder="Fecha de alta" required="required" data-validation-required-message="Ingrese una fecha." style="width:200px;height:25px">
-            <p class="help-block text-danger"></p>
-            </div>
-            <div class="col-xs-6" style="width:50%;float:left;"> 
-           <label>Fecha Final:</label>
-            <input class="form-control" id="fechaF" name="fechaF" type="date" placeholder="Fecha inicial" required="required" data-validation-required-message="Ingrese una fecha." style="width:200px;height:25px">
-            <p class="help-block text-danger"></p>
-            </div>
-            <p class="mb-5"></p>
-            <center>
-              <div>
-              <button class="btn btn-primary btn-lg" type="submit" name="botonPagosP">Consultar</button>
+            <form class="form" action="reporte.php" method="POST">
+              <div class="col-xs-6" style="width:50%;float:left;"> 
+                <label>Fecha Inicial:</label>
+                <input class="form-control" id="fechaI" name="fechaI" type="date" placeholder="Fecha de alta" required="required" data-validation-required-message="Ingrese una fecha." style="width:200px;height:25px">
+                <p class="help-block text-danger"></p>
               </div>
-            </center>
-          </form>
+
+              <div class="col-xs-6" style="width:50%;float:left;"> 
+                <label>Fecha Final:</label>
+                <input class="form-control" id="fechaF" name="fechaF" type="date" placeholder="Fecha inicial" required="required" data-validation-required-message="Ingrese una fecha." style="width:200px;height:25px">
+                <p class="help-block text-danger"></p>
+              </div>
+              <p class="mb-5"></p>
+              <center>
+                <div>
+                  <button class="btn btn-primary btn-lg" type="submit" name="btnImprimirPAGOSP">Consultar</button>
+                </div>
+              </center>
+            </form>
           </div>
         </div>
       </div>     
-    </div>                 
+    </div>
+
     <!-- Portfolio SITUACIONES -->
     <div class="portfolio-modal mfp-hide" id="portfolio-modal-4">
       <div class="portfolio-modal-dialog bg-white">
         <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
           <i class="fa fa-3x fa-times"></i>
         </a>
+        
         <div class="container text-center">
           <div class="row">
             <div class="col-lg-8 mx-auto">

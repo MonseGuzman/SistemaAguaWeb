@@ -85,7 +85,6 @@ if(isset($_POST['botonEmpleados']))
 {
   if($conexion)
   {
-    //$ejecuta = mysqli_query($conexion, "SELECT TotalUsuarios() AS TotalUsuarios"); PUEDE SERVIR DESPUÉS
     $nombre = $_POST['nombre'];
     $rol = $_POST['rol'];
     $empleado = $_POST['empleado'];
@@ -120,13 +119,13 @@ if(isset($_POST['botonUsuarios']))
     {
       header("Location: index.php");
       ?>
-      <script language="javascript"> alert("¡Guardado!"); </script>
+        <script language="javascript"> alert("¡Guardado!"); </script>
       <?php
     }
     else
     {
       ?>
-      <script language="javascript"> alert("Error al almacenar"); </script>
+        <script language="javascript"> alert("Error al almacenar"); </script>
       <?php
     }
   }
@@ -182,7 +181,6 @@ if(isset($_POST['botonLogin']))
     
     if(mysqli_num_rows($respuesta) > 0)
     {
-      
       $row = mysqli_fetch_assoc($respuesta);
       if($row['rol'] == "Administrador" or $row['rol'] == "Empleado")
       {
@@ -193,14 +191,15 @@ if(isset($_POST['botonLogin']))
         $respuesta = mysqli_query($conexion, "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id']);
         $row = mysqli_fetch_assoc($respuesta);
 
-        $_SESSION['idCuenta'] = $row['idCuenta']; //cambio
         header('Location: index.php');
       }
-      else
+      else //es cliente
       {
         $_SESSION['usuario'] = $usuario;
         $_SESSION['rol'] = $row['rol'];
         $_SESSION['id'] = $row['idUsuario'];
+        $_SESSION['idCuenta'] = $row['idCuenta']; //cambio
+
         header('Location: indexCliente.php');
       }
     }

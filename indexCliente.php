@@ -50,17 +50,17 @@ session_start();
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#pagos">Pagos</a>
             </li>
             <li  class="nav-item mx-0 mx-lg-1">
-            <div class="dropdown">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" id="dropdownMenu1" data-toggle="dropdown" >
-                Reportes
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">
-                <li><a href="#" data-toggle="modal" data-target="#miModal">Pagos Individuales</a></li>
-                <div class="dropdown-divider"></div>
-                <li><a href="pagosCliente.php">Historial de pagos</a></li>
-              </ul>
-            </div>
+              <div class="dropdown">
+                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" id="dropdownMenu1" data-toggle="dropdown" >
+                  Reportes
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">
+                  <li><a href="#" data-toggle="modal" data-target="#miModal">Pagos Individuales</a></li>
+                  <div class="dropdown-divider"></div>
+                  <li><a href="pagosCliente.php">Historial de pagos</a></li>
+                </ul>
+              </div>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
               <form action="acciones.php" method="POST">
@@ -87,65 +87,67 @@ session_start();
       <div class="container">
         <h2 class="text-center text-uppercase text-secondary mb-0">Perfil del cliente</h2>
         <hr class="star-dark mb-5">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-2" title="Perfil" >
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <center>
-                <img class="img-fluid" src="img/portfolio/cuentas2.png" alt="">
-              </center>
-            </a>
-            <div class="col-md-6 col-lg-4">
+        <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-2" title="Perfil" >
+          <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+            <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+              <i class="fa fa-search-plus fa-3x"></i>
+            </div>
           </div>
+          <center>
+            <img class="img-fluid" src="img/portfolio/cuentas2.png" alt="">
+          </center>
+        </a>
+        <div class="col-md-6 col-lg-4">
+        </div>
+      </div>  
     </section>
+
     <section class="portfolio" id="pagos">
       <div class="container" >
         <h2 class="text-center text-uppercase text-secondary mb-0">Realizar pagos de agua</h2>
         <hr class="star-dark mb-5">
-         
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1" title="Pagos" >
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <center>
-                <img class="img-fluid" src="img/portfolio/pago.png" alt="" >
-              </center>
-            </a>
-        </div>  
+        <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1" title="Pagos" >
+          <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+            <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+              <i class="fa fa-search-plus fa-3x"></i>
+            </div>
+          </div>
+          <center>
+            <img class="img-fluid" src="img/portfolio/pago.png" alt="" >
+          </center>
+        </a>
+      </div>  
     </section>
+
     <!--Consultas Section -->
     <section class="portfolio" id="consultas">
       <div class="container">
         <h2 class="text-center text-uppercase text-secondary mb-0">Consultas</h2>
         <hr class="star-dark mb-5">
-          <p class="mb-5"></p>
-          <center>
+        <p class="mb-5"></p>
+        <center>
           <div style="width:33%;float:left;">
-          <form action="situacion.php" method="POST">
-            <button class="btn btn-primary btn-lg" type="submit" name="consultaSituacion" value="consultaSituacion">Consulta Situación</button>
-            <p class="mb-2"></p>
-          </form>
+            <form action="situacion.php" method="POST">
+              <button class="btn btn-primary btn-lg" type="submit" name="consultaSituacion" value="consultaSituacion">Consulta Situación</button>
+              <p class="mb-2"></p>
+            </form>
           </div>
           <div style="width:33%;float:left;">  
-          <form action="tarifas.php" method="POST">
-            <button class="btn btn-primary btn-lg" type="submit" name="consultaTarifas" value="consultaTarifas">Consulta Tarifas</button>
-            <p class="mb-2"></p>
-          </form>
+            <form action="tarifas.php" method="POST">
+              <button class="btn btn-primary btn-lg" type="submit" name="consultaTarifas" value="consultaTarifas">Consulta Tarifas</button>
+              <p class="mb-2"></p>
+            </form>
           </div>
           <div style="width:33%;float:left;">  
-          <form action="pagosCliente.php" method="POST">
-            <button class="btn btn-primary btn-lg" type="submit" name="consultaPagosC" value="consultaPagosC">Consulta de Pagos</button>
-            <p class="mb-2"></p>
-          </form>
+            <form action="pagosCliente.php" method="POST">
+              <button class="btn btn-primary btn-lg" type="submit" name="consultaPagosC" value="consultaPagosC">Consulta de Pagos</button>
+              <p class="mb-2"></p>
+            </form>
           </div>
-          </center>
-        
+        </center>
       </div>
     </section>
+
     <!-- About Section -->
     <section class="bg-primary text-white mb-0" id="about">
       <div class="container">
@@ -153,7 +155,7 @@ session_start();
         <hr class="star-light mb-5">
         <div class="row">
           <div class="col-lg-4 ml-auto">
-            <p class="lead">System-app permite a los ayuntamientos a tener un control optimizado de los procesos de pago de agua y otros servicios</p>
+            <p class="lead">SYSTEM-APP permite a los ayuntamientos a tener un control optimizado de los procesos de pago de agua y otros servicios</p>
           </div>
           <div class="col-lg-4 mr-auto">
             <p class="lead">Siendo una herramienta capaz de optimizar procesos y generar un beneficio al cliente y a la dependencia</p>
@@ -163,8 +165,6 @@ session_start();
     </section>
 
     <!-- Contact Section -->
-
-    <!-- Footer -->
     <footer class="footer text-center">
       <div class="container">
         <div class="row">
@@ -204,8 +204,8 @@ session_start();
             </ul>
           </div>
           <div class="col-md-4">
-            <h4 class="text-uppercase mb-4">Acerca de System-app</h4>
-            <p class="lead mb-0">¡¡System-app es tu mejor opción!!</p>
+            <h4 class="text-uppercase mb-4">Acerca de SYSTEM-APP</h4>
+            <p class="lead mb-0">¡¡SYSTEM-APP es tu mejor opción!!</p>
           </div>
         </div>
       </div>
@@ -213,7 +213,7 @@ session_start();
 
     <div class="copyright py-4 text-center text-white">
       <div class="container">
-        <small>Copyright &copy; System-app 2018</small>
+        <small>Copyright &copy; SYSTEM-APP 2018</small>
       </div>
     </div>
 
@@ -223,8 +223,6 @@ session_start();
         <i class="fa fa-chevron-up"></i>
       </a>
     </div>
-
-    <!-- Portfolio Modals -->
 
     <!-- PORTAFOLIO DE PAGOS -->
     <div class="portfolio-modal mfp-hide" id="portfolio-modal-1">
@@ -468,9 +466,7 @@ function calcularMeses()
               <div class="form-group">   
                 <div  class="col-xs-6" style="width:33%;float:left;">
                   <label>Meses a pagar</label>
-       
                   <input  class="form-control"  id="TotalMeses" name="TotalMeses" type="text" value="0" readonly="true" style="width:200px;height:25px">
-                
                   <p class="help-block text-danger"></p>
                 </div>
               </div>  
@@ -568,6 +564,58 @@ function calcularMeses()
         </div>
       </div>     
     </div>
+
+    <!-- Portfolio PAGOS INDIVIDUALES -->
+    <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Consulta de pagos individuales</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form" action="reporte.php" method="POST">
+              <div>
+                <label>Cliente: </label>
+                <?php
+                include('conexion.php');          
+                  if(isset($_SESSION['id']))
+                  {
+                    $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
+                    $result = mysqli_query($conexion, $query);
+                      if ($result)
+                      {
+                        $row = mysqli_fetch_assoc($result);
+                        echo '<input class="form-control" disabled="disabled" value= "'.$row['nombreCliente'].'" id="nombreP" name="nombreP" type="text" style="width:300px;height:25px">';
+                      }
+                  }
+                ?>
+              </div>
+              <p class="mb-5"></p>
+              <label>Seleccione el ID del pago: </label>
+              <select name="idPago" id="idPago">
+                <option value="0">Elegir id</option>
+                <?php
+                  include('conexion.php');
+                  $query = "SELECT * FROM pagos WHERE idCuenta = ".$_SESSION['idCuenta'];
+                  $result = mysqli_query($conexion, $query);
+                  while ($row = $result->fetch_assoc())
+                  {
+                    echo "<option value='".$row['idPago']."'>".$row['idPago']."</option>";
+                  }
+                ?>
+              </select>
+              <p class="mb-5"></p>
+              <center>
+                <div>
+                  <button class="btn btn-primary btn-lg" type="submit" id="btnImprimirPAGOSI" name="btnImprimirPAGOSI">Consultar</button>
+                </div>
+              </center>
+            </form>
+          </div>
+        </div>
+      </div>     
+    </div>
+
     <!-- Portfolio CUENTAS -->
     <div class="portfolio-modal mfp-hide" id="portfolio-modal-2">
       <div class="portfolio-modal-dialog bg-white">
@@ -611,7 +659,7 @@ function calcularMeses()
                     <input class="form-control" id="nombreCalle" name="nombreCalle" type="text" placeholder="Ingrese solo letras" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>-->
                   <div style="width:50%;float:left;">
-                    <label>Nombre del cliente</label>
+                    <label>Calle</label>
                     <input class="form-control" id="nombreP" name="nombreP" type="text" placeholder="Nombre completo" required="required" data-validation-required-message="Ingrese un nombre." style="width:300px;height:25px">
                     <p class="help-block text-danger"></p>
                   </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-04-2018 a las 03:13:57
+-- Tiempo de generación: 21-04-2018 a las 22:42:01
 -- Versión del servidor: 10.1.30-MariaDB
 -- Versión de PHP: 7.2.2
 
@@ -42,10 +42,10 @@ DELIMITER ;
 
 CREATE TABLE `calles` (
   `idCalle` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `colonia` varchar(50) NOT NULL,
-  `cp` varchar(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nombre` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `colonia` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `cp` varchar(5) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `calles`
@@ -56,7 +56,31 @@ INSERT INTO `calles` (`idCalle`, `nombre`, `colonia`, `cp`) VALUES
 (2, 'Gordoa', 'Centro', '49000'),
 (3, 'degollado', 'centro', '49000'),
 (4, 'ocampo', 'centro', '49000'),
-(5, 'Guzmán', '1', '1');
+(5, 'Guzmán', '1', '1'),
+(6, 'el grullo', 'solidaridad', '49000'),
+(7, 'tuxpan', 'solidaridad', '49000'),
+(8, 'rosales', 'centro', '49000'),
+(9, 'buenrostro', 'centro', '49000'),
+(10, 'sayula', 'centro', '49000'),
+(11, 'ignacio ragazosa', 'CTM', '49052'),
+(12, 'corregidora', 'centro', '49000'),
+(13, 'antonio caso', 'CNOP', '49052'),
+(14, 'jose vasconcelos', 'revolucion', '49052'),
+(15, '1ro de mayo', 'centro', '49000'),
+(16, 'chamizal', 'centro', '49000'),
+(17, 'reforma', 'centro', '4900'),
+(18, 'felix', 'solidaridad', '49000'),
+(19, 'articulo 149', 'ctm', '49000'),
+(20, 'constitución', 'centro', '49000'),
+(21, 'serafin vazquez', 'solidaridad', '49052'),
+(22, 'vallarta', 'centro', '4900'),
+(23, 'federico del toro', 'centro', '4900'),
+(24, 'cristobal colon', 'centro', '49000'),
+(25, 'vicente mendiola', 'centro', '49052'),
+(26, 'nuñez', 'centro', '49000'),
+(27, 'quintanar', 'centro', '4900'),
+(28, 'carlos villa señor', 'constituyentes', '49000'),
+(29, 'av tecnológico ', 'centro', '49000');
 
 -- --------------------------------------------------------
 
@@ -68,14 +92,14 @@ CREATE TABLE `cuentas` (
   `idCuenta` int(11) NOT NULL,
   `idCalle` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  `nombreCliente` varchar(200) NOT NULL,
+  `nombreCliente` varchar(200) CHARACTER SET latin1 NOT NULL,
   `noExterior` int(11) NOT NULL,
   `noInterior` int(11) DEFAULT NULL,
-  `telefono` varchar(11) DEFAULT NULL,
+  `telefono` varchar(11) CHARACTER SET latin1 DEFAULT NULL,
   `fechaAlta` date DEFAULT NULL,
   `ultimoPagoM` int(11) NOT NULL,
   `ultimoPagoA` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `cuentas`
@@ -83,7 +107,7 @@ CREATE TABLE `cuentas` (
 
 INSERT INTO `cuentas` (`idCuenta`, `idCalle`, `idUsuario`, `nombreCliente`, `noExterior`, `noInterior`, `telefono`, `fechaAlta`, `ultimoPagoM`, `ultimoPagoA`) VALUES
 (1, 1, 4, 'Jessy', 95, 2, '3414125424', '2017-01-09', 12, 2017),
-(2, 1, 2, 'Angelica Lopez', 95, 2, '3414125424', '2018-03-19', 1, 2018),
+(2, 1, 2, 'Angelica Lopez', 95, 2, '3414125424', '2018-03-19', 1, 2016),
 (3, 3, 3, 'El tío', 4, 2, '4132171', '2016-06-15', 12, 2016),
 (4, 4, 5, 'Carlos Alejandro Buenrostro', 8, 0, '4125875', '2018-04-18', 12, 2016);
 
@@ -105,15 +129,7 @@ CREATE TABLE `detallepago` (
   `infraestructura` float NOT NULL,
   `descuento` int(11) NOT NULL,
   `total` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `detallepago`
---
-
-INSERT INTO `detallepago` (`idPago`, `idSituacion`, `idTarifa`, `MesInicial`, `MesFinal`, `coutaFija`, `recargo`, `tarifa`, `infraestructura`, `descuento`, `total`) VALUES
-(1, 2, 2, 6, 8, 121.2, 15.5, 24.2, 3.6, 25, 139.825),
-(2, 4, 2, 3, 8, 303, 38.75, 60.5, 9, 206, 205.625);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -124,9 +140,9 @@ INSERT INTO `detallepago` (`idPago`, `idSituacion`, `idTarifa`, `MesInicial`, `M
 CREATE TABLE `empleados` (
   `idEmpleado` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `rol` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nombre` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `rol` varchar(50) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `empleados`
@@ -144,17 +160,9 @@ INSERT INTO `empleados` (`idEmpleado`, `idUsuario`, `nombre`, `rol`) VALUES
 CREATE TABLE `pagos` (
   `idPago` int(11) NOT NULL,
   `idCuenta` int(11) NOT NULL,
-  `fecha` date NOT NULL,
+  `fecha` varchar(10) CHARACTER SET latin1 NOT NULL,
   `total` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `pagos`
---
-
-INSERT INTO `pagos` (`idPago`, `idCuenta`, `fecha`, `total`) VALUES
-(1, 1, '2018-04-01', 139.825),
-(2, 1, '2018-01-25', 205.625);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -164,9 +172,9 @@ INSERT INTO `pagos` (`idPago`, `idCuenta`, `fecha`, `total`) VALUES
 
 CREATE TABLE `situaciones` (
   `idSituacion` int(11) NOT NULL,
-  `descripcion` varchar(50) NOT NULL,
+  `descripcion` varchar(50) CHARACTER SET latin1 NOT NULL,
   `descuento` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `situaciones`
@@ -194,7 +202,7 @@ CREATE TABLE `tarifas` (
   `recargo` double NOT NULL DEFAULT '0',
   `tarifa` double NOT NULL DEFAULT '0',
   `infraestructura` double DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `tarifas`
@@ -219,10 +227,10 @@ INSERT INTO `tarifas` (`idTarifa`, `fecha`, `coutaFija`, `recargo`, `tarifa`, `i
 
 CREATE TABLE `usuarios` (
   `idUsuario` int(11) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(8) NOT NULL,
-  `rol` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `email` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `password` varchar(8) CHARACTER SET latin1 NOT NULL,
+  `rol` varchar(20) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -289,7 +297,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `calles`
 --
 ALTER TABLE `calles`
-  MODIFY `idCalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idCalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `cuentas`
@@ -307,7 +315,7 @@ ALTER TABLE `empleados`
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `situaciones`

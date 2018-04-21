@@ -5,7 +5,7 @@ include('conexion.php');
 $pdf = new FPDF();
 $cont = 0;
 
-function nombre ($pdf)
+function portrait ($pdf)
 {
     //CABECERA
     $pdf->AddPage();
@@ -22,11 +22,26 @@ function nombre ($pdf)
     $pdf->Ln(35); //salto de línea
 }
 
-nombre($pdf);
+function landscape ($pdf)
+{
+        //CABECERA LANSCAPE
+        $pdf->AddPage(L);
+        $pdf->AliasNbPages();
+        $pdf->SetFont('Arial','B',16);
+        $pdf->SetTextColor(0, 0, 255);
+        $pdf->Image('img/logo_reporte.gif', 10, 8, 50);
+        $pdf->Cell(55, 30, '', 0);
+        $pdf->Cell(185,30,'SYSTEM-APP', 0, 0, 'C');
+        $pdf->SetFont('Arial','B',11);
+        $pdf->SetTextColor(0, 0, 0);
+        $pdf->Cell(20,30,'Fecha: '.date('d-m-Y').'', 0);
+        $pdf->Ln(35); //salto de línea
+}
 
 //REPORTE TARIFAS ADMI
 if(isset($_POST['btnImprimirTAR']))
 {
+    portrait($pdf);
     //TITULO
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->SetTextColor(255, 0, 0);
@@ -59,7 +74,7 @@ if(isset($_POST['btnImprimirTAR']))
 
         if($cont>=26)
         {
-            nombre($pdf);
+            portrait($pdf);
             $cont=0;
         }
 
@@ -76,6 +91,7 @@ if(isset($_POST['btnImprimirTAR']))
 //REPORTES PAGOS ADMI
 if(isset($_POST['btnImprimirPagos']))
 {
+    portrait($pdf);
     //TITULO
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->SetTextColor(255, 0, 0);
@@ -106,7 +122,7 @@ if(isset($_POST['btnImprimirPagos']))
 
         if($cont>=26)
         {
-            nombre($pdf);
+            portrait($pdf);
             $cont=0;
         }
 
@@ -121,6 +137,7 @@ if(isset($_POST['btnImprimirPagos']))
 //REPORTE CUENTAS ADMI
 if(isset($_POST['btnImprimirCuenta']))
 {
+    portrait($pdf);
     //TITULO
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->SetTextColor(255, 0, 0);
@@ -152,7 +169,7 @@ if(isset($_POST['btnImprimirCuenta']))
 
         if($cont>=26)
         {
-            nombre($pdf);
+            portrait($pdf);
             $cont=0;
         }
 
@@ -171,6 +188,7 @@ if(isset($_POST['btnImprimirCuenta']))
 //REPORTE SITUACIONES ADMI
 if(isset($_POST['btnImprimirSITUACION']))
 {
+    portrait($pdf);
     //TITULO
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->SetTextColor(255, 0, 0);
@@ -200,7 +218,7 @@ if(isset($_POST['btnImprimirSITUACION']))
 
         if($cont>=26)
         {
-            nombre($pdf);
+            portrait($pdf);
             $cont=0;
         }
 
@@ -211,9 +229,11 @@ if(isset($_POST['btnImprimirSITUACION']))
         $ban = !$ban;
     }   
 }
+//REPORTE HISTORIAL DE PAGOS
 if(isset($_POST['btnImprimirPAGOSCLIENTES']))
 {
     session_start();
+    portrait($pdf);
     //TITULO
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->SetTextColor(255, 0, 0);
@@ -243,7 +263,7 @@ if(isset($_POST['btnImprimirPAGOSCLIENTES']))
 
         if($cont>=26)
         {
-            nombre($pdf);
+            portrait($pdf);
             $cont=0;
         }
 
@@ -259,6 +279,7 @@ if(isset($_POST['btnImprimirPAGOSCLIENTES']))
 //REPORTE CALLES ADMI
 if(isset($_POST['btnImprimirCALLES']))
 {
+    portrait($pdf);
     //TITULO
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->SetTextColor(255, 0, 0);
@@ -289,7 +310,7 @@ if(isset($_POST['btnImprimirCALLES']))
 
         if($cont>=26)
         {
-            nombre($pdf);
+            portrait($pdf);
             $cont=0;
         }
         $pdf->Cell(20, 8, $fila['idCalle'], 0, 0, 'C', $ban);
@@ -302,6 +323,7 @@ if(isset($_POST['btnImprimirCALLES']))
 //REPORTE PAGOS POR PERIODO ADMI
 if(isset($_POST['btnImprimirPAGOSP']))
 {
+    portrait($pdf);
     $FI = $_POST['fechI'];
     $FF = $_POST['fechF'];
     //TITULO
@@ -341,7 +363,7 @@ if(isset($_POST['btnImprimirPAGOSP']))
 
         if($cont>=26)
         {
-            nombre($pdf);
+            portrait($pdf);
             $cont=0;
         }
 
@@ -349,6 +371,65 @@ if(isset($_POST['btnImprimirPAGOSP']))
         $pdf->Cell(100, 8, utf8_decode($fila['nombreCliente']), 0, 0, 'C', $ban);
         $pdf->Cell(40, 8, $fila['fecha'], 0, 0, 'C', $ban);
         $pdf->Cell(30, 8, $fila['total'], 0, 0, 'C', $ban);
+        $pdf->Ln(8);
+        $ban = !$ban;
+    }
+}
+//REPORTE DE PAGOS INDIVIDUALES
+if(isset($_POST['btnImprimirPAGOSI']))
+{
+    //CABECERA
+    landscape($pdf);
+    $nombre = $_POST['nombreP'];
+    //TITULO
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->SetTextColor(255, 0, 0);
+    $pdf->Cell(120, 8, '', 0);
+    $pdf->Cell(150,10,'Consulta de pagos', 0);
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->SetTextColor(0,0, 0);
+    $pdf->Ln(15); //salto de línea
+    //COLUMNAS
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->SetFillColor(0,102,204);
+    $pdf->SetTextColor(255, 255, 255);
+    $pdf->Cell(20, 8, 'IDPAGO', 1, 0, 'C', true);
+    $pdf->Cell(40, 8, 'FECHA', 1, 0, 'C', true);
+    $pdf->Cell(35, 8, utf8_decode('SITUACIÓN'), 1, 0, 'C', true);
+    $pdf->Cell(20, 8, 'TARIFA', 1, 0, 'C', true);
+    $pdf->Cell(20, 8, 'MES I.', 1, 0, 'C', true);
+    $pdf->Cell(20, 8, 'MES F.', 1, 0, 'C', true);
+    $pdf->Cell(22, 8, 'CUOTA FIJA', 1, 0, 'C', true);
+    $pdf->Cell(20, 8, 'RECARGO', 1, 0, 'C', true);
+    $pdf->Cell(20, 8, 'T.A.R', 1, 0, 'C', true);
+    $pdf->Cell(20, 8, 'INFRA', 1, 0, 'C', true);
+    $pdf->Cell(25, 8, 'DESCUENTO', 1, 0, 'C', true);
+    $pdf->Cell(20, 8, 'TOTAL', 1, 0, 'C', true);
+    $pdf->Ln(8);
+
+    //FILAS
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->SetFillColor(153,204,255);
+    $pdf->SetTextColor(0, 0, 0);
+    $idPago = $_POST['idPago'];
+    $consulta = mysqli_query($conexion, "SELECT pagos.idPago, pagos.fecha, situaciones.descripcion, tarifas.fecha, detallepago.MesInicial, detallepago.MesFinal, detallepago.coutaFija, detallepago.recargo, detallepago.tarifa, detallepago.infraestructura, detallepago.descuento, pagos.total FROM detallepago INNER JOIN situaciones ON situaciones.idSituacion = detallepago.idSituacion INNER JOIN tarifas ON tarifas.idTarifa = detallepago.idTarifa INNER JOIN pagos ON detallepago.idPago = pagos.idPago WHERE pagos.idPago= $idPago");
+    $ban = false;
+
+    while (($fila = mysqli_fetch_array($consulta))!=NULL)
+    {
+        $pdf->Cell(20, 8, $fila['idPago'], 0, 0, 'C', $ban);
+        $pdf->Cell(40, 8, $fila['fecha'], 0, 0, 'C', $ban);
+        $pdf->Cell(35, 8, utf8_decode($fila['descripcion']), 0, 0, 'C', $ban);
+        $pdf->Cell(20, 8, $fila['fecha'], 0, 0, 'C', $ban);
+        $pdf->Cell(20, 8, $fila['MesInicial'], 0, 0, 'C', $ban);
+        $pdf->Cell(20, 8, $fila['MesFinal'], 0, 0, 'C', $ban);
+        $pdf->Cell(22, 8, $fila['coutaFija'], 0, 0, 'C', $ban);
+        $pdf->Cell(20, 8, $fila['recargo'], 0, 0, 'C', $ban);
+        $pdf->Cell(20, 8, $fila['tarifa'], 0, 0, 'C', $ban);
+        $pdf->Cell(20, 8, $fila['infraestructura'], 0, 0, 'C', $ban);
+        $pdf->Cell(25, 8, $fila['descuento'], 0, 0, 'C', $ban);
+        $pdf->Cell(20, 8, $fila['total'], 0, 0, 'C', $ban);
+
         $pdf->Ln(8);
         $ban = !$ban;
     }
