@@ -219,57 +219,67 @@ if(isset($_POST['botonPagar']))
 {
   if($conexion)
   {
-
+    $ultimoA = 0;
     if(isset($_SESSION['id']))
     {
       $query = "SELECT * FROM cuentas WHERE idUsuario = ".$_SESSION['id'];
       $result = mysqli_query($conexion, $query);
-      if ($result)
-      {
-        $row = mysqli_fetch_assoc($result);
-        $usuario = $row['idCuenta'];
-      }
-    }
-
-    $fecha = date('d-m-Y');
-    $pago =  $_POST['total'];
-
-    $respuesta = mysqli_query($conexion, "INSERT INTO pagos (idCuenta, fecha, total) VALUES ('$usuario', '$fecha','$pago')");
-    
-    if($respuesta)
-    {
-      //almacena detalles
-      $CF = isset($_POST['coutaFijaFinal']) ? $_POST['coutaFijaFinal'] : 0;
-      $recargo = isset($_POST['recargoFinal']) ? $_POST['recargoFinal'] : 0;
-      $tar = isset($_POST['tarifaFinal']) ? $_POST['tarifaFinal'] : 0;
-      $inf = isset($_POST['infraestructuraFinal']) ? $_POST['infraestructuraFinal'] : 0;
-      $des = isset($_POST['des']) ? $_POST['des'] : 0;
-      $idTarifa = $_POST['tarifas'];
-      $idSituacion = $_POST['situaciones'];
-      $mesInicial = $_POST['mesInicial'];
-      $mesFinal = $_POST['mesFinal'];
-
-      $idPago = mysqli_query($conexion, "SELECT * FROM pagos");
-      $numPagos = mysqli_num_rows($idPago);
-
-      $resultado = mysqli_query($conexion, "INSERT INTO detallepago (idPago, idSituacion, idTarifa, MesInicial, MesFinal, coutaFija, recargo, tarifa, infraestructura, descuento, total) 
-      VALUES ('$numPagos', '$idSituacion','$idTarifa', '$mesInicial', '$mesFinal', '$CF', '$recargo', '$tar', '$inf', '$des', '$pago' )");
       
-      if($resultado)
+      if(($row = mysqli_fetch_assoc($result)) != NULL)
       {
-        header('Location: indexCliente.php');
-        ?>
-        <script language="javascript"> alert("¡Pago Realizado!"); </script>
-        <?php
-      } 
-    }
-    else
-    {
-      header('Location: indexCliente.php');
-      ?>
-      <script language="javascript"> alert("Error al almacenar"); </script>
-      <?php
-    }
+        $usuario = $row['idCuenta'];
+        $ultimoA = $row['ultimoPagoA'];
+        $ultimoM = $row['ultimoPagoM'];
+        $fecha = date('d-m-Y');
+        $pago =  $_POST['total'];
+        
+        $respuesta = mysqli_query($conexion, "INSERT INTO pagos (idCuenta, fecha, total) VALUES ('$usuario', '$fecha','$pago')");
+        
+        if($respuesta)
+        {
+          //almacena detalles
+          $CF = isset($_POST['coutaFijaFinal']) ? $_POST['coutaFijaFinal'] : 0;
+          $recargo = isset($_POST['recargoFinal']) ? $_POST['recargoFinal'] : 0;
+          $tar = isset($_POST['tarifaFinal']) ? $_POST['tarifaFinal'] : 0;
+          $inf = isset($_POST['infraestructuraFinal']) ? $_POST['infraestructuraFinal'] : 0;
+          $des = isset($_POST['des']) ? $_POST['des'] : 0;
+          $idTarifa = $_POST['tarifas'];
+          $idSituacion = $_POST['situaciones'];
+          $mesInicial = $_POST['mesInicial'];
+          $mesFinal = $_POST['mesFinal'];
+
+          $idPago = mysqli_query($conexion, "SELECT * FROM pagos");
+          $numPagos = mysqli_num_rows($idPago);
+
+          $resultado = mysqli_query($conexion, "INSERT INTO detallepago (idPago, idSituacion, idTarifa, MesInicial, MesFinal, coutaFija, recargo, tarifa, infraestructura, descuento, total) 
+          VALUES ('$numPagos', '$idSituacion','$idTarifa', '$mesInicial', '$mesFinal', '$CF', '$recargo', '$tar', '$inf', '$des', '$pago' )");
+          
+          if($resultado)
+          {
+            //Actualiza cuenta
+            if($ultimoM == 12)
+              $ultimoA += 1;
+              
+            $actualiza = mysqli_query($conexion, "UPDATE cuentas SET ultimoPagoM = '$mesFinal', ultimoPagoA = '$ultimoA' WHERE idCuenta = ".$usuario);
+            
+            if($actualiza)
+            {
+              header('Location: indexCliente.php');
+              ?>
+                <script language="javascript"> alert("¡Guardado!"); </script>
+              <?php
+            }
+          } 
+        }
+        else
+        {
+          header('Location: indexCliente.php');
+          ?>
+             <script language="javascript"> alert("Error al almacenar"); </script>
+          <?php
+        }
+      }
+    }    
   }
   mysqli_close($conexion);
 }

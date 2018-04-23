@@ -39,7 +39,7 @@
         header("Content-Type: text/html;charset=utf-8");
 
         $consulta = mysqli_query($conexion, "SELECT idCuenta, nombre, nombreCliente, noExterior, noInterior,
-        telefono, fechaAlta, ultimoPagoM, ultimoPagoA FROM cuentas INNER JOIN calles on calles.idCalle = cuentas.idCuenta");
+        telefono, fechaAlta, ultimoPagoM, ultimoPagoA FROM cuentas INNER JOIN calles on calles.idCalle = cuentas.idCalle");
         
         while (($fila = mysqli_fetch_array($consulta))!=NULL)
         {

@@ -25,6 +25,7 @@
     <thead>
       <tr>
         <th>IDPAGO</th>
+        <th>CUENTA</th>
         <th>FECHA DE PAGO</th>
         <th>TOTAL</th>
       </tr>
@@ -33,16 +34,23 @@
       <?php
         session_start();
         include('conexion.php');
-        $consulta = mysqli_query($conexion, "SELECT pagos.idPago, pagos.fecha, pagos.total FROM pagos INNER JOIN cuentas ON cuentas.idCuenta = pagos.idCuenta WHERE cuentas.idUsuario = ".$_SESSION['id']);
+        $consulta = mysqli_query($conexion, "SELECT pagos.idPago, cuentas.nombreCliente, pagos.fecha, pagos.total FROM pagos INNER JOIN cuentas ON cuentas.idCuenta = pagos.idCuenta WHERE cuentas.idUsuario = ".$_SESSION['id']);
         while (($fila = mysqli_fetch_array($consulta))!=NULL)
         {
           echo "
                 <tr>
-                <td>".$fila['idPago']."</td>
-                <td>".$fila['fecha']."</td>
-                <td>".$fila['total']."</td>
-                <td><button class='btn btn-primary btn-lg' type ='submit' name='consultaPagosC' value='consultaPagosC'>Ver detalle</button></td>
-                </tr>";
+                  <td id='valor'>".$fila['idPago']."</td>
+                  <td>".$fila['nombreCliente']."</td>
+                  <td>".$fila['fecha']."</td>
+                  <td>".$fila['total']."</td>
+                  <td>
+                    <form action = 'detalle.php' method = 'POST'>
+                      <input id='datotabla' type = 'hidden' name='datotabla' value=".$fila['idPago'].">
+                      <button class='btn btn-primary btn-lg' type ='submit' name='consultaPagosC' data-toggle='modal' data-target='#miModal' value='consultaPagosC'>Ver detalle</button>
+                    </form>
+                  </td>
+                </tr>
+                </form>";
         }
         echo "</table></center>";
       ?>

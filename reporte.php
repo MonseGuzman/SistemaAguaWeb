@@ -1,5 +1,7 @@
 <?php
 require('modelos/fpdf.php');
+require ("jpgraph/src/jpgraph.php");
+require_once ('jpgraph/src/jpgraph_pie.php');
 include('conexion.php');
 
 $pdf = new FPDF();
@@ -8,7 +10,7 @@ $cont = 0;
 function portrait ($pdf)
 {
     //CABECERA
-    $pdf->AddPage();
+    $pdf->AddPage('P');
     $pdf->AliasNbPages();
     $pdf->SetFont('Arial','B',16);
     $pdf->SetTextColor(0, 0, 255);
@@ -18,24 +20,42 @@ function portrait ($pdf)
     $pdf->SetFont('Arial','B',11);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->Cell(40,30,'Fecha: '.date('d-m-Y').'', 0, 'L');
-    $pdf->Cell(35, 30, utf8_decode('Página '.$pdf->PageNo()).' de {nb}', 0, 0);
+    $pdf->Cell(35, 10, utf8_decode('Página '.$pdf->PageNo()).' de {nb}', 0, 0);
     $pdf->Ln(35); //salto de línea
 }
 
 function landscape ($pdf)
 {
-        //CABECERA LANSCAPE
-        $pdf->AddPage(L);
-        $pdf->AliasNbPages();
-        $pdf->SetFont('Arial','B',16);
-        $pdf->SetTextColor(0, 0, 255);
-        $pdf->Image('img/logo_reporte.gif', 10, 8, 50);
-        $pdf->Cell(55, 30, '', 0);
-        $pdf->Cell(185,30,'SYSTEM-APP', 0, 0, 'C');
-        $pdf->SetFont('Arial','B',11);
-        $pdf->SetTextColor(0, 0, 0);
-        $pdf->Cell(20,30,'Fecha: '.date('d-m-Y').'', 0);
-        $pdf->Ln(35); //salto de línea
+    //CABECERA LANSCAPE
+    $pdf->AddPage('L');
+    $pdf->AliasNbPages();
+    $pdf->SetFont('Arial','B',16);
+    $pdf->SetTextColor(0, 0, 255);
+    $pdf->Image('img/logo_reporte.gif', 10, 8, 50);
+    $pdf->Cell(55, 30, '', 0);
+    $pdf->Cell(185,30,'SYSTEM-APP', 0, 0, 'C');
+    $pdf->SetFont('Arial','B',11);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->Cell(10,30,'Fecha: '.date('d-m-Y').'', 0);
+    $pdf->Cell(0, 5, utf8_decode('Página '.$pdf->PageNo()).' de {nb}', 0, 0);
+    $pdf->Ln(35); //salto de línea
+}
+
+function grafica($pdf, $data, $titulo, $leyenda)
+{
+    $graph = new PieGraph(300,200);
+    $graph->SetShadow();
+    $graph->title->Set($titulo);
+    $p1 = new PiePlot($data);
+    $p1->SetLegends($leyenda);
+    $graph->legend->SetPos(0.7,0.98,'center','bottom'); //nuevo
+    $graph->Add($p1);
+    $graph->Stroke(_IMG_HANDLER);
+
+    //$graph->Stroke(); //muestra la gráfica
+    $fileName = "grafica1.png";
+    $graph->img->Stream($fileName);
+    $pdf->Image($fileName, 50, $pdf->getY()+10, 100);
 }
 
 //REPORTE TARIFAS ADMI
@@ -113,12 +133,14 @@ if(isset($_POST['btnImprimirPagos']))
     $pdf->SetFont('Arial', '', 12);
     $pdf->SetFillColor(204,204,255);
     $pdf->SetTextColor(0, 0, 0);
-    $consulta = mysqli_query($conexion, "SELECT pagos.idPago, cuentas.nombreCliente, pagos.fecha, pagos.total FROM pagos INNER JOIN cuentas ON cuentas.idCuenta = pagos.idCuenta");
+    $consulta = mysqli_query($conexion, "SELECT pagos.idPago, cuentas.idCuenta, cuentas.nombreCliente, pagos.fecha, pagos.total FROM pagos INNER JOIN cuentas ON cuentas.idCuenta = pagos.idCuenta");
     $ban = false;
+    $clientes = array();
 
     while(($fila = mysqli_fetch_array($consulta))!=NULL)
     {
         $cont++;
+        $clientes[] = $fila['idCuenta'];
 
         if($cont>=26)
         {
@@ -133,6 +155,29 @@ if(isset($_POST['btnImprimirPagos']))
         $pdf->Ln(8);
         $ban = !$ban;
     }
+
+    //grafica
+    $anterior=0;
+    $cont2=0;
+    
+    while($cont2 != count($clientes))
+    {
+        $total=0;
+        for($x=0; $x<count($clientes); $x++)
+        {
+            if($clientes[$anterior] == $clientes[$x])
+            {
+                $total++;
+            }
+        }
+        $cont2 += $total;
+        $data[] = $total;
+        $leyenda[] = $clientes[$anterior];
+        $anterior = $cont2; //iterador        
+    }
+     
+    $titulo = utf8_decode("Pagos por idCuenta");
+    grafica($pdf, $data, $titulo, $leyenda);
 }
 //REPORTE CUENTAS ADMI
 if(isset($_POST['btnImprimirCuenta']))
@@ -159,13 +204,15 @@ if(isset($_POST['btnImprimirCuenta']))
     $pdf->SetFont('Arial', '', 12);
     $pdf->SetFillColor(153,204,255);
     $pdf->SetTextColor(0, 0, 0);
-    $consulta = mysqli_query($conexion, "SELECT idCuenta, nombre, nombreCliente, noExterior, noInterior,
-    ultimoPagoM, ultimoPagoA FROM cuentas INNER JOIN calles on calles.idCalle = cuentas.idCuenta");
+    $consulta = mysqli_query($conexion, "SELECT cuentas.idCuenta, calles.nombre, cuentas.nombreCliente, cuentas.noExterior, 
+    cuentas.noInterior, cuentas.ultimoPagoM, cuentas.ultimoPagoA FROM cuentas INNER JOIN calles on calles.idCalle = cuentas.idCalle");
     $ban = false;
+    $anuales = array();
 
     while(($fila = mysqli_fetch_array($consulta))!=NULL)
     {
         $cont++;
+        $anuales[] = $fila['ultimoPagoA'];
 
         if($cont>=26)
         {
@@ -182,8 +229,30 @@ if(isset($_POST['btnImprimirCuenta']))
         $pdf->Cell(33, 10, $ultimoPago, 1, 0, 'C', $ban);
         $pdf->Ln(10);
         $ban = !$ban;
-        
-     }
+    }
+
+    //grafica
+    $anterior=0;
+    $cont2=0;
+    
+    while($cont2 != count($anuales))
+    {
+        $total=0;
+        for($x=0; $x<count($anuales); $x++)
+        {
+            if($anuales[$anterior] == $anuales[$x])
+            {
+                $total++;
+            }
+        }
+        $cont2 += $total;
+        $data[] = $total;
+        $leyenda[] = $anuales[$anterior];
+        $anterior = $cont2; //iterador        
+    }
+     
+    $titulo = utf8_decode("Últimos pagos anuales");
+    grafica($pdf, $data, $titulo, $leyenda);
 }
 //REPORTE SITUACIONES ADMI
 if(isset($_POST['btnImprimirSITUACION']))
@@ -380,7 +449,7 @@ if(isset($_POST['btnImprimirPAGOSI']))
 {
     //CABECERA
     landscape($pdf);
-    $nombre = $_POST['nombreP'];
+    //$nombre = $_POST['nombreP'];
     //TITULO
     $pdf->SetFont('Arial', 'B', 16);
     $pdf->SetTextColor(255, 0, 0);
