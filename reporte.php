@@ -393,8 +393,15 @@ if(isset($_POST['btnImprimirCALLES']))
 if(isset($_POST['btnImprimirPAGOSP']))
 {
     portrait($pdf);
-    $FI = $_POST['fechI'];
-    $FF = $_POST['fechF'];
+    $FI = $_POST['fechaI'];
+    $FF = $_POST['fechaF'];
+    //NUEVO formato de fechas
+    $date = date_create($FF);
+    $date2 = date_create($FI);
+
+    $nueva = date_format($date2, 'd-m-Y');
+    $nueva2 = date_format($date, 'd-m-Y');
+
     //TITULO
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->SetTextColor(255, 0, 0);
@@ -417,16 +424,17 @@ if(isset($_POST['btnImprimirPAGOSP']))
     $pdf->Cell(40, 8, 'FECHA DE PAGO', 1, 0, 'C', true);
     $pdf->Cell(30, 8, 'TOTAL', 1, 0, 'C', true);
     $pdf->Ln(8);
-
     //FILAS
     $pdf->SetFont('Arial', '', 12);
     $pdf->SetFillColor(153,204,255);
     $pdf->SetTextColor(0, 0, 0);
-    
-    $consulta = mysqli_query($conexion, "SELECT pagos.idPago, cuentas.nombreCliente, pagos.fecha, pagos.total FROM pagos INNER JOIN cuentas ON cuentas.idCuenta = pagos.idCuenta WHERE pagos.fecha BETWEEN '$FI' AND '$FF'");
-    $ban = false;
 
-    while (($fila = mysqli_fetch_array($consulta))!=NULL)
+    $query = "SELECT pagos.idPago, cuentas.nombreCliente, pagos.fecha, pagos.total FROM pagos INNER JOIN cuentas ON cuentas.idCuenta = pagos.idCuenta WHERE pagos.fecha BETWEEN '$nueva' AND '$nueva2'";
+    $consulta = mysqli_query($conexion, $query);
+    $ban = false;
+    
+    //var_dump($consulta); IMPRIMIR TODO EL OBJETO
+    while(($fila = mysqli_fetch_array($consulta))!=NULL)
     {
         $cont++;
 
@@ -436,10 +444,10 @@ if(isset($_POST['btnImprimirPAGOSP']))
             $cont=0;
         }
 
-        $pdf->Cell(20, 8, $fila['idPago'], 0, 0, 'C', $ban);
-        $pdf->Cell(100, 8, utf8_decode($fila['nombreCliente']), 0, 0, 'C', $ban);
-        $pdf->Cell(40, 8, $fila['fecha'], 0, 0, 'C', $ban);
-        $pdf->Cell(30, 8, $fila['total'], 0, 0, 'C', $ban);
+        $pdf->Cell(20, 8, $fila[0], 0, 0, 'C', $ban);
+        $pdf->Cell(100, 8, utf8_decode($fila[1]), 0, 0, 'C', $ban);
+        $pdf->Cell(40, 8, $fila[2], 0, 0, 'C', $ban);
+        $pdf->Cell(30, 8, $fila[3], 0, 0, 'C', $ban);
         $pdf->Ln(8);
         $ban = !$ban;
     }
@@ -481,7 +489,7 @@ if(isset($_POST['btnImprimirPAGOSI']))
     $pdf->SetFillColor(153,204,255);
     $pdf->SetTextColor(0, 0, 0);
     $idPago = $_POST['idPago'];
-    $consulta = mysqli_query($conexion, "SELECT pagos.idPago, pagos.fecha, situaciones.descripcion, tarifas.fecha, detallepago.MesInicial, detallepago.MesFinal, detallepago.coutaFija, detallepago.recargo, detallepago.tarifa, detallepago.infraestructura, detallepago.descuento, pagos.total FROM detallepago INNER JOIN situaciones ON situaciones.idSituacion = detallepago.idSituacion INNER JOIN tarifas ON tarifas.idTarifa = detallepago.idTarifa INNER JOIN pagos ON detallepago.idPago = pagos.idPago WHERE pagos.idPago= $idPago");
+    $consulta = mysqli_query($conexion, "SELECT pagos.idPago, pagos.fecha, situaciones.descripcion, tarifas.fecha AS Tarifa, detallepago.MesInicial, detallepago.MesFinal, detallepago.coutaFija, detallepago.recargo, detallepago.tarifa, detallepago.infraestructura, detallepago.descuento, pagos.total FROM detallepago INNER JOIN situaciones ON situaciones.idSituacion = detallepago.idSituacion INNER JOIN tarifas ON tarifas.idTarifa = detallepago.idTarifa INNER JOIN pagos ON detallepago.idPago = pagos.idPago WHERE pagos.idPago= $idPago");
     $ban = false;
 
     while (($fila = mysqli_fetch_array($consulta))!=NULL)
@@ -489,7 +497,7 @@ if(isset($_POST['btnImprimirPAGOSI']))
         $pdf->Cell(20, 8, $fila['idPago'], 0, 0, 'C', $ban);
         $pdf->Cell(40, 8, $fila['fecha'], 0, 0, 'C', $ban);
         $pdf->Cell(35, 8, utf8_decode($fila['descripcion']), 0, 0, 'C', $ban);
-        $pdf->Cell(20, 8, $fila['fecha'], 0, 0, 'C', $ban);
+        $pdf->Cell(20, 8, $fila['Tarifa'], 0, 0, 'C', $ban);
         $pdf->Cell(20, 8, $fila['MesInicial'], 0, 0, 'C', $ban);
         $pdf->Cell(20, 8, $fila['MesFinal'], 0, 0, 'C', $ban);
         $pdf->Cell(22, 8, $fila['coutaFija'], 0, 0, 'C', $ban);

@@ -507,13 +507,13 @@
             <form class="form" action="reporte.php" method="POST">
               <div class="col-xs-6" style="width:50%;float:left;"> 
                 <label>Fecha Inicial:</label>
-                <input class="form-control" id="fechaI" name="fechaI" type="date" placeholder="Fecha de alta" required="required" data-validation-required-message="Ingrese una fecha." style="width:200px;height:25px">
+                <input class="form-control" id="fechaI" name="fechaI" type="date" placeholder="Fecha de inicial" required="required" data-validation-required-message="Ingrese una fecha." style="width:200px;height:25px">
                 <p class="help-block text-danger"></p>
               </div>
 
               <div class="col-xs-6" style="width:50%;float:left;"> 
                 <label>Fecha Final:</label>
-                <input class="form-control" id="fechaF" name="fechaF" type="date" placeholder="Fecha inicial" required="required" data-validation-required-message="Ingrese una fecha." style="width:200px;height:25px">
+                <input class="form-control" id="fechaF" name="fechaF" type="date" placeholder="Fecha final" required="required" data-validation-required-message="Ingrese una fecha." style="width:200px;height:25px">
                 <p class="help-block text-danger"></p>
               </div>
               <p class="mb-5"></p>
