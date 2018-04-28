@@ -341,7 +341,14 @@ if(isset($_POST['btnImprimirPAGOSCLIENTES']))
         $pdf->Cell(40, 8, '$ '.$fila['total'], 0, 0, 'C', $ban);
         $pdf->Ln(8);
         $ban = !$ban;
-    }   
+    }
+    $query = "SELECT sum(pagos.total) FROM pagos INNER JOIN cuentas ON cuentas.idCuenta = pagos.idCuenta WHERE cuentas.idUsuario = ".$_SESSION['id'];
+    $consulta = mysqli_query($conexion, $query);
+    $fila = mysqli_fetch_array($consulta);
+    
+    $pdf->Cell(160, 8, "Total", 0, 0, 'C', $ban);
+    $pdf->Cell(30, 8, '$ '.$fila[0], 0, 0, 'C', $ban);
+    $pdf->Ln(8);
 }
 
 //                                      DALIA
@@ -389,7 +396,7 @@ if(isset($_POST['btnImprimirCALLES']))
         $ban = !$ban;
     }
 }
-//REPORTE PAGOS POR PERIODO ADMI
+//REPORTE PAGOS POR PERIODO 
 if(isset($_POST['btnImprimirPAGOSP']))
 {
     portrait($pdf);
@@ -451,6 +458,15 @@ if(isset($_POST['btnImprimirPAGOSP']))
         $pdf->Ln(8);
         $ban = !$ban;
     }
+    $query = "SELECT sum(total) FROM pagos WHERE pagos.fecha BETWEEN '$nueva' AND '$nueva2'";
+    $consulta = mysqli_query($conexion, $query);
+    $fila = mysqli_fetch_array($consulta);
+    
+    $pdf->Cell(20, 8, "Total", 0, 0, 'C', $ban);
+    $pdf->Cell(100, 8, "", 0, 0, 'C', $ban);
+    $pdf->Cell(40, 8, "", 0, 0, 'C', $ban);
+    $pdf->Cell(30, 8, $fila[0], 0, 0, 'C', $ban);
+    $pdf->Ln(8);
 }
 //REPORTE DE PAGOS INDIVIDUALES
 if(isset($_POST['btnImprimirPAGOSI']))
