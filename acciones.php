@@ -1,4 +1,3 @@
-
 <?php
 include('conexion.php');
 session_start();
@@ -324,7 +323,6 @@ if(isset($_POST['cerrar']))
 {
   if(isset($_SESSION['usuario']))
   {
-    echo "Cierro sesion";
     session_destroy();
     header('Location: inicia.php');
   }
